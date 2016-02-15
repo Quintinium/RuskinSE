@@ -9,11 +9,11 @@ The Ruskin search project aims to provide full search functionality for the Rusk
 
 Our team members:
 -----
-Benjamin Henry (team leader)
-Elena Mizell
-Justin Moore
-Kevin Dryer
-Garth Kiepper
+* Benjamin Henry (team leader)  
+* Elena Mizell  
+* Justin Moore  
+* Kevin Dryer  
+* Garth Kiepper  
 
 Our client:
 -----
