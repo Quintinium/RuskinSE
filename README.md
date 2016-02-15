@@ -12,7 +12,7 @@ Our team members:
 * Benjamin Henry (team leader)  
 * Elena Mizell  
 * Justin Moore  
-* Kevin Dryer  
+* Kevin Dyer  
 * Garth Kiepper  
 
 Our client:
