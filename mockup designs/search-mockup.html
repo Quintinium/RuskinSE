@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Ruskin Search</title>
+		<style>
+			body {
+				font-family: 'Open Sans', sans-serif;
+				padding: 20px;
+				background: #ccc;
+			}
+			
+			.container {
+				border: 1px solid #999;
+				border-radius: 10px;
+				padding: 15px;
+				margin-top: 20px;
+				background: #eee;
+				width: 600px;
+				margin-left: auto;
+				margin-right: auto;
+				box-shadow: 3px 3px 5px #666;
+			}
+			
+			.results-container {
+				border-radius: 0px;
+			}
+			
+			.results-container h2 {
+				margin-top: 0px;
+			}
+			
+			.result-container {
+				border: 1px solid #999;
+				border-radius: 5px;
+				background: #ddd;
+				padding: 5px;
+				margin: 10px;
+			}
+			
+			.keyword-textbox {
+				background: -webkit-linear-gradient(to bottom right, #bbb, #fff);
+				background: -o-linear-gradient(to bottom right, #bbb, #fff);
+				background: -moz-linear-gradient(to bottom right, #bbb, #fff);
+				background: linear-gradient(to bottom right, #bbb, #fff);
+				border-radius: 5px;
+				border: 1px solid #444;
+				padding: 5px;
+				font-size: medium;
+				box-shadow: inset 1px 1px 6px #666;
+				color: #000;
+				text-shadow: 1px 1px 1px #fff;
+				width: 15em;
+				outline: none;
+			}
+			
+			.keyword-textbox {
+				width: 20em;
+				-webkit-transition: width .5s ease-in-out;
+				-moz-transition: width .5s ease-in-out;
+				-o-transition: width .5s ease-in-out;
+				transition: width .5s ease-in-out;
+			}
+			
+			.divider {
+				height: 1px;
+				background: #000;
+			}
+			
+			input::-webkit-input-placeholder {
+				color: #666;
+				text-shadow: 1px 0px 1px #fff;
+				font-style: italic;
+			}
+			
+			input:-moz-placeholder {
+				color: #666;
+				text-shadow: 1px 0px 1px #fff;
+				font-style: italic;
+			}
+			
+			input::-moz-placeholder {
+				color: #666;
+				text-shadow: 1px 0px 1px #fff;
+				font-style: italic;
+			}
+			
+			input:-ms-input-placeholder {
+				color: #666;
+				text-shadow: 1px 0px 1px #fff;
+				font-style: italic;
+			}
+			
+			input[type=submit] {
+				border-radius: 15px;
+				background: -webkit-linear-gradient(to bottom right, #fff, #ccc);
+				background: -o-linear-gradient(to bottom right, #fff, #ccc);
+				background: -moz-linear-gradient(to bottom right, #fff, #ccc);
+				background: linear-gradient(to bottom right, #fff, #ccc);
+				padding: 6px;
+				border: 1px solid #666;
+				box-shadow: 4px 3px 5px #aaa;
+				outline: none;
+			}
+			
+			input[type=submit]:active {
+				box-shadow: -1px -1px 5px #aaa;
+			}
+			
+			.italic {
+				font-style: italic;
+			}
+			
+			.pages-container {
+				padding: 10px;
+			}
+			
+			.page {
+				background: -webkit-linear-gradient(to bottom right, #fff, #ccc);
+				background: -o-linear-gradient(to bottom right, #fff, #ccc);
+				background: -moz-linear-gradient(to bottom right, #fff, #ccc);
+				background: linear-gradient(to bottom right, #fff, #ccc);
+				padding: 3px;
+				margin: 2px;
+				border: 1px solid #666;
+				box-shadow: 1px 1px 0px #aaa;
+				text-decoration: none;
+				color: #000;
+			}
+			
+			.date {
+				width: 80px;
+			}
+		</style>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<h1>Ruskin Search:</h1>
+		<span>This is a mockup design of the search engine for the Ruskin project. Please keep in mind this is intended mainly as a design reference - it is not yet functional.</span>
+		<div class="container">
+			<form method="POST">
+				Keyword(s): <input type="text" name="keyword" class="keyword-textbox" placeholder="Enter a person, place, location..."><br /><br />
+				<input type="checkbox" name="duplicates" checked> include results appearing multiple times in same document<br /><br />
+				<b>Filters to activate:</b><br /><br />
+				<input type="checkbox" name="active1">Date: <input class="date" type="text" name="from"> - <input class="date" type="text" name="to"><br /><br />
+				<table>
+				<tr>
+					<td><input type="checkbox" name="active2">Document type:</td>
+					<td>
+						<select name="document-type">
+							<option value="1">All</option>
+							<option value="2">Notes</option>
+							<option value="3">Essays</option>
+							<option value="4">Manuscripts</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="active3">Author:</td>
+					<td>
+						<select name="author">
+							<option value="1">All</option>
+							<option value="2">John Ruskin</option>
+							<option value="3">Margret Ruskin</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+				<td><br /></td><td></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="tag" value="any" checked>Keyword appears as any tag</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="tag" value="any">Keyword is tagged as title of: </td>
+					<td>
+						<select name="title-of">
+							<option value="1">Anthology</option>
+							<option value="2">Artwork</option>
+							<option value="3">Book</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="tag" value="any">Keyword is tagged as name of: </td>
+					<td>
+						<select name="name-of">
+							<option value="1">Animal</option>
+							<option value="2">Constellation</option>
+							<option value="3">Place</option>
+						</select>
+					</td>
+				</tr>
+				</table><br /><br />
+				<input type="submit" name="submit" value=" Search ">
+			</form>
+		</div>
+		<div class="container results-container">
+			<h2>Search results for <span class="italic">"Ruskin"</span> :</h2>
+			<div class="divider"></div>
+			<span>27 results found:</span>
+			<div class="result-container">
+				<b>Location:</b> <a class="italic" href="#">Ruskin -> Journal -> Entry #21</a><br />
+				<b>Matching text:</b> <span class="italic">...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et <b>Ruskin</b> magna aliqua. Ut enim ad minim veniam, quis nostrud...</span><br />
+				<b>Document type:</b> Poem
+			</div>
+			<div class="result-container">
+				<b>Location:</b> <a class="italic" href="#">Ruskin -> Journal -> Entry #21</a><br />
+				<b>Matching text:</b> <span class="italic">...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et <b>Ruskin</b> magna aliqua. Ut enim ad minim veniam, quis nostrud...</span><br />
+				<b>Document type:</b> Poem
+			</div>
+			<div class="pages-container">
+				Page:
+				<a class="page" href="#">1</a> 
+				<a class="page" href="#">2</a> 
+				<a class="page" href="#">3</a>  ... 
+				<a class="page" href="#">11</a> 
+			</div>
+		</div>
+	</body>
+</html>
