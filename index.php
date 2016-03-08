@@ -3,6 +3,15 @@
 //authors: Elena, Garth
 
 //open directory with xml files
+if ($handle = opendir('xml')) {
+    while (false !== ($entry = readdir($handle))) {
+        if ($entry != "." && $entry != "..") {
+            echo "$entry <br />";
+            echo  file_get_contents("xml/".$entry);
+        }
+    }
+    closedir($handle);
+}
 //loop through all files
 // Example #2 in the PHP documentation shows how to loop through all of the files in a directory: http://php.net/manual/en/function.readdir.php
 
