@@ -3,11 +3,55 @@
 //authors: Elena, Garth
 
 //open directory with xml files
-if ($handle = opendir('xml')) {
+if ($handle = opendir('xmlOLD')) {
     while (false !== ($entry = readdir($handle))) {
         if ($entry != "." && $entry != "..") {
-            echo "$entry <br />";
-            echo  file_get_contents("xml/".$entry);
+			
+			$filename = "xmlOLD/" . $entry;
+			
+            $stuff = simplexml_load_file($filename);
+			
+			$doctype = $stuff->teiHeader->attributes();
+			
+			$title = $stuff->teiHeader->fileDesc->titleStmt->title;
+			
+			$divtype = $stuff->text->body->div->attributes()->type;
+			
+			
+			$rawTextStuff = file_get_contents($filename);
+			$start = strpos($rawTextStuff, '<text>');
+			$end = strpos($rawTextStuff, '</text>');
+			echo substr($rawTextStuff, $start + 6, $end-$start -6);
+			
+			
+			$text = '';
+			foreach ($stuff->text->body->div->p AS $p) {
+				$text .= $p;
+			}
+			
+			
+			if ($divtype == 'poem') {
+				$meter = $stuff->text->body->div->attributes()->met;
+				$rhyme = $stuff->text->body->div->attributes()->rhyme;
+			} else {
+				$meter = '';
+				$rhyme = '';
+			}
+			
+			
+			//var_dump($stuff->text->body->div->attributes());
+			
+			if ($stuff->text->body->div->attributes()->subtype !== NULL) {
+				$subtype = $stuff->text->body->div->attributes()->subtype;
+			} else {
+				$subtype = '';
+			}
+			
+			
+			echo "\n\nfilename: " . $filename;
+			echo "\nDoctype: " . $doctype;
+			echo "\ndivtype: " . $divtype;
+			echo "\nsubtype: " . $subtype;
         }
     }
     closedir($handle);
