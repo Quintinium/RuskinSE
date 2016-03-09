@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html>	
-	<form style="color:#654499">
+	<form style="color:#444499">
 		Keywords: <input type="text" placeholder="Search..." required><br/>
 		<input type="checkbox">Include results appearing multiple times in same document<br/>
 		<strong>Filters:</strong><br/><br/>
 		<input type="checkbox">Document type:
 		<select name="Document type" size=1 value>
-			<option name="Type" value="0"> All </option> 
-			<option name="Type" value="1"> Notes </option> 
-			<option name="Type" value="2"> Essays </option> 
-			<option name="Type" value="3"> Manuscripts </option> 
-			<option name="Type" value="4"> Poems </option>
-			<option name="Type" value="5"> Corpora </option>
-			<option name="Type" value="6"> Works by Others </option>
-			<option name="Type" value="7"> Commentary </option>
-			<option name="Type" value="8"> Works </option>
+			<option name="Type" value="all"> All </option> 
+			<option name="Type" value="notes"> Notes </option> 
+			<option name="Type" value="essays"> Essays </option> 
+			<option name="Type" value="manuscripts"> Manuscripts </option> 
+			<option name="Type" value="poems"> Poems </option>
+			<option name="Type" value="corpora"> Corpora </option>
+			<option name="Type" value="works by others"> Works by Others </option>
+			<option name="Type" value="commentary"> Commentary </option>
+			<option name="Type" value="works"> Works </option>
 		</select><br/><br/>
 		<input type="checkbox">Author:
-		<select name="Document type" size=1 value>
-			<option name="Type" value="0"> All</option> 
-			<option name="Type" value="1"> John Ruskin </option> 
-			<option name="Type" value="2"> Margret Ruskin </option>
+		<select name="Document author" size=1 value>
+			<option name="Type" value="all"> All</option> 
+			<option name="Type" value="john ruskin"> John Ruskin </option> 
+			<option name="Type" value="margret ruskin"> Margret Ruskin </option>
 		</select><br/><br/>
 		<input type="radio" name="Keyword" value="1"/> Keyword appears as any tag<br/>
-					<input type="radio" name="Keyword1" value="2"/> Keyword is tagged as title of
-					<select name="Document type" size=1 value>
-			<option name="Type" value="0"> Anthology</option> 
-			<option name="Type" value="1"> Artwork </option> 
-			<option name="Type" value="2"> Book </option> 
+					<input type="radio" name="Keyword as title" value="2"/> Keyword is tagged as title of
+					<select name="Document keyword" size=1 value>
+			<option name="Type" value="anthology"> Anthology</option> 
+			<option name="Type" value="artwork"> Artwork </option> 
+			<option name="Type" value="book"> Book </option> 
 		</select><br/><br/>
-		<input type="radio" name="Keyword2" value="1"/> Keyword is tagged as title of
-			<select name="Document type" size=1 value>
-			<option name="Type" value="0"> Animal</option> 
-			<option name="Type" value="1"> Constellation</option> 
-			<option name="Type" value="2"> Place</option> 
+		<input type="radio" name="Title" value="1"/> Keyword is tagged as title of
+			<select name="Document title" size=1 value>
+			<option name="Type" value="animal"> Animal</option> 
+			<option name="Type" value="constellation"> Constellation</option> 
+			<option name="Type" value="place"> Place</option> 
 		</select><br/><br/><br/>
 		<input type="button" value="Search"><br/><br/>
 	</form>
