@@ -3,25 +3,34 @@
 //authors: Elena, Garth
 
 //open directory with xml files
-if ($handle = opendir('xmlOLD')) {
+if ($handle = opendir('xml')) {
+
     while (false !== ($entry = readdir($handle))) {
         if ($entry != "." && $entry != "..") {
 			
-			$filename = "xmlOLD/" . $entry;
+			$filename = "xml/" . $entry;
 			
             $stuff = simplexml_load_file($filename);
-			
+			  if($stuff==false) {
+          continue;
+          }
 			$doctype = $stuff->teiHeader->attributes();
 			
 			$title = $stuff->teiHeader->fileDesc->titleStmt->title;
 			
-			$divtype = $stuff->text->body->div->attributes()->type;
+      if(isset($stuff->text->body->div)){
+        $divtype = $stuff->text->body->div->attributes()->type;
+      } else {
+        $divtype = '';
+        continue;
+      }
+			//$divtype = $stuff->text->body->div->attributes()->type;
 			
 			
 			$rawTextStuff = file_get_contents($filename);
 			$start = strpos($rawTextStuff, '<text>');
 			$end = strpos($rawTextStuff, '</text>');
-			echo substr($rawTextStuff, $start + 6, $end-$start -6);
+			//echo substr($rawTextStuff, $start + 6, $end-$start -6);
 			
 			
 			$text = '';
