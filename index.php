@@ -3,64 +3,85 @@
 //authors: Elena, Garth
 
 //open directory with xml files
-if ($handle = opendir('xml')) {
-
+if ($handle = opendir('xmlOLD')) {
     while (false !== ($entry = readdir($handle))) {
         if ($entry != "." && $entry != "..") {
 			
-			$filename = "xml/" . $entry;
+			$filename = "xmlOLD/" . $entry;
 			
-            $stuff = simplexml_load_file($filename);
-			  if($stuff==false) {
-          continue;
-          }
-			$doctype = $stuff->teiHeader->attributes();
-			
-			$title = $stuff->teiHeader->fileDesc->titleStmt->title;
-			
-      if(isset($stuff->text->body->div)){
-        $divtype = $stuff->text->body->div->attributes()->type;
-      } else {
-        $divtype = '';
-        continue;
-      }
-			//$divtype = $stuff->text->body->div->attributes()->type;
-			
-			
-			$rawTextStuff = file_get_contents($filename);
-			$start = strpos($rawTextStuff, '<text>');
-			$end = strpos($rawTextStuff, '</text>');
-			//echo substr($rawTextStuff, $start + 6, $end-$start -6);
-			
-			
-			$text = '';
-			foreach ($stuff->text->body->div->p AS $p) {
-				$text .= $p;
+			// Skip the XML file if it has malformed code.
+            if (($stuff = simplexml_load_file($filename)) === FALSE) {
+				continue;
 			}
 			
 			
+			
+			// Get doctype.
+			$doctype = $stuff->teiHeader->attributes();
+			
+			
+			
+			// Get title.
+			$title = $stuff->teiHeader->fileDesc->titleStmt->title;
+			
+			
+			
+			// Check if div exists.
+			if ($stuff->text->body->div !== NULL) {
+				// Get divtype if div exists.
+				$divtype = $stuff->text->body->div->attributes()->type;
+				$subtype = $stuff->text->body->div->attributes()->subtype;
+			} else {
+				// Make divtype blank if it does not exist.
+				$divtype = '';
+				$subtype = '';
+			}
+			
+			
+			
+			// Check if this is a poem.
 			if ($divtype == 'poem') {
+				// If this is a poem, get poem info.
+				$ispoem = '1';
 				$meter = $stuff->text->body->div->attributes()->met;
 				$rhyme = $stuff->text->body->div->attributes()->rhyme;
 			} else {
+				// If this is not a poem, set poem info to defaults.
+				$ispoem = '0';
 				$meter = '';
 				$rhyme = '';
 			}
 			
 			
-			//var_dump($stuff->text->body->div->attributes());
 			
-			if ($stuff->text->body->div->attributes()->subtype !== NULL) {
-				$subtype = $stuff->text->body->div->attributes()->subtype;
+			// Open the file as raw text for getting the "body text."
+			$rawTextStuff = file_get_contents($filename);
+			
+			// Get start position of the text tag.
+			$start = strpos($rawTextStuff, '<text>');
+			
+			// Get the end position of the text tag.
+			$end = strpos($rawTextStuff, '</text>');
+			
+			// Check that the start and end positions were successfully retrieved.
+			if ($start !== FALSE AND $end !== FALSE) {
+				$text = substr($rawTextStuff, $start + 6, $end-$start -6);
 			} else {
-				$subtype = '';
+				$text = '';
 			}
+			
 			
 			
 			echo "\n\nfilename: " . $filename;
 			echo "\nDoctype: " . $doctype;
+			echo "\nTitle: " . $title;
 			echo "\ndivtype: " . $divtype;
 			echo "\nsubtype: " . $subtype;
+			echo "\nText (length): " . strlen($text);
+			echo "\nIs Poem: " . $ispoem;
+			echo "\nMeter: " . $meter;
+			echo "\nRhyme: " . $rhyme;
+			echo "\nSubtype: " . $subtype;
         }
     }
     closedir($handle);
