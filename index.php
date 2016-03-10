@@ -72,20 +72,20 @@ if ($handle = opendir('xml')) {
 			
 			
 			
-			/* echo "\n\nfilename: " . $filename;
+			 echo "\n\nfilename: " . $filename;
 			echo "\nDoctype: " . $doctype;
 			echo "\nTitle: " . $title;
 			echo "\ndivtype: " . $divtype;
 			echo "\nsubtype: " . $subtype;
-			echo "\nText (length): " . strlen($text);
+			//echo "\nText (length): " . strlen($text);
 			echo "\nIs Poem: " . $ispoem;
 			echo "\nMeter: " . $meter;
 			echo "\nRhyme: " . $rhyme;
-			echo "\nSubtype: " . $subtype; */
+			//echo "\nSubtype: " . $subtype; 
  			
 			$servername = 'localhost';
 			$username = 'root';
-			$password = 'LRMv592pX1BfoGOE';
+			$password = 'Killer5740.';
 			$database = 'ruskin';
 			
 			//Create a connection
@@ -95,16 +95,18 @@ if ($handle = opendir('xml')) {
 			if(mysqli_connect_errno()){
 				die("Failed to connect to MySQL: ".mysqli_connect_errno());
 			}
-			//echo "Connected successfully";
+			echo "Connected successfully";
 			
 			//perform queries
-			mysqli_query($conn,"SELECT*FROM documents");
-			mysqli_query($conn, "INSERT INTO documents (title, doctype, divtype, rhyme, meter, ispoem, text,url) VALUES($title,$doctype,$divtype,$rhyme,$meter,$ispoem,'text','url')");
+			//mysqli_query($conn,"SELECT*FROM documents");
+			
+			$insert = "INSERT INTO documents (title, doctype, divtype, rhyme, meter, ispoem, text,url) VALUES('$title','$doctype','$divtype','$rhyme','$meter','$ispoem','text','url')";
+			mysqli_query($conn,$insert);
 
 			mysqli_close($conn);
 			
 			
-			break;
+			
         }
     }
     closedir($handle);
