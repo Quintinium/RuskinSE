@@ -3,11 +3,11 @@
 //authors: Elena, Garth
 
 //open directory with xml files
-if ($handle = opendir('xmlOLD')) {
+if ($handle = opendir('xml')) {
     while (false !== ($entry = readdir($handle))) {
         if ($entry != "." && $entry != "..") {
 			
-			$filename = "xmlOLD/" . $entry;
+			$filename = "xml/" . $entry;
 			
 			// Skip the XML file if it has malformed code.
             if (($stuff = simplexml_load_file($filename)) === FALSE) {
@@ -72,7 +72,7 @@ if ($handle = opendir('xmlOLD')) {
 			
 			
 			
-			echo "\n\nfilename: " . $filename;
+			/* echo "\n\nfilename: " . $filename;
 			echo "\nDoctype: " . $doctype;
 			echo "\nTitle: " . $title;
 			echo "\ndivtype: " . $divtype;
@@ -81,7 +81,30 @@ if ($handle = opendir('xmlOLD')) {
 			echo "\nIs Poem: " . $ispoem;
 			echo "\nMeter: " . $meter;
 			echo "\nRhyme: " . $rhyme;
-			echo "\nSubtype: " . $subtype;
+			echo "\nSubtype: " . $subtype; */
+ 			
+			$servername = 'localhost';
+			$username = 'root';
+			$password = 'LRMv592pX1BfoGOE';
+			$database = 'ruskin';
+			
+			//Create a connection
+			$conn = mysqli_connect($servername,$username,$password,$database);
+			
+			//check connection
+			if(mysqli_connect_errno()){
+				die("Failed to connect to MySQL: ".mysqli_connect_errno());
+			}
+			//echo "Connected successfully";
+			
+			//perform queries
+			mysqli_query($conn,"SELECT*FROM documents");
+			mysqli_query($conn, "INSERT INTO documents (title, doctype, divtype, rhyme, meter, ispoem, text,url) VALUES($title,$doctype,$divtype,$rhyme,$meter,$ispoem,'text','url')");
+
+			mysqli_close($conn);
+			
+			
+			break;
         }
     }
     closedir($handle);
