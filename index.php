@@ -100,8 +100,13 @@ if ($handle = opendir('xml')) {
 			//perform queries
 			//mysqli_query($conn,"SELECT*FROM documents");
 			
-			$insert = "INSERT INTO documents (title, doctype, divtype, rhyme, meter, ispoem, text,url) VALUES('$title','$doctype','$divtype','$rhyme','$meter','$ispoem','text','url')";
-			mysqli_query($conn,$insert);
+			$insert = "INSERT INTO documents (title, doctype, divtype, subtype, rhyme, meter, ispoem, text, url) VALUES('$title','$doctype','$divtype','$subtype','$rhyme','$meter','$ispoem','text','url')";
+			
+			// Perform the MySQLi query.
+			if (!mysqli_query($conn,$insert)) {
+				// If there was an error performing the query, output the error.
+				echo "There was an error with the MySQLi query: " . $conn->error;
+			}
 
 			mysqli_close($conn);
 			
