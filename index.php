@@ -3,6 +3,10 @@
 //authors: Elena, Garth
 
 //open directory with xml files
+
+// Turn off output buffering so output is immediately printed to the screen rather than waiting until the entire page finishes downloading.
+ob_implicit_flush(1);
+
 if ($handle = opendir('xml')) {
     while (false !== ($entry = readdir($handle))) {
         if ($entry != "." && $entry != "..") {
@@ -72,16 +76,62 @@ if ($handle = opendir('xml')) {
 			
 			
 			
-			 echo "\n\nfilename: " . $filename;
-			echo "\nDoctype: " . $doctype;
-			echo "\nTitle: " . $title;
-			echo "\ndivtype: " . $divtype;
-			echo "\nsubtype: " . $subtype;
-			//echo "\nText (length): " . strlen($text);
-			echo "\nIs Poem: " . $ispoem;
-			echo "\nMeter: " . $meter;
-			echo "\nRhyme: " . $rhyme;
-			//echo "\nSubtype: " . $subtype; 
+			// Construct URL.
+			$url = 'http://english.selu.edu/humanitiesonline/ruskin/';
+			
+			if ($divtype == 'note') {
+				$url .= 'notes/';
+			} elseif ($divtype == 'apparatus') {
+				$url .= 'apparatuses/';
+			} elseif ($divtype == 'title') {
+				$url .= 'witnesses/';
+			}
+			
+			$url .= str_replace('xml', 'php', $entry);
+			
+			
+			
+			// See if the file exists or if there is a 404.
+			$curl_handle = curl_init();
+			
+			curl_setopt($curl_handle, CURLOPT_URL, $url);
+			curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 3);
+			
+			// Wait a second between requests;
+			sleep(1);
+			curl_exec($curl_handle);
+			
+			if (!curl_errno($curl_handle)) {
+				$connection_info = curl_getinfo($curl_handle);
+				$code = $connection_info['http_code'];
+			} else {
+				$code = '';
+			}
+			
+			curl_close($curl_handle);
+			
+			
+			
+			
+			
+			echo "<br /><br />filename: " . $filename;
+			echo "<br />Doctype: " . $doctype;
+			echo "<br />Title: " . $title;
+			echo "<br />divtype: " . $divtype;
+			echo "<br />subtype: " . $subtype;
+			echo "<br />Text (length): " . strlen($text);
+			echo "<br />Is Poem: " . $ispoem;
+			echo "<br />Meter: " . $meter;
+			echo "<br />Rhyme: " . $rhyme;
+			echo "<br />URL: " . $url;
+			echo "<br />Code: " . $code;
+			
+			if ($code != '200') {
+				echo " - SKIPPING since file does not exist on actual website";
+				continue;
+			}
+			
  			
 			$servername = 'localhost';
 			$username = 'root';
@@ -95,7 +145,7 @@ if ($handle = opendir('xml')) {
 			if(mysqli_connect_errno()){
 				die("Failed to connect to MySQL: ".mysqli_connect_errno());
 			}
-			echo "Connected successfully";
+			
 			
 			//perform queries
 			//mysqli_query($conn,"SELECT*FROM documents");
@@ -119,19 +169,22 @@ if ($handle = opendir('xml')) {
 				'" . $conn->real_escape_string ($meter) . "',
 				'" . $conn->real_escape_string ($ispoem) . "',
 				'" . $conn->real_escape_string ($text) . "',
-				'url'
+				'" . $conn->real_escape_string ($url) . "'
 			);";
 			
 			// Perform the MySQLi query.
 			if (!mysqli_query($conn,$insert)) {
 				// If there was an error performing the query, output the error.
-				echo "There was an error with the MySQLi query: " . $conn->error;
+				echo "<br />There was an error with the MySQLi query: " . $conn->error;
+			} else {
+				echo "<br />Entry was successfully added to the database!";
 			}
 
 			mysqli_close($conn);
 			
 			
-			
+			// Print 64k spaces so that our output buffer reaches the necessary size to be flushed to the browser.
+			echo str_repeat(' ',1024*64);
         }
     }
     closedir($handle);
