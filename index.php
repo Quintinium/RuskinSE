@@ -100,7 +100,27 @@ if ($handle = opendir('xml')) {
 			//perform queries
 			//mysqli_query($conn,"SELECT*FROM documents");
 			
-			$insert = "INSERT INTO documents (title, doctype, divtype, subtype, rhyme, meter, ispoem, text, url) VALUES('$title','$doctype','$divtype','$subtype','$rhyme','$meter','$ispoem','text','url')";
+			$insert = "INSERT INTO `ruskin`.`documents` (
+				`title`,
+				`doctype`,
+				`divtype`,
+				`subtype`,
+				`rhyme`,
+				`meter`,
+				`ispoem`,
+				`text`,
+				`url`
+			) VALUES (
+				'" . $conn->real_escape_string ($title) . "',
+				'" . $conn->real_escape_string ($doctype) . "',
+				'" . $conn->real_escape_string ($divtype) . "',
+				'" . $conn->real_escape_string ($subtype) . "',
+				'" . $conn->real_escape_string ($rhyme) . "',
+				'" . $conn->real_escape_string ($meter) . "',
+				'" . $conn->real_escape_string ($ispoem) . "',
+				'" . $conn->real_escape_string ($text) . "',
+				'url'
+			);";
 			
 			// Perform the MySQLi query.
 			if (!mysqli_query($conn,$insert)) {
