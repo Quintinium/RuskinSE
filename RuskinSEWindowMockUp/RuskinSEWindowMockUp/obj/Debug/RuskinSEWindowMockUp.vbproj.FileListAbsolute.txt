@@ -1,0 +1,20 @@
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.exe.config
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.exe
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.pdb
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.xml
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.Form1.resources
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.Resources.resources
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.vbproj.GenerateResource.Cache
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.exe
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.xml
+c:\users\benjamin\documents\visual studio 2012\Projects\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.pdb
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.exe.config
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.exe
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.xml
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.pdb
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.exe
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.pdb
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\bin\Debug\RuskinSEWindowMockUp.xml
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.Form1.resources
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.Resources.resources
+C:\Users\Benjamin\Documents\GitHub\RuskinSE\RuskinSEWindowMockUp\RuskinSEWindowMockUp\obj\Debug\RuskinSEWindowMockUp.vbproj.GenerateResource.Cache
