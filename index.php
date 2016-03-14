@@ -7,28 +7,27 @@
 // Turn off output buffering so output is immediately printed to the screen rather than waiting until the entire page finishes downloading.
 ob_implicit_flush(1);
 
-if ($handle = opendir('xml')) {
+// Override default execution time limit of 30 seconds, and allow the script to execute for as long as it needs.
+set_time_limit(0);
+
+if ($handle = opendir('xmlOLD')) {
     while (false !== ($entry = readdir($handle))) {
         if ($entry != "." && $entry != "..") {
+			// Print 64k spaces so that our output buffer reaches the necessary size to be flushed to the browser.
+			echo str_repeat(' ',4096);
 			
-			$filename = "xml/" . $entry;
+			$filename = "xmlOLD/" . $entry;
 			
 			// Skip the XML file if it has malformed code.
             if (($stuff = simplexml_load_file($filename)) === FALSE) {
 				continue;
 			}
 			
-			
-			
 			// Get doctype.
 			$doctype = $stuff->teiHeader->attributes();
 			
-			
-			
 			// Get title.
 			$title = $stuff->teiHeader->fileDesc->titleStmt->title;
-			
-			
 			
 			// Check if div exists.
 			if ($stuff->text->body->div !== NULL) {
@@ -40,8 +39,6 @@ if ($handle = opendir('xml')) {
 				$divtype = '';
 				$subtype = '';
 			}
-			
-			
 			
 			// Check if this is a poem.
 			if ($divtype == 'poem') {
@@ -55,8 +52,6 @@ if ($handle = opendir('xml')) {
 				$meter = '';
 				$rhyme = '';
 			}
-			
-			
 			
 			// Open the file as raw text for getting the "body text."
 			$rawTextStuff = file_get_contents($filename);
@@ -74,8 +69,6 @@ if ($handle = opendir('xml')) {
 				$text = '';
 			}
 			
-			
-			
 			// Construct URL.
 			$url = 'http://english.selu.edu/humanitiesonline/ruskin/';
 			
@@ -85,6 +78,8 @@ if ($handle = opendir('xml')) {
 				$url .= 'apparatuses/';
 			} elseif ($divtype == 'title') {
 				$url .= 'witnesses/';
+			} elseif ($divtype == 'poem') {
+				$url .= 'showcase/';
 			}
 			
 			$url .= str_replace('xml', 'php', $entry);
@@ -98,8 +93,8 @@ if ($handle = opendir('xml')) {
 			curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
 			curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 3);
 			
-			// Wait a second between requests;
-			sleep(1);
+			// Wait half a second between requests;
+			sleep(0.5);
 			curl_exec($curl_handle);
 			
 			if (!curl_errno($curl_handle)) {
@@ -181,14 +176,12 @@ if ($handle = opendir('xml')) {
 			}
 
 			mysqli_close($conn);
-			
-			
-			// Print 64k spaces so that our output buffer reaches the necessary size to be flushed to the browser.
-			echo str_repeat(' ',1024*64);
         }
     }
     closedir($handle);
 }
+
+
 //loop through all files
 // Example #2 in the PHP documentation shows how to loop through all of the files in a directory: http://php.net/manual/en/function.readdir.php
 
