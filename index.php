@@ -1,8 +1,21 @@
 <?php
-//program to populate search database
-//authors: Elena, Garth
+/**************************************************\
+| Description: Extract keywords from XML files     |
+|              and populate the SQL database.      |
+|                                                  |
+| Authors: Elena, Garth                            |
+\**************************************************/
 
-//open directory with xml files
+
+
+// MySQL server credentials.
+$servername = 'localhost';
+$username = 'root';
+$password = 'Killer5740.';
+$database = 'ruskin';
+$xml_folder = 'xmlOLD/';
+
+
 
 // Turn off output buffering so output is immediately printed to the screen rather than waiting until the entire page finishes downloading.
 ob_implicit_flush(1);
@@ -10,175 +23,252 @@ ob_implicit_flush(1);
 // Override default execution time limit of 30 seconds, and allow the script to execute for as long as it needs.
 set_time_limit(0);
 
-if ($handle = opendir('xmlOLD')) {
-    while (false !== ($entry = readdir($handle))) {
-        if ($entry != "." && $entry != "..") {
-			// Print 64k spaces so that our output buffer reaches the necessary size to be flushed to the browser.
-			echo str_repeat(' ',4096);
-			
-			$filename = "xmlOLD/" . $entry;
-			
-			// Skip the XML file if it has malformed code.
-            if (($stuff = simplexml_load_file($filename)) === FALSE) {
-				continue;
-			}
-			
-			// Get doctype.
-			$doctype = $stuff->teiHeader->attributes();
-			
-			// Get title.
-			$title = $stuff->teiHeader->fileDesc->titleStmt->title;
-			
-			// Check if div exists.
-			if ($stuff->text->body->div !== NULL) {
-				// Get divtype if div exists.
-				$divtype = $stuff->text->body->div->attributes()->type;
-				$subtype = $stuff->text->body->div->attributes()->subtype;
-			} else {
-				// Make divtype blank if it does not exist.
-				$divtype = '';
-				$subtype = '';
-			}
-			
-			// Check if this is a poem.
-			if ($divtype == 'poem') {
-				// If this is a poem, get poem info.
-				$ispoem = '1';
-				$meter = $stuff->text->body->div->attributes()->met;
-				$rhyme = $stuff->text->body->div->attributes()->rhyme;
-			} else {
-				// If this is not a poem, set poem info to defaults.
-				$ispoem = '0';
-				$meter = '';
-				$rhyme = '';
-			}
-			
-			// Open the file as raw text for getting the "body text."
-			$rawTextStuff = file_get_contents($filename);
-			
-			// Get start position of the text tag.
-			$start = strpos($rawTextStuff, '<text>');
-			
-			// Get the end position of the text tag.
-			$end = strpos($rawTextStuff, '</text>');
-			
-			// Check that the start and end positions were successfully retrieved.
-			if ($start !== FALSE AND $end !== FALSE) {
-				$text = substr($rawTextStuff, $start + 6, $end-$start -6);
-			} else {
-				$text = '';
-			}
-			
-			// Construct URL.
-			$url = 'http://english.selu.edu/humanitiesonline/ruskin/';
-			
-			if ($divtype == 'note') {
-				$url .= 'notes/';
-			} elseif ($divtype == 'apparatus') {
-				$url .= 'apparatuses/';
-			} elseif ($divtype == 'title') {
-				$url .= 'witnesses/';
-			} elseif ($divtype == 'poem') {
-				$url .= 'showcase/';
-			}
-			
-			$url .= str_replace('xml', 'php', $entry);
-			
-			
-			
-			// See if the file exists or if there is a 404.
-			$curl_handle = curl_init();
-			
-			curl_setopt($curl_handle, CURLOPT_URL, $url);
-			curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
-			curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 3);
-			
-			// Wait half a second between requests;
-			sleep(0.5);
-			curl_exec($curl_handle);
-			
-			if (!curl_errno($curl_handle)) {
-				$connection_info = curl_getinfo($curl_handle);
-				$code = $connection_info['http_code'];
-			} else {
-				$code = '';
-			}
-			
-			curl_close($curl_handle);
-			
-			
-			
-			
-			
-			echo "<br /><br />filename: " . $filename;
-			echo "<br />Doctype: " . $doctype;
-			echo "<br />Title: " . $title;
-			echo "<br />divtype: " . $divtype;
-			echo "<br />subtype: " . $subtype;
-			echo "<br />Text (length): " . strlen($text);
-			echo "<br />Is Poem: " . $ispoem;
-			echo "<br />Meter: " . $meter;
-			echo "<br />Rhyme: " . $rhyme;
-			echo "<br />URL: " . $url;
-			echo "<br />Code: " . $code;
-			
-			if ($code != '200') {
-				echo " - SKIPPING since file does not exist on actual website";
-				continue;
-			}
-			
- 			
-			$servername = 'localhost';
-			$username = 'root';
-			$password = 'Killer5740.';
-			$database = 'ruskin';
-			
-			//Create a connection
-			$conn = mysqli_connect($servername,$username,$password,$database);
-			
-			//check connection
-			if(mysqli_connect_errno()){
-				die("Failed to connect to MySQL: ".mysqli_connect_errno());
-			}
-			
-			
-			//perform queries
-			//mysqli_query($conn,"SELECT*FROM documents");
-			
-			$insert = "INSERT INTO `ruskin`.`documents` (
-				`title`,
-				`doctype`,
-				`divtype`,
-				`subtype`,
-				`rhyme`,
-				`meter`,
-				`ispoem`,
-				`text`,
-				`url`
-			) VALUES (
-				'" . $conn->real_escape_string ($title) . "',
-				'" . $conn->real_escape_string ($doctype) . "',
-				'" . $conn->real_escape_string ($divtype) . "',
-				'" . $conn->real_escape_string ($subtype) . "',
-				'" . $conn->real_escape_string ($rhyme) . "',
-				'" . $conn->real_escape_string ($meter) . "',
-				'" . $conn->real_escape_string ($ispoem) . "',
-				'" . $conn->real_escape_string ($text) . "',
-				'" . $conn->real_escape_string ($url) . "'
-			);";
-			
-			// Perform the MySQLi query.
-			if (!mysqli_query($conn,$insert)) {
-				// If there was an error performing the query, output the error.
-				echo "<br />There was an error with the MySQLi query: " . $conn->error;
-			} else {
-				echo "<br />Entry was successfully added to the database!";
-			}
+// Only report errors. Do not report warnings.
+error_reporting(E_ERROR);
 
-			mysqli_close($conn);
-        }
+
+
+// Function to construct the URL to the PHP file on the Ruskin website that corresponds to a given XML file.
+function construct_url($filename, $divtype) {
+	// Base URL of website.
+	$url = 'http://english.selu.edu/humanitiesonline/ruskin/';
+	
+	// Use the divtype of the file to determine which folder the file is located on the site.
+	if ($divtype == 'note') {
+		$url .= 'notes/';
+	} elseif ($divtype == 'apparatus') {
+		$url .= 'apparatuses/';
+	} elseif ($divtype == 'title') {
+		$url .= 'witnesses/';
+	} elseif ($divtype == 'poem') {
+		$url .= 'showcase/';
+	}
+	
+	// Change the extension of the file from .XML to .PHP
+	$url .= str_replace('xml', 'php', $entry);
+	
+	return $url;
+}
+
+// Function that checks the response code of a URL on the Ruskin server. This is used for checking if a file exists (200 code) or if a file does not exist on the server (404 code).
+function get_response($url) {
+	// Wait half a second between requests. This is needed so that we don't accidentally DOS attack the Ruskin server.
+	usleep(500000);
+	
+	// Initiate the CURL handle.
+	$curl_handle = curl_init();
+	
+	// Give our URL to CURL.
+	curl_setopt($curl_handle, CURLOPT_URL, $url);
+	
+	// Tell CURL not to output the page contents to the screen. We only care about the response code.
+	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+	
+	// Tell CURl to timeout the connection in 3 seconds if the server does not respond.
+	curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 3);
+	
+	// Perform the CURL operation.
+	curl_exec($curl_handle);
+	
+	// Check if there was an error performing the CURL operation.
+	if (!curl_errno($curl_handle)) {
+		// If there was no error, then grab the connection info from our CURL session.
+		$connection_info = curl_getinfo($curl_handle);
+		
+		// Extract the HTTP response code from our CURL session.
+		$code = $connection_info['http_code'];
+	} else {
+		// If there was an error performing the CURL operation, then leave the response code blank.
+		$code = '';
+	}
+	
+	// Close our CURL session.
+	curl_close($curl_handle);
+	
+	// Return our HTTP response code for the URL we accessed from the Ruskin server. This should usually be either 200 or 404.
+	return $code;
+}
+
+// Attempt to open our directory.
+if ($handle = opendir('xmlOLD')) {
+	
+	// Attempt to connect to the MySQL server.
+	if (!$db_conn = mysqli_connect($servername, $username, $password)) {
+		die("Failed to connect to the MySQL server: " . mysqli_connect_errno());
+	} 
+	
+	// Define an array to the hold the names of the files in our directory.
+	$files = array();
+	
+	// Loop through each file in our directory.
+    while (false !== ($entry = readdir($handle))) {
+		// Don't parse . or .. since these are directories.
+        if ($entry != "." && $entry != "..") {
+			// Add our file entry to the array.
+			array_push($files, $entry);
+		}
+	}
+	
+	// Count the total number of XML files we have.
+	$total_files = count($files);
+	
+	// Keep track of which XML file we are on.
+	$current_file = 0;
+	
+	// Keep track of the files that were successfully added to the database.
+	$success_count = 0;
+	
+	// Keep track of the files that were skipped due to malformed XML.
+	$malformed_count = 0;
+	
+	// Keep track of the files that were missing on the site.
+	$missing_count = 0;
+	
+	// Keep track of the database errors.
+	$database_errors = 0;
+	
+	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
+	
+	// Iterate through the files in our directory.
+	foreach ($files AS $entry) {
+		// Print 64k spaces so that our output buffer reaches the necessary size to be flushed to the browser.
+		echo str_repeat(' ', 4096);
+		
+		// Path to XML file.
+		$filename = $xml_folder . $entry;
+		
+		$current_file++;
+		echo '<br />Progress: <b>' . round($current_file / $total_files * 100, 1) .  '%</b> ';
+		
+		// Skip the XML file if it has malformed code.
+		if (($stuff = simplexml_load_file($filename)) === FALSE) {
+			echo "<span style='color: red; font-weight: bold;'>FAILED: '" . $filename . "' (malformed XML)</span>";
+			$malformed_count++;
+			continue;
+		}
+		
+		// Get doctype.
+		$doctype = $stuff->teiHeader->attributes();
+		
+		// Get title.
+		$title = $stuff->teiHeader->fileDesc->titleStmt->title;
+		
+		// Check if div exists.
+		if ($stuff->text->body->div !== NULL) {
+			// Get divtype if div exists.
+			$divtype = $stuff->text->body->div->attributes()->type;
+			$subtype = $stuff->text->body->div->attributes()->subtype;
+		} else {
+			// Make divtype blank if it does not exist.
+			$divtype = '';
+			$subtype = '';
+		}
+		
+		// Check if this is a poem.
+		if ($divtype == 'poem') {
+			// If this is a poem, get poem info.
+			$ispoem = '1';
+			$meter = $stuff->text->body->div->attributes()->met;
+			$rhyme = $stuff->text->body->div->attributes()->rhyme;
+		} else {
+			// If this is not a poem, set poem info to defaults.
+			$ispoem = '0';
+			$meter = '';
+			$rhyme = '';
+		}
+		
+		// Open the file and extract "body text"
+		$rawTextStuff = file_get_contents($filename);
+		
+		// Get start position of the text tag.
+		$start = strpos($rawTextStuff, '<text>');
+		
+		// Get the end position of the text tag.
+		$end = strpos($rawTextStuff, '</text>');
+		
+		// Check that the start and end positions were successfully retrieved.
+		if ($start !== FALSE AND $end !== FALSE) {
+			$text = substr($rawTextStuff, $start + 6, $end-$start -6);
+		} else {
+			$text = '';
+		}
+		
+		// Determine the URL of the file on the website.
+		$url = construct_url($filename, $divtype);
+		
+		// Determine whether the requested URL exists.
+		$code = get_response($url);
+		
+		/*
+		echo "<br /><br />filename: " . $filename;
+		echo "<br />Doctype: " . $doctype;
+		echo "<br />Title: " . $title;
+		echo "<br />divtype: " . $divtype;
+		echo "<br />subtype: " . $subtype;
+		echo "<br />Text (length): " . strlen($text);
+		echo "<br />Is Poem: " . $ispoem;
+		echo "<br />Meter: " . $meter;
+		echo "<br />Rhyme: " . $rhyme;
+		echo "<br />URL: " . $url;
+		echo "<br />Code: '" . $code . "'";
+		*/
+		
+		if ($code != '200') {
+			echo "<span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (missing)</span>";
+			$missing_count++;
+			continue;
+		}
+		
+		// Constrcut an SQL query to insert the document into the MySQL database.
+		$insert = "INSERT INTO `" . $db_conn->real_escape_string($database) . "`.`documents` (
+			`title`,
+			`doctype`,
+			`divtype`,
+			`subtype`,
+			`rhyme`,
+			`meter`,
+			`ispoem`,
+			`text`,
+			`url`
+		) VALUES (
+			'" . $db_conn->real_escape_string($title) . "',
+			'" . $db_conn->real_escape_string($doctype) . "',
+			'" . $db_conn->real_escape_string($divtype) . "',
+			'" . $db_conn->real_escape_string($subtype) . "',
+			'" . $db_conn->real_escape_string($rhyme) . "',
+			'" . $db_conn->real_escape_string($meter) . "',
+			'" . $db_conn->real_escape_string($ispoem) . "',
+			'" . $db_conn->real_escape_string($text) . "',
+			'" . $db_conn->real_escape_string($url) . "'
+		);";
+		
+		// Perform the MySQLi query.
+		if (mysqli_query($db_conn, $insert)) {
+			echo "<span style='color: green; font-weight: bold;'>SUCCESS: '" . $filename . "'</span>";
+			$success_count++;
+		} else {
+			// If there was an error performing the query, output the error.
+			echo "<span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
+			$database_errors++;
+		}
     }
+	
+	// Show some stats about the parsed files.
+	echo '<h2>Parsing complete!</h2>
+	<b>Stats:
+	<br />Successful files: ' . $success_count . '
+	<br />Files skipped due to malformed XML: ' . $malformed_count . '
+	<br />Files skipped that were missing on website: ' . $missing_count . '
+	<br />Database errors: ' . $database_errors . '</b>';
+	
+	// Close the connection to our MySQL server.
+	mysqli_close($db_conn);
+	
+	// Close our directory handle.
     closedir($handle);
+} else {
+	// Output an error message if the XML directory couldn't be opened.
+	echo "Sorry, there was an error opening the XML directory. Check your code!";
 }
 
 
