@@ -192,6 +192,11 @@ if ($handle = opendir('xmlOLD')) {
 		} else {
 			$text = '';
 		}
+		$strdivpos = strpos($text,'<div');
+		$enddivpos = strpos($text,'>',$strdivpos);
+		$text = substr($text,$enddivpos + 1);	
+		
+		
 		
 		// Determine the URL of the file on the website.
 		$url = construct_url($filename, $divtype);
@@ -251,6 +256,33 @@ if ($handle = opendir('xmlOLD')) {
 			echo "<span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
 			$database_errors++;
 		}
+		
+		
+		
+		//start loop
+		while(strpos($text, '<') !== false){
+	
+	$strtagpos = strpos($text,'<');
+	$endbrckpos = strpos($text,'>');
+	$keyword = substr($text, $strtagpos, $endbrckpos - $strtagpos);
+	
+	
+	if(strpos($text,'#') !== false){
+		
+		$strtag = strpos($keyword,'<');
+		$endtag = strpos($keyword, ' ') - 1;
+		$tag = substr($keyword, $strtag+1, $endtag - $strtag);
+		
+	}
+
+	die();
+		}
+		
+	
+		
+		
+		
+		
     }
 	
 	// Show some stats about the parsed files.
