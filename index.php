@@ -275,12 +275,23 @@ if ($handle = opendir('xmlOLD')) {
 		while(strpos($text, 'corresp="') !== false){
 			$corresplocation = strpos($text,'corresp="');
 			$leftbcklocation = rstrpos($text, '<' , $corresplocation);
-			$rightbcklocation = strpos($text, '>', $corresplocation);
-			$keyword = substr($text, $leftbcklocation - 1, ($rightbcklocation - $leftbcklocation)+2);
+			$rightbcklocation = strpos($text, '<', $corresplocation);
+			$keyword = substr($text, $leftbcklocation - 1, ($rightbcklocation - $leftbcklocation)+1);
 			echo "\n".$keyword;
 			$text= substr($text, $rightbcklocation +1);
-
+			
+			
+			$endstrtag = strpos($keyword, ' ');
+			$tag = substr($keyword,1, $endstrtag -1);
+			//echo "\n'".$tag."'";
+			
+			
+			
+	die();
 		}
+		
+		
+		
 /* 		while(strpos($text, '<') !== false){
 			//echo "\n\n\n\n\n".$counter;
 			$counter ++;
