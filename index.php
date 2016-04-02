@@ -89,6 +89,18 @@ function get_response($url) {
 	return $code;
 }
 
+function rstrpos($haystack, $needle, $offset){
+	$size = strlen($haystack);
+	$pos = strpos(strrev($haystack),$needle,$size-$offset);
+	
+	if($pos=== false){
+		return false;
+	}
+	
+	return $size - $pos;
+	
+}
+
 // Attempt to open our directory.
 if ($handle = opendir('xmlOLD')) {
 	
@@ -260,44 +272,50 @@ if ($handle = opendir('xmlOLD')) {
 		$text = substr($text,$enddivpos + 1);	
 		$counter = 0;
 		
+		while(strpos($text, 'corresp="') !== false){
+			$corresplocation = strpos($text,'corresp="');
+			$leftbcklocation = rstrpos($text, '<' , $corresplocation);
+			$rightbcklocation = strpos($text, '>', $corresplocation);
+			$keyword = substr($text, $leftbcklocation - 1, ($rightbcklocation - $leftbcklocation)+2);
+			echo "\n".$keyword;
+			$text= substr($text, $rightbcklocation +1);
 
-		//start loop
-		while(strpos($text, '<') !== false){
-			echo "\n\n\n\n\n".$counter;
+		}
+/* 		while(strpos($text, '<') !== false){
+			//echo "\n\n\n\n\n".$counter;
 			$counter ++;
 			$strtagpos = strpos($text,'<');
 			
+			//checks if is is a comment & skips it
 			if(substr($text,$strtagpos + 1,1)=='!'){
+				$endbrckpos = strpos($text,'->')+1;
+				$text = substr($text,$endbrckpos);
 				continue;
 			}			
-			echo "\n".$strtagpos;
+			//echo "\n".$strtagpos;
 			//echo $strtagpos;
 			//echo "\n";
 			//die();
-			$endbrckpos = strpos($text,'>')+1;
-			echo "\n".$endbrckpos;
+			$endbrckpos = strpos($text,'>')+ $strtagpos;
+			//echo "\n".$endbrckpos;			
 			
-			$keyword = substr($text, $strtagpos, $endbrckpos - $strtagpos);
-			//echo "\n".$keyword;
-			
+			$keyword = substr($text, $strtagpos, ($endbrckpos - $strtagpos)+1);				
 			$text = substr($text,$endbrckpos);
-			echo"'".$text."'";
+
 		
-			if(strpos($keyword,'corresp="#') !== false){
+			if(strpos($keyword,'corresp="') !== false){
 				echo "true";
 				$strtag = strpos($keyword,'<');
 				$endtag = strpos($keyword, ' ') - 1;
 				$tag = substr($keyword, $strtag+1, $endtag - $strtag);
-				echo "\n";
 				
-				//echo "'".$keyword."'";
-				//echo "\n"
+				//echo "\n".$keyword."\n";
 			} else {
-				echo "false";
+				//echo "false";
 				continue;
 			}
 	
-		}
+		} */
 		
 		
 		
