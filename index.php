@@ -192,9 +192,6 @@ if ($handle = opendir('xmlOLD')) {
 		} else {
 			$text = '';
 		}
-		$strdivpos = strpos($text,'<div');
-		$enddivpos = strpos($text,'>',$strdivpos);
-		$text = substr($text,$enddivpos + 1);	
 		
 		
 		
@@ -258,25 +255,51 @@ if ($handle = opendir('xmlOLD')) {
 		}
 		
 		
+		$strdivpos = strpos($text,'<div');
+		$enddivpos = strpos($text,'>',$strdivpos);
+		$text = substr($text,$enddivpos + 1);	
+		$counter = 0;
 		
+
 		//start loop
 		while(strpos($text, '<') !== false){
-	
-	$strtagpos = strpos($text,'<');
-	$endbrckpos = strpos($text,'>');
-	$keyword = substr($text, $strtagpos, $endbrckpos - $strtagpos);
-	
-	
-	if(strpos($text,'#') !== false){
+			echo "\n\n\n\n\n".$counter;
+			$counter ++;
+			$strtagpos = strpos($text,'<');
+			
+			if(substr($text,$strtagpos + 1,1)=='!'){
+				continue;
+			}			
+			echo "\n".$strtagpos;
+			//echo $strtagpos;
+			//echo "\n";
+			//die();
+			$endbrckpos = strpos($text,'>')+1;
+			echo "\n".$endbrckpos;
+			
+			$keyword = substr($text, $strtagpos, $endbrckpos - $strtagpos);
+			//echo "\n".$keyword;
+			
+			$text = substr($text,$endbrckpos);
+			echo"'".$text."'";
 		
-		$strtag = strpos($keyword,'<');
-		$endtag = strpos($keyword, ' ') - 1;
-		$tag = substr($keyword, $strtag+1, $endtag - $strtag);
-		
-	}
-
-	die();
+			if(strpos($keyword,'corresp="#') !== false){
+				echo "true";
+				$strtag = strpos($keyword,'<');
+				$endtag = strpos($keyword, ' ') - 1;
+				$tag = substr($keyword, $strtag+1, $endtag - $strtag);
+				echo "\n";
+				
+				//echo "'".$keyword."'";
+				//echo "\n"
+			} else {
+				echo "false";
+				continue;
+			}
+	
 		}
+		
+		
 		
 	
 		
