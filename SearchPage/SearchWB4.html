@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <title>Search Box Example 2 - default placeholder text gets cleared on click</title>
@@ -19,40 +19,51 @@ window.onload = function(){
 }
 </script>
  
-   
-<!-- CSS styles for standard search box with placeholder text-->
+  
      <style type="text/css">  
+	 #space{
+		 position: relative;
+		 bottom: 81px; 
+		 width: 700px;
+		 height: 76px;
+		 margin-left: 12px; 
+		 background-color: 	hsl(220, 80%, 75%);
+		 border-radius: 17px;              
+		 border: 1px solid #358;
+	 } 
 	 
-	#tfheader{
-		margin-left: 985px;  
-		width: 370px; 
+	#tfheader{	  
+		margin-top: -15px;
+		margin-left: 250px;  
+		width: 1100px;
+		height: 103px; 
+		border-radius: 10px; 
 		background-color:#358;
-		 
- 
-		border-right-style:groove 15px #958;
-		border-top-style:groove 15px #958;
-		border-bottom-style:groove 15px #958; 
-		border-radius: 0px;
-	<!--	box-shadow: -10px -10px #778;   -->
+		border: 20px 036;  		  
 	}
-	 
-	#tfnewsearch{  
+	 	 
+	#tfnewsearch{
+		position: relative;
+		margin-top: 10px;
+		margin-left: 750px;	 
 		border-radius: 10px;
-		float:right;
-		padding:20px;
+	    float: top-right;  
+		padding:5px;	 
 	}
+	
 	.tftextinput2{
 		width: 250px;  	
 		margin-right:0px;
 		padding: 5px 15px;
 		font-family: Arial, Helvetica, sans-serif;
 		font-size:14px;
-		color:#666;
+		color: 	#8cb0f2;
 		border:5px ridge #036; border-right:5px;
 		border-top-right-radius: 5px 5px; 
 		border-top-left-radius: 5px 5px;
 		border-bottom-left-radius: 5px 5px;
 	}
+	
 	.tfbutton2 {
 		width: 45px; 
 		margin-right: 0px;
@@ -68,10 +79,9 @@ window.onload = function(){
 		border: ridge 5px #036;  
 		background: #0095cd;
 		background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
-		background: -moz-linear-gradient(top,  #00adee,  #0078a5);
-	    
-		 
+		background: -moz-linear-gradient(top,  #00adee,  #0078a5);		 
 	}
+	
 	.tfbutton2:hover { 
 		text-decoration: underline;
 		background: #007ead;
@@ -79,132 +89,39 @@ window.onload = function(){
 		background: -moz-linear-gradient(top,  #0095cc,  #00678e);
 		border: ridge 5px #036;   
 	}
+	
 	/* Fixes submit button height problem in Firefox */
 	.tfbutton2::-moz-focus-inner {
 	  border: 0;
 	}
+	
  	.tfclear{   
 		clear:both;
+		}
 		
-	}
-	h5 {
-	color: white; 
-    position: absolute;
-    right: 162px;
-    top: -10px;
-}
-
-h2{
+	 h2{
+	position: relative; 
 	color: white;
-	position: relative;
-	left: 220px;
-	top: 0; 
+	left: 850px;
+	top: 15px;
 	}
-	
-	p.main {
-    text-align: right-side;
-	}
-
-h3{
-position: absolute;	 
-	left: 20px;
-	top: 10; 
-}
-
- 
-
-#div1 {
-	border-radius: 25px; 
-	position relative;
-	float: right;
-	width: 1100px;
-	height: 300px;
-    padding: 125px; 
-	top:100px; 
-    border: 100px black;
-    background-color:white;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size:18px;
-	}
- 	
-#container{
-	border-radius: 10px;
-	box-shadow: -10px -10px #778;
-	left: 715px;
-	bottom: 110px;
-    width:500px;
-    height:450px;
-    position:relative;
-    border:3px groove #79a6d2;
-}
- 
-#container2{
-	right: 1px;
-	bottom: -225px;
-    width:400px;
-    height:20px;
-    position:relative;
-    border:1px groove gradient;
-}
-#container3{
-	background-color: #358; 
-<!--	box-shadow: -5px -5px #778;   -->
-	border-radius: 0px;
-	right: 625px;
-	bottom: 303px;
-    width:770px;
-    height:76px;
-    position:relative;
- 
-  
-
-}
-#container4{	
-    position: absolute;
-    top: 5px; 
-	height: 100px;
-	width: 205px;
-	 
-	background-color: white;
-}
-#container5{
-	border-radius: 10px;
-	left: 1px;
-	bottom: 10px;
-    width:200px;
-    height:630px;
-    position:fixed;
-	background-color: #036;
-}
-	 
+	  
     -webkit-transform: rotateX(45deg); /* Chrome, Safari, Opera */
     transform: rotateX(45deg);
     
 </style>
 </head>
 <body>
+
+ <div id="tfheader" > 
  
-  
- 
-  
-  
-    <h5></h5>
-     
-	<!-- HTML for SEARCH BAR -->
-	 
-  	    <div id="tfheader" > 
-		  
-		<h2>Ruskin Search</h2>	 
+	<h2>Ruskin Search</h2>           
 		 <form id="tfnewsearch" method="get" action="http://www.google.com">
 		        <input type="text" id="tfq" class="tftextinput2" name="q" size="21" maxlength="120" value="Search our website"><input type="submit" value=">" class="tfbutton2">
-		</form>
-		<div class="tfclear"></div>
-		
-	</div>
- 	   
-	  <form id="div1">
-	  
-	 <div id="container" ><input type="checkbox"> Document type:
+		</form> 
+		<div id="space"> 
+		<br>
+		<input type="checkbox">  Document Type:
 		<select name="Document type" size=1 value>
 			<option name="Type" value="all"> All </option> 
 			<option name="Type" value="notes"> Notes </option> 
@@ -215,43 +132,25 @@ position: absolute;
 			<option name="Type" value="works by others"> Works by Others </option>
 			<option name="Type" value="commentary"> Commentary </option>
 			<option name="Type" value="works"> Works </option>
-		</select><br/><br/>
-		
-	 
-		
-		
-		<input type="checkbox">Search by Author:
-		<select name="Document author" size=1 value>
+	   <input type="radio" name="Keyword" value="1"/> Open Keyword Search(No search parameters)&nbsp;  		
+			</select><br>
+	   <input type="checkbox"> Search by Author:
+		    <select name="Document author" size=1 value>
 			<option name="Type" value="all"> All</option> 
 			<option name="Type" value="john ruskin"> John Ruskin </option> 
 			<option name="Type" value="margret ruskin"> Margret Ruskin </option>
-		</select><br/><br/>
-		<input type="radio" name="Keyword" value="1"/> Open Keyword Search(No search parameters)<br/><br/>
-					<input type="radio" name="Keyword as title" value="2"/> Search by Type of Work
-					<select name="Document keyword" size=1 value>
+	   <input type="radio" name="Keyword as title" value="2"/> Search by Type of Work
+			<select name="Document keyword" size=1 value>
 			<option name="Type" value="anthology"> Anthology</option> 
 			<option name="Type" value="artwork"> Artwork </option> 
-			<option name="Type" value="book"> Book </option> 
-		</select><br/><br/>
-	   
-		<input type="radio" name="Title" value="1"/> Search by Manuscript Title
+			<option name="Type" value="book"> Book  </option>
+		
+		</div>
+		 
+		<div class="tfclear"></div>	
+		 
+	</div>
+		 
 
-			<select name="Document title" size=1 value>
-			<option name="Type" value="MS1"> MS1</option> 
-			<option name="Type" value="MS1A"> MS1A</option> 
-			<option name="Type" value="MS1B"> MS1B</option> 
-		</select>
-		  
-		 <div id="container2" ><input type="checkbox">Include multiple results in same document<br/>
-	<!--	 </form>    -->
-	
-     </div>   
-  <div id="container3" >
-  Search Parameters<br/>
-  <input type="radio" name="Keyword" value="1"/> Open Keyword Search(No search parameters)
-					 
- 	    </div>
-    
- 
-	  </body>
-	  </html>
+</body>
+</html>
