@@ -154,7 +154,7 @@ if ($handle = opendir('xmlOLD')) {
 		
 		// Skip the XML file if it has malformed code.
 		if (($stuff = simplexml_load_file($filename)) === FALSE) {
-			echo "<span style='color: red; font-weight: bold;'>FAILED: '" . $filename . "' (malformed XML)</span>";
+			echo "<br /><span style='color: red; font-weight: bold;'>FAILED: '" . $filename . "' (malformed XML)</span>";
 			$malformed_count++;
 			continue;
 		}
@@ -228,7 +228,7 @@ if ($handle = opendir('xmlOLD')) {
 		*/
 		
 		if ($code != '200') {
-			echo "<span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (missing)</span>";
+			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (missing)</span>";
 			$missing_count++;
 			continue;
 		}
@@ -258,11 +258,12 @@ if ($handle = opendir('xmlOLD')) {
 		
 		// Perform the MySQLi query.
 		if (mysqli_query($db_conn, $insert)) {
-			echo "<span style='color: green; font-weight: bold;'>SUCCESS: '" . $filename . "'</span>";
+			echo "<br /><br /><span style='color: green; font-weight: bold;'>SUCCESS: '" . $filename . "'</span>";
+			$docid = mysqli_insert_id($db_conn);
 			$success_count++;
 		} else {
 			// If there was an error performing the query, output the error.
-			echo "<span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
+			echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
 			$database_errors++;
 		}
 		
@@ -277,17 +278,67 @@ if ($handle = opendir('xmlOLD')) {
 			$leftbcklocation = rstrpos($text, '<' , $corresplocation);
 			$rightbcklocation = strpos($text, '<', $corresplocation);
 			$keyword = substr($text, $leftbcklocation - 1, ($rightbcklocation - $leftbcklocation)+1);
-			echo "\n".$keyword;
+			//echo "\n keyword= ".$keyword;
 			$text= substr($text, $rightbcklocation +1);
 			
 			
 			$endstrtag = strpos($keyword, ' ');
 			$tag = substr($keyword,1, $endstrtag -1);
+			
+			//echo "\n tag= '".$tag."'";
+			
+			$correspstrpostion = strpos($keyword, 'corresp="')+9;
+			$correspendpostion = strpos($keyword, '"', $correspstrpostion);
+			$corresp = substr($keyword,$correspstrpostion,$correspendpostion - $correspstrpostion);
+			
+			//remove # from corresp
+			 if(substr($corresp,0,1)== '#'){
+				 $corresp = substr($corresp,1);
+			 }
+			 //echo "\n corresp= '".$corresp."'";
+			 
+			 $contentstrposition = strpos($keyword,'>')+1;
+			 $content = substr($keyword,$contentstrposition);
+			 //echo "\n content= '".$content."'";
+			
+			
+			if(strpos($keyword, 'type="')!==false){
+			$typeposition= strpos($keyword, 'type="')+6;
+			$endtypeposition = strpos($keyword, '"', $typeposition);
+			$type = substr($keyword,$typeposition, $endtypeposition - $typeposition);
+				//echo "\n type= '".$type."'";
+			}
+			else{
+				$type = '';
+				
+			}
+			
+			
 			//echo "\n'".$tag."'";
+			$insertkeywords = "INSERT INTO `" . $db_conn->real_escape_string($database) . "`.`keywords` (
+			`docid`,
+			`tag`,
+			`type`,
+			`corresp`,
+			`content`
+		) VALUES (
+			'" . $db_conn->real_escape_string($docid) . "',
+			'" . $db_conn->real_escape_string($tag) . "',
+			'" . $db_conn->real_escape_string($type) . "',
+			'" . $db_conn->real_escape_string($corresp) . "',
+			'" . $db_conn->real_escape_string($content) . "'
+		);";
+		
+		// Perform the MySQLi query.
+		if (mysqli_query($db_conn, $insertkeywords)) {
+			echo "<br /><span style='color: blue; font-weight: bold;'>SUCCESS, added keyword: '" .$content . "'</span>";
 			
+		} else {
+			// If there was an error performing the query, output the error.
+			echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
 			
+		}	
 			
-	die();
 		}
 		
 		
