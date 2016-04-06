@@ -30,6 +30,8 @@ error_reporting(E_ERROR);
 
 // Function to construct the URL to the PHP file on the Ruskin website that corresponds to a given XML file.
 function construct_url($filename, $divtype) {
+	global $entry;
+	
 	// Base URL of website.
 	$url = 'http://english.selu.edu/humanitiesonline/ruskin/';
 	
