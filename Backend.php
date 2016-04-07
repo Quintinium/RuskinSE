@@ -8,10 +8,11 @@
 		<form method="POST">
 			Keyword(s): <input type="text" name="keyword"><br /><br />
 			<input type="checkbox" name="is_poem_document" value="true"> Is a poem?<br />
-			<input type="checkbox" name="activate_document_filter" value="true">Show documents that are:<select name="divtype_document"> 
-				<option value="apparatus">apparatus</option>
-				<option value="poem">poem</option>
-				<option value="note">note</option>
+			<input type="checkbox" name="activate_document_filter" value="true">Show documents that are:
+			<select name="divtype_document"> 
+				<option value="apparatus">Apparatus</option>
+				<option value="poem">Poem</option>
+				<option value="note">Note</option>
 			</select><br />
 			<input type="checkbox" name="full_text_of_document" value="true"> Search full text<br />
 			<input type="checkbox" name="activate_tag_filter" value="true">Show results if keyword is a:
@@ -94,6 +95,16 @@ if (isset($_POST['keyword'])) {
 	} else {
 		echo 'Failed';
 	}
+	
+	echo '<br />Tag Filter: '; 
+	
+	if (isset($_POST['activate_tag_filter'])) {
+		echo 'Exist';
+	} else {
+		echo 'Failed';
+	}
+	
+	echo '<br />Tag Keyword: ' . $_POST['tag_keywords'] . '<br />Type Keyword: ' . $_POST['type_keywords'];
 			
 	$results = mysql_query("SELECT * FROM `documents` WHERE `text` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ORDER BY `documents`.`title` DESC");
 	
