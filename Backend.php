@@ -27,7 +27,7 @@
 			</select>
 			of a: 
 			<select name="type_keywords">
-				<option value="aa">Anything/Anyone</option
+				<option value="aa">Anything/Anyone</option>
 				<option value="book">Book</option>
 				<option value="poem">Poem</option>
 				<option value="pen_name">Pen Name</option>
@@ -47,11 +47,17 @@
 				<option value="drama">Drama</option>
 				<option value="collected_letters">Collected Letters</option>
 				<option value="autobiography">Autobiography</option>
-				<option value="series">Series</option>
-				<option value="peom">Peom</option>
-				<option value="guidebook">Guidebook</option>
+				<option value="bibliography_text">Bibliography Text</option>
 				<option value="manuscript">Manuscript</option>
+				<option value="program">Program</option>
 				<option value="lesson">Lesson</option>
+				<option value="gloss">Gloss</option>
+				<option value="composite">Composite</option>
+				<option value="series">Series</option>
+				<!--<option value="peom">Peom</option> spelling error?-->
+				<option value="guidebook">Guidebook</option>
+				
+				
 			</select><br />
 			<input type="submit" name="submit" value=" Search ">
 		</form>
