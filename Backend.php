@@ -66,7 +66,18 @@
 				<option value="memoir">Memoir</option>
 				<option value="composition">Composition</option>
 				<option value="work">Work</option>
-				
+				<option value="scripture">Scripture</option>
+				<option value="drawing">Drawing</option>
+				<option value="collected_art">Collected Art</option>
+				<option value="sketch">Sketch</option>
+				<option value="map">Map</option>
+				<option value="catalog_auction">Catalog Auction</option>
+				<option value="dictionary">Dictionary</option>
+				<option value="ana">Ana</option>
+				<option value="collecte_poems">Collected Poems</option>
+				<option value="tale">Tale</option>
+				<option value="other">Other</option>
+				<option value="article">Article</option>
 			</select><br />
 			<input type="submit" name="submit" value=" Search ">
 		</form>
