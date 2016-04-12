@@ -53,10 +53,19 @@
 				<option value="lesson">Lesson</option>
 				<option value="gloss">Gloss</option>
 				<option value="composite">Composite</option>
+				<option value="sermon">Sermon</option>
+				<option value="archive_digital">Archive Digital</option>
+				<option value="archive_nondigital">Archive Non-Digital</option>
 				<option value="series">Series</option>
+				<option value="fictional">Fictional</option>
+				<option value="story">Story</option>
 				<!--<option value="peom">Peom</option> spelling error?-->
 				<option value="guidebook">Guidebook</option>
-				
+				<option value="constellation">Constellation</option>
+				<option value="book_chapter">Book Chapter</option>
+				<option value="memoir">Memoir</option>
+				<option value="composition">Composition</option>
+				<option value="work">Work</option>
 				
 			</select><br />
 			<input type="submit" name="submit" value=" Search ">
