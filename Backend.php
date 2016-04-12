@@ -23,10 +23,11 @@
 				<option value="orgName">Organization Name</option>
 				<option value="title">Title</option>
 				<option value="name">Name</option>
+				<option value="date">Date</option>
 			</select>
 			of a: 
 			<select name="type_keywords">
-				<option value="aa">Anything/Anyone</option>
+				<option value="aa">Anything/Anyone</option
 				<option value="book">Book</option>
 				<option value="poem">Poem</option>
 				<option value="pen_name">Pen Name</option>
