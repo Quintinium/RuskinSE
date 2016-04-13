@@ -59,7 +59,11 @@
 				<option value="series">Series</option>
 				<option value="fictional">Fictional</option>
 				<option value="story">Story</option>
-				<!--<option value="peom">Peom</option> spelling error?-->
+				<option value="peom">Peom</option>
+				<option value="architecture">Architecture</option>
+				<option value="collected_works">Collected Works</option>
+				<option value="painting">Painting</option>
+				<option value="letter">Letter</option>
 				<option value="guidebook">Guidebook</option>
 				<option value="constellation">Constellation</option>
 				<option value="book_chapter">Book Chapter</option>
