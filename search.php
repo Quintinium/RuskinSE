@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Ruskin Search</title>
-	</head>
-	<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0048)http://english.selu.edu/humanitiesonline/ruskin/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>The Early Ruskin Manuscripts, Advanced Search</title>
+	<link href="./The Early Ruskin Manuscripts, 1826–1842_files/styles.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" href="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_icon.png">
+</head>
+<body>
+		<div class="navigation">
+        <a href="http://english.selu.edu/humanitiesonline/ruskin/index.php"><img src="./The Early Ruskin Manuscripts, 1826–1842_files/ruskin_logo.jpg" width="100%"></a>
+        <br>
+		<br>
+        <span class="navigation-title">
+            The
+            <br>Early
+            <br>Ruskin
+            <br>Manuscripts
+            <div class="navigation-date">1826–1842</div>
+        </span>
+        <hr>
+        <span class="navigation-editor"><a href="mailto:ruskinproject@selu.edu">David C. Hanson, Editor</a></span>
+        <br>
+        <br>
+        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/index.php">Home</a><span>
+        <span>
+        	<br><a href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php">Indices</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#WORKS">Works</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#MANUSCRIPTS">Manuscripts</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#CORPORA">Corpora</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#WORKSBYOTHERS">Works by Others</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#COMMENTARY">Commentary</a>
+            <br><a class="tion" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#ESSAYS">Essays</a>
+        </span>
+        <br>
+		<span>XML</span>
+        <br>
+		<span>Bibliography</span>
+        <br>
+        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/staff.php">Staff and Support</a><span>
+        <br>
+        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/legal.php">Legal</a><span>
+		 <br>
+        <span><a href="http://localhost/search.php">Search</a><span>
+	</span></span></span></span></span></span></span></span></div>
 		
 		<form action="http://localhost/Backend.php" method="POST">
 			Keyword(s): <input type="text" name="keyword"><br /><br />
