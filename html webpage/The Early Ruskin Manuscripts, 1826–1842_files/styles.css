@@ -51,7 +51,7 @@ body {
 	font-weight: normal;
 	padding-left: 1em;
 	}
-.content, .apparatus, .essay, .note, .glosses, .webpage {
+.content, .apparatus, .essay, .note, .glosses, .webpage{
 	background-color: #FFF;
 	float: right;
 	height: 72%;
@@ -62,6 +62,9 @@ body {
 	padding-top: 8%;
 	width: 65%;
     }
+.search{
+	background-color: #FFF;
+	}
 .title {
     color: #036;
 	font-size: 18pt;
