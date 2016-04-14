@@ -42,6 +42,7 @@
 		 <br>
         <span><a href="http://localhost/search.php">Search</a><span>
 	</span></span></span></span></span></span></span></span></div>	
+	<div class="content">
 <?php
 
 // MySQL server credentials.
@@ -127,6 +128,6 @@ if (isset($_POST['keyword'])) {
 	echo '</div>';
 }
 
-?>
+?></div>
 	</body>
 </html>
