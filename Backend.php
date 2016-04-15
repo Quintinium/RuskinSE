@@ -127,11 +127,8 @@
 		</fieldset></form>
 <?php
 
-// MySQL server credentials.
-$servername = 'localhost';
-$username = 'root';
-$password = 'kev#dr16';
-$database = 'ruskin';
+// Load MySQL credentials from config file.
+include('config.php');
 
 mysql_connect($servername, $username, $password);
 mysql_select_db($database);
