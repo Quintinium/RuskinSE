@@ -45,6 +45,8 @@
 	</span></span></span></span></span></span></span></span></div>
 		<div class="content">
 		<form action="http://localhost/Backend.php" method="POST">
+			<fieldset>
+			<legend>Search</legend>
 			Keyword(s): <input type="text" name="keyword"><br /><br />
 			<input type="checkbox" name="is_poem_document" value="true"> Is a poem?<br />
 			<input type="checkbox" name="activate_document_filter" value="true">Show documents that are:
@@ -123,6 +125,6 @@
 				<option value="article">Article</option>
 			</select><br />
 			<input type="submit" name="submit" value=" Search ">
-		</form></div>
+		</fieldset></form></div>
 	</body>
 </html>
