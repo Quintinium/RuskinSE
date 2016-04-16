@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<title>The Early Ruskin Manuscripts, Advanced Search Results</title>
-	<link href="./The Early Ruskin Manuscripts, 1826–1842_files/styles.css" rel="stylesheet" type="text/css">
-	<link rel="icon" type="image/png" href="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_icon.png">
+	<link href="styles.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" href="ruskin_icon.png">
 </head>
 <body>
 		<div class="navigation">
-        <a href="http://english.selu.edu/humanitiesonline/ruskin/index.php"><img src="./The Early Ruskin Manuscripts, 1826–1842_files/ruskin_logo.jpg" width="100%"></a>
+        <a href="http://english.selu.edu/humanitiesonline/ruskin/index.php"><img src="ruskin_logo.jpg" width="100%"></a>
         <br>
 		<br>
         <span class="navigation-title">
@@ -46,16 +46,16 @@
 	<form action="http://localhost/Backend.php" method="POST">
 			<fieldset>
 			<legend>Search</legend>
-			Keyword(s): <input type="text" name="keyword"><br /><br />
-			<input type="checkbox" name="is_poem_document" value="true"> Is a poem?<br />
-			<input type="checkbox" name="activate_document_filter" value="true">Show documents that are:
+			Keyword(s): <input type="text" name="keyword" /><br /><br />
+			<input type="checkbox" name="is_poem_document" value="true" /> Is a poem?<br />
+			<input type="checkbox" name="activate_document_filter" value="true" />Show documents that are:
 			<select name="divtype_document"> 
 				<option value="apparatus">Apparatus</option>
 				<option value="poem">Poem</option>
 				<option value="note">Note</option>
 			</select><br />
-			<input type="checkbox" name="full_text_of_document" value="true"> Search full text<br />
-			<input type="checkbox" name="activate_tag_filter" value="true">Show results if keyword is a:
+			<input type="checkbox" name="full_text_of_document" value="true" /> Search full text<br />
+			<input type="checkbox" name="activate_tag_filter" value="true" />Show results if keyword is a:
 			<select name="tag_keywords">				
 				<option value="persName">Person Name</option>
 				<option value="geogName">Geographical Name</option>
