@@ -140,8 +140,9 @@ if (isset($_POST['keyword'])) {
 		die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
 	}
 	
- 	$query = 'SELECT * FROM `documents` WHERE ';
-	$filter = 0;
+	// This is our base query. We will add constraints to make this query longer
+	// depending on which filters are active.
+ 	$query = 'SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` ';
 	
 	echo '<br />';
 	echo "Keyword: " . $_POST['keyword'];
@@ -150,8 +151,7 @@ if (isset($_POST['keyword'])) {
 	echo 'Poem: ';	
 	
 	if (isset($_POST['is_poem_document'])) {
-		$query .= '`ispoem` = 1 AND ';
-		$filter++;
+		$query .= 'AND `documents`.`ispoem` = 1 ';
 	} else {
 		echo 'Failed';
 	}
@@ -159,7 +159,7 @@ if (isset($_POST['keyword'])) {
 	echo '<br />Document Filter: ';
 	
 	if (isset($_POST['activate_document_filter'])) {
-		echo 'Exist';
+		$query .= "AND `documents`.`divtype` LIKE '" . $_POST['divtype_document'] . "' ";
 	} else {
 		echo 'Failed';
 	}	
@@ -169,25 +169,22 @@ if (isset($_POST['keyword'])) {
 	echo '<br />Full Text: ';
 	
 	if (isset($_POST['full_text_of_document'])) {
-		echo 'Exist';
+		$query .= "AND `documents`.`text` LIKE '%" . $_POST['keyword'] . "%' ";
 	} else {
-		echo 'Failed';
+		$query .= "AND `keywords`.`content` LIKE '%" . $_POST['keyword'] . "%' ";
 	}
 	
 	echo '<br />Tag Filter: '; 
 	
 	if (isset($_POST['activate_tag_filter'])) {
-		echo 'Exist';
-	} else {
-		echo 'Failed';
+		$query .= "AND `keywords`.`tag` LIKE '%" .$_POST['tag_keywords']."%' ";
 	}
 	
+	if ($_POST['type_keywords'] !='aa'){
+			$query .= "AND `keywords`.`type` LIKE '%" .$_POST['type_keywords']."%' ";
+	}
 	echo '<br />Tag Keyword: ' . $_POST['tag_keywords'] . '<br />Type Keyword: ' . $_POST['type_keywords'];
 
-	if ($filter > 0){
-	$query = substr($query, 0, -4);
-	}
-	echo $query;
 	
 	// Finds all poems, and then from these peoms, search for the ones with a title containing "Calais"
 	// SELECT * FROM (SELECT * FROM `documents` WHERE `ispoem` = '1') AS my_first_query WHERE `title` LIKE '%Calais%'
@@ -199,7 +196,9 @@ if (isset($_POST['keyword'])) {
 	// SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `documents`.`ispoem` = 1 AND `keywords`.`tag` LIKE '%persName%'
 	// Here is an easier implementation of the query above.
 	
-	$results = mysql_query("SELECT * FROM `documents` WHERE `text` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ORDER BY `documents`.`title` DESC");
+	echo 'Here is our query: ' . $query;
+	
+	$results = mysql_query($query);
 	
 	echo '<div class="container results-container">
 	<h2>Search results for <span class="italic">"Ruskin"</span> :</h2>
