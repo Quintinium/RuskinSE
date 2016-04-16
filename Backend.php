@@ -134,6 +134,12 @@ mysql_connect($servername, $username, $password);
 mysql_select_db($database);
 
 if (isset($_POST['keyword'])) {
+	
+	// Check to make sure the user searched for a keyword that is at least 3 characters long.
+	if (strlen($_POST['keyword']) < 3) {
+		die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
+	}
+	
  	$query = 'SELECT * FROM `documents` WHERE ';
 	$filter = 0;
 	
