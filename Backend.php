@@ -43,7 +43,7 @@
         <span><a href="http://localhost/search.php">Search</a><span>
 	</span></span></span></span></span></span></span></span></div>	
 	<div class="content">
-	<form action="http://localhost/Backend.php" method="POST">
+	<form action="http://localhost/Backend.php" method="post">
 			<fieldset>
 			<legend>Search</legend>
 			Keyword(s): <input type="text" name="keyword" /><br /><br />
@@ -123,7 +123,7 @@
 				<option value="other">Other</option>
 				<option value="article">Article</option>
 			</select><br />
-			<input type="submit" name="submit" value=" Search ">
+			<input type="submit" name="submit" value=" Search " />
 		</fieldset></form>
 <?php
 
@@ -134,14 +134,14 @@ mysql_connect($servername, $username, $password);
 mysql_select_db($database);
 
 if (isset($_POST['keyword'])) {
-/* 	echo '<br />';
+ 	$query = 'SELECT * FROM `documents` WHERE ';
+	$filter = 0;
+	
+	echo '<br />';
 	echo "Keyword: " . $_POST['keyword'];
 	echo '<br />';
 	
-	echo 'Poem: ';
-	
-	$query = 'SELECT * FROM `documents` WHERE ';
-	$filter = 0;	
+	echo 'Poem: ';	
 	
 	if (isset($_POST['is_poem_document'])) {
 		$query .= '`ispoem` = 1 AND ';
@@ -150,7 +150,7 @@ if (isset($_POST['keyword'])) {
 		echo 'Failed';
 	}
 	
-	echo'<br />Document Filter: ';
+	echo '<br />Document Filter: ';
 	
 	if (isset($_POST['activate_document_filter'])) {
 		echo 'Exist';
@@ -176,7 +176,7 @@ if (isset($_POST['keyword'])) {
 		echo 'Failed';
 	}
 	
-	echo '<br />Tag Keyword: ' . $_POST['tag_keywords'] . '<br />Type Keyword: ' . $_POST['type_keywords']; */
+	echo '<br />Tag Keyword: ' . $_POST['tag_keywords'] . '<br />Type Keyword: ' . $_POST['type_keywords'];
 
 	if ($filter > 0){
 	$query = substr($query, 0, -4);
@@ -186,10 +186,12 @@ if (isset($_POST['keyword'])) {
 	// Finds all poems, and then from these peoms, search for the ones with a title containing "Calais"
 	// SELECT * FROM (SELECT * FROM `documents` WHERE `ispoem` = '1') AS my_first_query WHERE `title` LIKE '%Calais%'
 	
-	
 	// SELECT * FROM `keywords` WHERE `docid` IN (SELECT `id` AS `docid` FROM `documents` WHERE `ispoem` = 1) AND `tag` LIKE '%persName%'
 	// Look in the documents table, and find all documents that are peoms. Then grab the id, and rename this to docid. Then using this list of docids, fetch all keywords
 	// that exist in one of those documents IF that keyword is a persName keyword.
+	
+	// SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `documents`.`ispoem` = 1 AND `keywords`.`tag` LIKE '%persName%'
+	// Here is an easier implementation of the query above.
 	
 	$results = mysql_query("SELECT * FROM `documents` WHERE `text` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ORDER BY `documents`.`title` DESC");
 	
