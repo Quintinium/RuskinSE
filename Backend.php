@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<title>The Early Ruskin Manuscripts, Advanced Search Results</title>
-	<link href="styles.css" rel="stylesheet" type="text/css">
-	<link rel="icon" type="image/png" href="ruskin_icon.png">
+	<link href="./The Early Ruskin Manuscripts, 1826–1842_files/styles.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" href="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_icon.png">
 </head>
 <body>
 		<div class="navigation">
-        <a href="http://english.selu.edu/humanitiesonline/ruskin/index.php"><img src="ruskin_logo.jpg" width="100%"></a>
+        <a href="http://english.selu.edu/humanitiesonline/ruskin/index.php"><img src="./The Early Ruskin Manuscripts, 1826–1842_files/ruskin_logo.jpg" width="100%"></a>
         <br>
 		<br>
         <span class="navigation-title">
