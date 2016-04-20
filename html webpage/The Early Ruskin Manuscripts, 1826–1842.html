@@ -41,16 +41,25 @@
         <br>
         <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/legal.php">Legal</a><span>
 		 <br>
-        <span><a href="http://localhost/search.php">Search</a><span>
+        <span><a href="http://localhost/search.php">Advanced Search</a><span>
 	</span></span></span></span></span></span></span></span></div>
 	<!-- 
 		This is where we are placing the search bar
 	-->
 	<div class="search">
-	<form style="color:#444499" action="http://localhost/Backend.php" method="POST">
-		<fieldset>
-		<legend>Search</legend>
-		Keywords: <input name="keyword" type="text" placeholder="Search..." required><br/></fieldset></form></div>
+		<form action="http://localhost/Backend.php" method="POST">
+			<fieldset><legend>Search</legend>
+				<table>
+					<tr>
+						<td style="float:right" >
+							Keyword(s): <input name="keyword" type="text" required>
+							<input type="submit" value="Search" class="button">
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+		</form>
+	</div>
 
 	<div class="content">
         <div class="title-apparatus">The Early Ruskin Manuscripts, 1826–1842</div>

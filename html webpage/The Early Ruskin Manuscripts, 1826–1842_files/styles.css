@@ -64,6 +64,20 @@ body {
     }
 .search{
 	background-color: #FFF;
+	color: #036;
+    font-size: 14pt;
+	}
+.button {
+		width: 100px; 
+		margin-right: 0px;
+		font-size:12px;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		color: #ffffff;  
+		background: #036;
+				 
 	}
 .title {
     color: #036;
