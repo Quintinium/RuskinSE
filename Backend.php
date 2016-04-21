@@ -1,3 +1,25 @@
+<?php
+if ($_POST['is_poem_document']) {
+	$poem_checkmark = 'checked';
+} else {
+	$poem_checkmark ='';
+}
+if ($_POST['full_text_of_document']) {
+	$full_text_checkmark = 'checked';
+} else {
+	$full_text_checkmark ='';
+}
+if ($_POST['activate_tag_filter']) {
+	$tag_filter_checkmark = 'checked';
+} else {
+	$tag_filter_checkmark ='';
+}
+if ($_POST['activate_document_filter']) {
+	$document_filter_checkmark = 'checked';
+} else {
+	$document_filter_checkmark ='';
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0048)http://english.selu.edu/humanitiesonline/ruskin/ -->
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,16 +69,16 @@
 	<form action="http://localhost/Backend.php" method="post">
 			<fieldset>
 			<legend>Search</legend>
-			Keyword(s): <input type="text" name="keyword" /><input type="submit" name="submit" value=" Search " class="button"/><br /><br />
-			<input type="checkbox" name="is_poem_document" value="true" /> Is a poem?<br />
-			<input type="checkbox" name="activate_document_filter" value="true" />Show documents that are:
+			Keyword(s): <input type="text" name="keyword" value="<?php echo $_POST['keyword']; ?>" /><input type="submit" name="submit" value=" Search " class="button"/><br /><br />
+			<input type="checkbox" name="is_poem_document" value="true" <?php echo $poem_checkmark; ?> /> Is a poem?<br />
+			<input type="checkbox" name="activate_document_filter" value="true" <?php echo $document_filter_checkmark; ?> />Show documents that are:
 			<select name="divtype_document"> 
 				<option value="apparatus">Apparatus</option>
 				<option value="poem">Poem</option>
 				<option value="note">Note</option>
 			</select><br />
-			<input type="checkbox" name="full_text_of_document" value="true" /> Search full text<br />
-			<input type="checkbox" name="activate_tag_filter" value="true" />Show results if keyword is a:
+			<input type="checkbox" name="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br />
+			<input type="checkbox" name="activate_tag_filter" value="true" <?php echo $tag_filter_checkmark; ?>/>Show results if keyword is a:
 			<select name="tag_keywords">				
 				<option value="persName">Person Name</option>
 				<option value="geogName">Geographical Name</option>
