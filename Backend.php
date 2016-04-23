@@ -143,7 +143,16 @@ if (isset($_POST['keyword'])) {
 	
 	// This is our base query. We will add constraints to make this query longer
 	// depending on which filters are active.
- 	$query = 'SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` ';
+	
+	$query = '';
+	$full = false;
+	if (isset($_POST['full_text_of_document'])) {
+		$query = 'SELECT * FROM `documents` WHERE ';
+		$full = true;
+	} else {
+		$query = 'SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` ';
+	}
+ 	
 	
 	echo '<br />';
 	echo "Keyword: " . $_POST['keyword'];
@@ -151,7 +160,7 @@ if (isset($_POST['keyword'])) {
 	
 	echo 'Poem: ';	
 	
-	if (isset($_POST['is_poem_document'])) {
+	if (isset($_POST['is_poem_document']) AND $full == false) {
 		$query .= 'AND `documents`.`ispoem` = 1 ';
 	} else {
 		echo 'Failed';
@@ -159,29 +168,29 @@ if (isset($_POST['keyword'])) {
 	
 	echo '<br />Document Filter: ';
 	
-	if (isset($_POST['activate_document_filter'])) {
+	if (isset($_POST['activate_document_filter']) AND $full == false) {
 		$query .= "AND `documents`.`divtype` LIKE '" . $_POST['divtype_document'] . "' ";
 	} else {
 		echo 'Failed';
-	}	
+	}
 	
 	echo '<br />Divtype Document: ' . $_POST['divtype_document'];
 	
 	echo '<br />Full Text: ';
 	
-	if (isset($_POST['full_text_of_document'])) {
-		$query .= "AND `documents`.`text` LIKE '%" . $_POST['keyword'] . "%' ";
+	if (isset($_POST['full_text_of_document']) AND $full == true) {
+		$query .= " `documents`.`text` LIKE '%" . $_POST['keyword'] . "%' ";
 	} else {
 		$query .= "AND `keywords`.`content` LIKE '%" . $_POST['keyword'] . "%' ";
 	}
 	
 	echo '<br />Tag Filter: '; 
 	
-	if (isset($_POST['activate_tag_filter'])) {
+	if (isset($_POST['activate_tag_filter']) AND $full == false) {
 		$query .= "AND `keywords`.`tag` LIKE '%" .$_POST['tag_keywords']."%' ";
 	}
 	
-	if ($_POST['type_keywords'] !='aa'){
+	if ($_POST['type_keywords'] !='aa' AND $full == false){
 			$query .= "AND `keywords`.`type` LIKE '%" .$_POST['type_keywords']."%' ";
 	}
 	echo '<br />Tag Keyword: ' . $_POST['tag_keywords'] . '<br />Type Keyword: ' . $_POST['type_keywords'];
@@ -210,7 +219,8 @@ if (isset($_POST['keyword'])) {
 				<b>Location:</b> <a class="italic" href="' . $row['url'] . '">' . $row['url'] . '</a><br />
 				<b>Matching text:</b> <span class="italic">' . $_POST['keyword'] . '</span><br />
 				<b>Document type:</b> ' . $row['divtype'] . '
-			</div>';
+			</div>
+			<div style="width: 200px; height: 1px; background-color: #000;"></div>';
 	}
 	echo '</div>';
 }
