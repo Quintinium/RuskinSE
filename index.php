@@ -42,6 +42,8 @@ function construct_url($filename, $divtype) {
 		$url .= 'showcase/';
 	}
 	
+	// add glosses doctype
+	
 	// Change the extension of the file from .XML to .PHP
 	$url .= str_replace('xml', 'php', $entry);
 	
@@ -85,6 +87,33 @@ function get_response($url) {
 	
 	// Return our HTTP response code for the URL we accessed from the Ruskin server. This should usually be either 200 or 404.
 	return $code;
+}
+
+// Function to insert keywords into database.
+function insertKeyword($docid, $tag, $type, $corresp, $content) {
+	global $db_conn, $database;
+	
+	$insertkeywords = "INSERT INTO `" . $db_conn->real_escape_string($database) . "`.`keywords` (
+	`docid`,
+	`tag`,
+	`type`,
+	`corresp`,
+	`content`
+	) VALUES (
+		'" . $db_conn->real_escape_string($docid) . "',
+		'" . $db_conn->real_escape_string($tag) . "',
+		'" . $db_conn->real_escape_string($type) . "',
+		'" . $db_conn->real_escape_string($corresp) . "',
+		'" . $db_conn->real_escape_string($content) . "'
+	);";
+	
+	// Perform the MySQLi query.
+	if (mysqli_query($db_conn, $insertkeywords)) {
+		echo "<br /><span style='color: blue; font-weight: bold;'>SUCCESS, added keyword: '" .$content . "'</span>";
+	} else {
+		// If there was an error performing the query, output the error.
+		echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
+	}
 }
 
 function rstrpos($haystack, $needle, $offset){
@@ -271,6 +300,9 @@ if ($handle = opendir('xmlOLD')) {
 		$text = substr($text,$enddivpos + 1);	
 		$counter = 0;
 		
+		// Call function to insert keyword in database.
+		insertKeyword($docid, 'title', '', '', $title);
+		
 		while(strpos($text, 'corresp="') !== false){
 			$corresplocation = strpos($text,'corresp="');
 			$leftbcklocation = rstrpos($text, '<' , $corresplocation);
@@ -311,32 +343,8 @@ if ($handle = opendir('xmlOLD')) {
 				
 			}
 			
-			
-			//echo "\n'".$tag."'";
-			$insertkeywords = "INSERT INTO `" . $db_conn->real_escape_string($database) . "`.`keywords` (
-			`docid`,
-			`tag`,
-			`type`,
-			`corresp`,
-			`content`
-		) VALUES (
-			'" . $db_conn->real_escape_string($docid) . "',
-			'" . $db_conn->real_escape_string($tag) . "',
-			'" . $db_conn->real_escape_string($type) . "',
-			'" . $db_conn->real_escape_string($corresp) . "',
-			'" . $db_conn->real_escape_string($content) . "'
-		);";
-		
-		// Perform the MySQLi query.
-		if (mysqli_query($db_conn, $insertkeywords)) {
-			echo "<br /><span style='color: blue; font-weight: bold;'>SUCCESS, added keyword: '" .$content . "'</span>";
-			
-		} else {
-			// If there was an error performing the query, output the error.
-			echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
-			
-		}	
-			
+			// Call function to insert keyword in database.
+			insertKeyword($docid, $tag, $type, $corresp, $content);
 		}
 		
 		
