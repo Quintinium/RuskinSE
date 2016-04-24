@@ -25,21 +25,25 @@ error_reporting(E_ERROR);
 
 
 // Function to construct the URL to the PHP file on the Ruskin website that corresponds to a given XML file.
-function construct_url($filename, $divtype) {
+function construct_url($filename, $divtype, $doctype) {
 	global $entry;
 	
 	// Base URL of website.
 	$url = 'http://english.selu.edu/humanitiesonline/ruskin/';
 	
 	// Use the divtype of the file to determine which folder the file is located on the site.
-	if ($divtype == 'note') {
+	if ($doctype == 'witness') {
+		$url .= 'showcase/';
+	} elseif ($divtype == 'note') {
 		$url .= 'notes/';
 	} elseif ($divtype == 'apparatus') {
 		$url .= 'apparatuses/';
-	} elseif ($divtype == 'title') {
-		$url .= 'witnesses/';
-	} elseif ($divtype == 'poem') {
-		$url .= 'showcase/';
+	} elseif ($divtype == 'glosses') {
+		$url .= 'glosses/';
+	} elseif ($divtype == 'essay') {
+		$url .= 'essays/';
+	} elseif ($divtype == 'webpage') {
+		$url .= 'webpages/';
 	}
 	
 	// add glosses doctype
@@ -110,9 +114,11 @@ function insertKeyword($docid, $tag, $type, $corresp, $content) {
 	// Perform the MySQLi query.
 	if (mysqli_query($db_conn, $insertkeywords)) {
 		echo "<br /><span style='color: blue; font-weight: bold;'>SUCCESS, added keyword: '" .$content . "'</span>";
+		$keyword_count++;
 	} else {
 		// If there was an error performing the query, output the error.
 		echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
+		$database_errors++;
 	}
 }
 
@@ -129,7 +135,7 @@ function rstrpos($haystack, $needle, $offset){
 }
 
 // Attempt to open our directory.
-if ($handle = opendir('xmlOLD')) {
+if ($handle = opendir('xml')) {
 	
 	// Attempt to connect to the MySQL server.
 	if (!$db_conn = mysqli_connect($servername, $username, $password)) {
@@ -166,6 +172,12 @@ if ($handle = opendir('xmlOLD')) {
 	// Keep track of the database errors.
 	$database_errors = 0;
 	
+	// Keep track of keywords that are indexed.
+	$keyword_count = 0;
+	
+	// Keep track of files that were not needed.
+	$not_needed = 0;
+	
 	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
 	
 	// Iterate through the files in our directory.
@@ -181,7 +193,7 @@ if ($handle = opendir('xmlOLD')) {
 		
 		// Skip the XML file if it has malformed code.
 		if (($stuff = simplexml_load_file($filename)) === FALSE) {
-			echo "<br /><span style='color: red; font-weight: bold;'>FAILED: '" . $filename . "' (malformed XML)</span>";
+			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED: '" . $filename . "' (malformed XML)</span>";
 			$malformed_count++;
 			continue;
 		}
@@ -232,27 +244,17 @@ if ($handle = opendir('xmlOLD')) {
 			$text = '';
 		}
 		
-		
+		if ($doctype == 'witness' AND $divtype == 'title') {
+			echo "<br /><br /><span style='color: green; font-weight: bold;'>SKIPPING '" . $filename . "' (links to a .inc.php file and is not needed)</span>";
+			$not_needed++;
+			continue;
+		}
 		
 		// Determine the URL of the file on the website.
-		$url = construct_url($filename, $divtype);
+		$url = construct_url($filename, $divtype, $doctype);
 		
 		// Determine whether the requested URL exists.
 		$code = get_response($url);
-		
-		/*
-		echo "<br /><br />filename: " . $filename;
-		echo "<br />Doctype: " . $doctype;
-		echo "<br />Title: " . $title;
-		echo "<br />divtype: " . $divtype;
-		echo "<br />subtype: " . $subtype;
-		echo "<br />Text (length): " . strlen($text);
-		echo "<br />Is Poem: " . $ispoem;
-		echo "<br />Meter: " . $meter;
-		echo "<br />Rhyme: " . $rhyme;
-		echo "<br />URL: " . $url;
-		echo "<br />Code: '" . $code . "'";
-		*/
 		
 		if ($code != '200') {
 			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (missing)</span>";
@@ -303,103 +305,57 @@ if ($handle = opendir('xmlOLD')) {
 		// Call function to insert keyword in database.
 		insertKeyword($docid, 'title', '', '', $title);
 		
-		while(strpos($text, 'corresp="') !== false){
-			$corresplocation = strpos($text,'corresp="');
-			$leftbcklocation = rstrpos($text, '<' , $corresplocation);
-			$rightbcklocation = strpos($text, '<', $corresplocation);
-			$keyword = substr($text, $leftbcklocation - 1, ($rightbcklocation - $leftbcklocation)+1);
-			//echo "\n keyword= ".$keyword;
-			$text= substr($text, $rightbcklocation +1);
+		// Loop through each keyword in the body text of the XML document. Keywords are identified by having 'corresp'
+		while (strpos($text, 'corresp="') !== false) {
+			// Extract entire keyword tag. EXAMPLE: <persName corresp="#WGC">W. G. Collingwood
+			$correspLocation = strpos($text,'corresp="');
+			$leftBracketLocation = rstrpos($text, '<' , $correspLocation);
+			$rightBracketLocation = strpos($text, '<', $correspLocation);
+			$keyword = substr($text, $leftBracketLocation - 1, ($rightBracketLocation - $leftBracketLocation)+1);
 			
+			// Remove this keyword tag from the text so the while loop can iterate to the next available tag.
+			$text= substr($text, $rightBracketLocation + 1);
 			
-			$endstrtag = strpos($keyword, ' ');
-			$tag = substr($keyword,1, $endstrtag -1);
+			// Extract tag. EXAMPLE: persName
+			$endOfTag = strpos($keyword, ' ');
+			$tag = substr($keyword, 1, $endOfTag -1);
 			
-			//echo "\n tag= '".$tag."'";
+			// Extract corresp. EXAMPLE: #WGC
+			$correspStartLocation = strpos($keyword, 'corresp="') + 9;
+			$correspEndLocation = strpos($keyword, '"', $correspStartLocation);
+			$corresp = substr($keyword, $correspStartLocation, $correspEndLocation - $correspStartLocation);
 			
-			$correspstrpostion = strpos($keyword, 'corresp="')+9;
-			$correspendpostion = strpos($keyword, '"', $correspstrpostion);
-			$corresp = substr($keyword,$correspstrpostion,$correspendpostion - $correspstrpostion);
-			
-			//remove # from corresp
-			 if(substr($corresp,0,1)== '#'){
-				 $corresp = substr($corresp,1);
-			 }
-			 //echo "\n corresp= '".$corresp."'";
-			 
-			 $contentstrposition = strpos($keyword,'>')+1;
-			 $content = substr($keyword,$contentstrposition);
-			 //echo "\n content= '".$content."'";
-			
-			
-			if(strpos($keyword, 'type="')!==false){
-			$typeposition= strpos($keyword, 'type="')+6;
-			$endtypeposition = strpos($keyword, '"', $typeposition);
-			$type = substr($keyword,$typeposition, $endtypeposition - $typeposition);
-				//echo "\n type= '".$type."'";
+			// If corresp starts with #, then remove it.
+			if (substr($corresp, 0, 1) == '#'){
+				$corresp = substr($corresp, 1);
 			}
-			else{
+			 
+			// Extract keyword contents. EXAMPLE: W. G. Collingwood
+			$contentStartPosition = strpos($keyword, '>') + 1;
+			$content = substr($keyword, $contentStartPosition);
+			
+			// Extract type if it exists. EXAMPLE: poem
+			if (strpos($keyword, 'type="') !== false) {
+				$typeStartPosition = strpos($keyword, 'type="') + 6;
+				$typeEndPosition = strpos($keyword, '"', $typeStartPosition);
+				$type = substr($keyword, $typeStartPosition, $typeEndPosition - $typeStartPosition);
+			} else {
 				$type = '';
-				
 			}
 			
 			// Call function to insert keyword in database.
 			insertKeyword($docid, $tag, $type, $corresp, $content);
 		}
-		
-		
-		
-/* 		while(strpos($text, '<') !== false){
-			//echo "\n\n\n\n\n".$counter;
-			$counter ++;
-			$strtagpos = strpos($text,'<');
-			
-			//checks if is is a comment & skips it
-			if(substr($text,$strtagpos + 1,1)=='!'){
-				$endbrckpos = strpos($text,'->')+1;
-				$text = substr($text,$endbrckpos);
-				continue;
-			}			
-			//echo "\n".$strtagpos;
-			//echo $strtagpos;
-			//echo "\n";
-			//die();
-			$endbrckpos = strpos($text,'>')+ $strtagpos;
-			//echo "\n".$endbrckpos;			
-			
-			$keyword = substr($text, $strtagpos, ($endbrckpos - $strtagpos)+1);				
-			$text = substr($text,$endbrckpos);
-
-		
-			if(strpos($keyword,'corresp="') !== false){
-				echo "true";
-				$strtag = strpos($keyword,'<');
-				$endtag = strpos($keyword, ' ') - 1;
-				$tag = substr($keyword, $strtag+1, $endtag - $strtag);
-				
-				//echo "\n".$keyword."\n";
-			} else {
-				//echo "false";
-				continue;
-			}
-	
-		} */
-		
-		
-		
-	
-		
-		
-		
-		
     }
 	
 	// Show some stats about the parsed files.
 	echo '<h2>Parsing complete!</h2>
 	<b>Stats:
-	<br />Successful files: ' . $success_count . '
+	<br />Documents indexed: ' . $success_count . '
+	<br />Keywords indexed: ' . $keyword_count . '
 	<br />Files skipped due to malformed XML: ' . $malformed_count . '
 	<br />Files skipped that were missing on website: ' . $missing_count . '
+	<br />Files skipped that were not needed: ' . $not_needed . '
 	<br />Database errors: ' . $database_errors . '</b>';
 	
 	// Close the connection to our MySQL server.
@@ -411,41 +367,4 @@ if ($handle = opendir('xmlOLD')) {
 	// Output an error message if the XML directory couldn't be opened.
 	echo "Sorry, there was an error opening the XML directory. Check your code!";
 }
-
-
-//loop through all files
-// Example #2 in the PHP documentation shows how to loop through all of the files in a directory: http://php.net/manual/en/function.readdir.php
-
-  //open file
-  // Examples #1 and #2 explain how to read the contents of a file and print them to the screen: http://php.net/manual/en/function.file-get-contents.php
-  
-  //extract information from document
-  // We will need the following PHP functions to extract information from our XML documents:
-  // substr: http://php.net/manual/en/function.substr.php
-  // strlen: http://php.net/manual/en/function.strlen.php
-  // strpos: http://php.net/manual/en/function.strpos.php
-  // simplexml_load_file: http://php.net/manual/en/function.simplexml-load-file.php
-  // json_encode: http://php.net/manual/en/function.json-encode.php
-  // json_decode: http://php.net/manual/en/function.json-decode.php
-  
-  
-  //extract title
-  //extract doctype                                       
-  //extract meter
-  //extract rhyme
-  //extract text
-  //extract url
-  
-  //insert into document table
-  // MySQL insert command: http://www.w3schools.com/php/php_mysql_insert.asp
-  
-    //start loop to grab all tags
-    //extract keywords from document
-    //extract tag
-    //extract subtag
-    //extract content
-    //insert into keyword table with corrs docid
-    //end tag loop
-   
-//end loop
 ?>
