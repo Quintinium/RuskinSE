@@ -267,6 +267,12 @@ if ($handle = opendir($xml_folder)) {
 		// Determine whether the requested URL exists.
 		$code = get_response($url);
 		
+		// If response code is not 200 or 404, then we know there was a connection error.
+		// If this is the case, then retry getting the document again.
+		if ($code != '200' AND $code != '404') {
+			$code = get_response($url);
+		}
+		
 		if ($code == '404') {
 			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (missing)</span>";
 			$missing_count++;
