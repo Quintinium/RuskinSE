@@ -65,20 +65,22 @@ if ($_POST['activate_document_filter']) {
 	</span></span></span></span></span></span></span></span></div>
 	
 	<div class="content">
+	
 	<form action="http://localhost/Backend.php" method="post">
 			<fieldset>
 			<legend>Search</legend>
 			Keyword(s): <input type="text" name="keyword" value="<?php echo $_POST['keyword']; ?>" /><input type="submit" name="submit" value=" Search " class="button"/><br /><br />
-			<input type="checkbox" name="is_poem_document" value="true" <?php echo $poem_checkmark; ?> /> Is a poem?<br />
-			<input type="checkbox" name="activate_document_filter" value="true" <?php echo $document_filter_checkmark; ?> />Show documents that are:
-			<select name="divtype_document"> 
+			<input type="checkbox" name="is_poem_document" value="true" id="is_poem_document" <?php echo $poem_checkmark; ?> /> Poem<br />
+			<input type="checkbox" name="activate_document_filter" value="true" id="activate_document_filter" <?php echo $document_filter_checkmark; ?> />Show documents that are:
+			<select name="divtype_document" id="divtype_document"> 
 				<option value="apparatus">Apparatus</option>
 				<option value="poem">Poem</option>
 				<option value="note">Note</option>
 			</select><br />
-			<input type="checkbox" name="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br />
-			<input type="checkbox" name="activate_tag_filter" value="true" <?php echo $tag_filter_checkmark; ?>/>Show results if keyword is a:
-			<select name="tag_keywords">				
+			<input type="checkbox" name="full_text_of_document" onclick="toggle()" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br />
+			<input type="checkbox" name="activate_tag_filter" onclick="toggle()" id="activate_tag_filter" value="true" <?php echo $tag_filter_checkmark; ?>/>Show results if keyword is a:
+			<select name="tag_keywords" id="tag_keywords">
+				
 				<option value="persName">Person Name</option>
 				<option value="geogName">Geographical Name</option>
 				<option value="placeName">Place Name</option>
@@ -88,7 +90,7 @@ if ($_POST['activate_document_filter']) {
 				<option value="date">Date</option>
 			</select>
 			of a: 
-			<select name="type_keywords">
+			<select name="type_keywords" id="type_keywords">
 				<option value="aa">Anything/Anyone</option>
 				<option value="book">Book</option>
 				<option value="poem">Poem</option>
@@ -147,6 +149,32 @@ if ($_POST['activate_document_filter']) {
 			</select><br />
 			
 		</fieldset></form>
+		<script type ="text/javascript">
+		document.onload = toggle()
+		
+		function toggle() {
+			var full_text_of_document = document.getElementById('full_text_of_document');
+			var activate_tag_filter = document.getElementById('activate_tag_filter');
+			if (full_text_of_document.checked == true) {
+				activate_tag_filter.disabled = true
+				full_text_of_document.disabled = false
+				tag_keywords.disabled = true
+				type_keywords.disabled = true
+				type_keywords.selectedIndex = 'aa'
+			}
+			if (activate_tag_filter.checked == true) {
+				full_text_of_document.disabled = true
+				activate_tag_filter.disabled = false
+			}
+			if (full_text_of_document.checked == false && activate_tag_filter.checked == false) {
+				full_text_of_document.disabled = false
+				activate_tag_filter.disabled = false
+				tag_keywords.disabled = false
+				type_keywords.disabled = false
+			}
+			console.log("Toggle function was called");
+		}
+		</script>
 <?php
 
 // Load MySQL credentials from config file.
