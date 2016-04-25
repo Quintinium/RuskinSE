@@ -201,7 +201,7 @@ if (isset($_POST['keyword'])) {
 	$results = mysql_query($query);
 	
 	echo '<div class="container results-container">
-	<h2>Search results for <span class="italic">"Ruskin"</span> :</h2>
+	<h2>Search results for <span class="italic">"' . $_POST['keyword'] . '"</span> :</h2>
 			<div class="divider"></div>';
 			
 	while ($row = mysql_fetch_assoc($results)) {
