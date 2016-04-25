@@ -56,8 +56,8 @@ function construct_url($filename, $divtype, $doctype) {
 
 // Function that checks the response code of a URL on the Ruskin server. This is used for checking if a file exists (200 code) or if a file does not exist on the server (404 code).
 function get_response($url) {
-	// Wait half a second between requests. This is needed so that we don't accidentally DOS attack the Ruskin server.
-	usleep(500000);
+	// Wait 1/10 of a second between requests. This is needed so that we don't accidentally DOS attack the Ruskin server.
+	usleep(100000);
 	
 	// Initiate the CURL handle.
 	$curl_handle = curl_init();
@@ -95,7 +95,7 @@ function get_response($url) {
 
 // Function to insert keywords into database.
 function insertKeyword($docid, $tag, $type, $corresp, $content) {
-	global $db_conn, $database;
+	global $db_conn, $database, $keyword_count, $database_errors;
 	
 	$insertkeywords = "INSERT INTO `" . $db_conn->real_escape_string($database) . "`.`keywords` (
 	`docid`,
@@ -126,16 +126,15 @@ function rstrpos($haystack, $needle, $offset){
 	$size = strlen($haystack);
 	$pos = strpos(strrev($haystack),$needle,$size-$offset);
 	
-	if($pos=== false){
+	if($pos === false){
 		return false;
 	}
 	
 	return $size - $pos;
-	
 }
 
 // Attempt to open our directory.
-if ($handle = opendir('xml')) {
+if ($handle = opendir($xml_folder)) {
 	
 	// Attempt to connect to the MySQL server.
 	if (!$db_conn = mysqli_connect($servername, $username, $password)) {
@@ -177,6 +176,15 @@ if ($handle = opendir('xml')) {
 	
 	// Keep track of files that were not needed.
 	$not_needed = 0;
+	
+	// Keep track of empty keyword tags.
+	$empty_keywords = 0;
+	
+	// Keep track of tags that have tags inside them.
+	$tags_in_tags = 0;
+	
+	// Keep track of skipped handShift tags.
+	$handshift_tags = 0;
 	
 	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
 	
@@ -309,12 +317,29 @@ if ($handle = opendir('xml')) {
 		while (strpos($text, 'corresp="') !== false) {
 			// Extract entire keyword tag. EXAMPLE: <persName corresp="#WGC">W. G. Collingwood
 			$correspLocation = strpos($text,'corresp="');
-			$leftBracketLocation = rstrpos($text, '<' , $correspLocation);
-			$rightBracketLocation = strpos($text, '<', $correspLocation);
-			$keyword = substr($text, $leftBracketLocation - 1, ($rightBracketLocation - $leftBracketLocation)+1);
 			
+			// Extract the tag name. EXAMPLE: persName
+			$leftBracketLocation = rstrpos($text, '<' , $correspLocation);
+			$keywordEnd = strpos($text, ' ', $leftBracketLocation);
+			$tagName = substr($text, $leftBracketLocation, $keywordEnd - $leftBracketLocation);
+			
+			// Skip over handshift tags.
+			if ($tagName == 'handShift') {
+				$newStart = strpos($text, '>', $correspLocation);
+				$text = substr($text, $newStart + 1);
+				$handshift_tags++;
+				echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING tag: '" . $tagName . "'</span>";
+				continue;
+			}
+			
+			// Form the keyword's ending tag. EXAMPLE: </persName>
+			$endingTag = '</' . $tagName . '>';
+			
+			$rightBracketLocation = strpos($text, $endingTag, $correspLocation);
+			$keyword = substr($text, $leftBracketLocation - 1, ($rightBracketLocation - $leftBracketLocation)+1);
+
 			// Remove this keyword tag from the text so the while loop can iterate to the next available tag.
-			$text= substr($text, $rightBracketLocation + 1);
+			$text = substr($text, $rightBracketLocation + 1);
 			
 			// Extract tag. EXAMPLE: persName
 			$endOfTag = strpos($keyword, ' ');
@@ -334,6 +359,22 @@ if ($handle = opendir('xml')) {
 			$contentStartPosition = strpos($keyword, '>') + 1;
 			$content = substr($keyword, $contentStartPosition);
 			
+			// If this tag has a tag inside it that we skipped, take note of it.
+			if (strpos($content, 'corresp="') !== false) {
+				$tags_in_tags++;
+				echo "<br /><span style='color: orange; font-weight: bold;'>MERGING tag(s) inside of tag: '" . $tagName . "'</span>";
+			}
+			
+			// Strip any HTML from our tag's content.
+			$content = strip_tags($content);
+			
+			// If the keyword is empty, then increment our counter.
+			if (strlen($content) == 0) {
+				$empty_keywords++;
+				echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING empty tag: '" . $tagName . "'</span>";
+				continue;
+			}
+			
 			// Extract type if it exists. EXAMPLE: poem
 			if (strpos($keyword, 'type="') !== false) {
 				$typeStartPosition = strpos($keyword, 'type="') + 6;
@@ -343,7 +384,6 @@ if ($handle = opendir('xml')) {
 				$type = '';
 			}
 			
-			// Call function to insert keyword in database.
 			insertKeyword($docid, $tag, $type, $corresp, $content);
 		}
     }
@@ -353,9 +393,12 @@ if ($handle = opendir('xml')) {
 	<b>Stats:
 	<br />Documents indexed: ' . $success_count . '
 	<br />Keywords indexed: ' . $keyword_count . '
-	<br />Files skipped due to malformed XML: ' . $malformed_count . '
-	<br />Files skipped that were missing on website: ' . $missing_count . '
-	<br />Files skipped that were not needed: ' . $not_needed . '
+	<br />Empty keywords: ' . $empty_keywords . '
+	<br />Handshift keywords that were skipped: ' . $handshift_tags . '
+	<br />Keywords that were inside of other keywords and were merged: ' . $tags_in_tags . '
+	<br />Documents skipped due to malformed XML: ' . $malformed_count . '
+	<br />Documents skipped that were missing on website (such as some drawings/figures that have not yet been added to the showcase): ' . $missing_count . '
+	<br />Documents skipped that were not needed (in the witnesses folder on the site): ' . $not_needed . '
 	<br />Database errors: ' . $database_errors . '</b>';
 	
 	// Close the connection to our MySQL server.

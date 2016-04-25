@@ -4,5 +4,5 @@ $servername = 'localhost';
 $username = 'root';
 $password = 'Killer5740.';
 $database = 'ruskin';
-$xml_folder = 'xmlOLD/';
+$xml_folder = 'xml/';
 ?>

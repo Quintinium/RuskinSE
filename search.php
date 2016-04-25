@@ -41,13 +41,13 @@
         <br>
         <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/legal.php">Legal</a><span>
 		 <br>
-        <span><a href="http://localhost/search.php">Advanced Search</a><span>
+        <span><a href="http://localhost/search.php">Search</a><span>
 	</span></span></span></span></span></span></span></span></div>
 		<div class="content">
 		<form action="http://localhost/Backend.php" method="POST">
 			<fieldset>
 			<legend>Search</legend>
-			Keyword(s): <input type="text" name="keyword"><input type="submit" name="submit" value=" Search " class="button"><br /><br />
+			Keyword(s): <input type="text" name="keyword"><br /><br />
 			<input type="checkbox" name="is_poem_document" value="true"> Is a poem?<br />
 			<input type="checkbox" name="activate_document_filter" value="true">Show documents that are:
 			<select name="divtype_document"> 
@@ -124,7 +124,7 @@
 				<option value="other">Other</option>
 				<option value="article">Article</option>
 			</select><br />
-			
+			<input type="submit" name="submit" value=" Search ">
 		</fieldset></form></div>
 	</body>
 </html>
