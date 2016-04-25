@@ -6,7 +6,7 @@
         <fileDesc xml:id="aix_la_chapelle_prose_glosses2">
             <titleStmt>
                 <title type="main">"Aix la Chapelle" [prose]</title>
-                <title type="sub">Glosses</title>
+                <title type="sub">Glosses2</title>
                 <author>
                     <persName corresp="#DCH">David C. Hanson</persName>
                 </author>
@@ -69,7 +69,7 @@
                 
                 <note xml:id="JUSTIFICATION" resp="#DCH">Justification mark (MS IX)&#x2014;See <ref type="note" subtype="bibliographical" target="editorial_rationale_note.php#JUSTIFICATION">Editorial and Encoding Rationale and Methodology: Element, Attribute, and Value Usage&#x2014;Justification, Runover, and Word Division</ref>.</note>
                 
-                <note xml:id="APOSTROPHE" resp="#DCH">&#x201C;Return,d&#x201D; (MS IX)&#x2014;In MS VIII, <persName corresp="JR">Ruskin</persName> correctly uses an apostrophe to form the contraction.</note>
+                <note xml:id="APOSTROPHE" resp="#DCH">&#x201C;Return,d&#x201D; (MS IX)&#x2014;In MS VIII, <persName corresp="#JR">Ruskin</persName> correctly uses an apostrophe to form the contraction.</note>
             </div>
         </body>
     </text>

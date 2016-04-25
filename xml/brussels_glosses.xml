@@ -59,7 +59,7 @@
         <body>
             <div type="glosses">
                 <note xml:id="RACKINGCLOUDS" resp="#DCH">&#x201C;The racking clouds were eddying fast / Upon the bosom of the blast&#x201D; 
-                    (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The <hi rend="italic">Oxford English Dictionary</hi> 
+                    (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The <hi rend="italic">Oxford English Dictionary</hi> 
                     defines <hi rend="italic">racking</hi> as &#x201C;driven before the wind&#x201D; when used &#x201C;of a cloud,&#x201D; citing examples ranging in time 
                     from Elizabethan drama through <persName corresp="#WS">Walter Scott</persName>&#x02BC;s 
                     <title rend="italic" corresp="#MARMION">Marmion</title> (<date when="1808">1808</date>), which contains the line: 
@@ -71,7 +71,7 @@
                     speaks of demons who have hollowed out and constructed his subterranean Goblin Hall 
                     (<ref type="bibliography" target="bibliography.php#CALEDONIANEDITION">Scott, <hi rend="italic">Works</hi></ref>, 47:114).</note>
                 
-                <note xml:id="DRAWBRIDGE" resp="#DCH">&#x201C;The drawbridge rung, we past the gate&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;According 
+                <note xml:id="DRAWBRIDGE" resp="#DCH">&#x201C;The drawbridge rung, we past the gate&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;According 
                     to a guidebook of the period, if approaching <placeName corresp="#BRUSSELS">Brussels</placeName> from <placeName corresp="#CALAIS">Calais</placeName> via 
                     <placeName corresp="#LILLE">Lille</placeName> and <placeName corresp="#TOURNAI">Tournai</placeName>, as did the Ruskins, one entered the city through the 
                     <title type="architecture" corresp="#ANDERLECHTGATE">Porte d&#x02BC;Anderlecht</title>. At this date, the medieval ramparts were in process of being transformed into modern boulevards, 
@@ -82,14 +82,14 @@
                     <persName corresp="#JR">Ruskin</persName> may also have wanted to allude to the supposed origin of the city&#x02BC;s name in <hi rend="italic">Brug&#x2010;Senne</hi>&#x2014;i.e., 
                     <hi rend="italic">bridge over the <geogName corresp="#SENNE">Senne River</geogName></hi>.</note>
                 
-                <note xml:id="HOTELDEVILLEGLOSS" resp="#DCH">&#x201C;Hotel de ville&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;In 
+                <note xml:id="HOTELDEVILLEGLOSS" resp="#DCH">&#x201C;Hotel de ville&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;In 
                     <ref type="bibliography" target="bibliography.php#PROUTSKETCHES">Prout, <hi rend="italic">Facsimiles of Sketches Made in <placeName corresp="#FLANDERS">Flanders</placeName> and <placeName corresp="#GERMANY">Germany</placeName></hi></ref>, 
                     which helped to prompt the Ruskins&#x02BC; <ref type="note" subtype="contextual" target="tour_of_1833_note.php">Tour of 1833</ref>, 
                     <title type="artwork" corresp="#PROUTDEVILLEBRUSSELS">&#x201C;Hotel de Ville Brussels&#x201D;</title> is the first plate in the volume of lithogrqphs. The artist shows the building towering over the marketplace; 
                     see <ref type="note" subtype="biographical" target="prout_samuel_note.php"><persName corresp="#SP">Samuel Prout</persName> (<date notBefore="1783" notAfter="1852">1783&#x2013;1852</date>)</ref>.
                 </note>
 
-                <note xml:id="JULYSDREADFULNIGHTGLOSS" resp="#DCH">&#x201C;Julys dreadful night&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;On 
+                <note xml:id="JULYSDREADFULNIGHTGLOSS" resp="#DCH">&#x201C;Julys dreadful night&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;On 
                     <date when="1815-06-16">16 June 1815</date>, the allied forces under <persName corresp="#AWW">Lord Wellington</persName> 
                     and the Prussian army under <persName corresp="#GLB">General Bl&#x00FC;cher</persName> engaged with the French under <persName corresp="#NBE">Napoleon</persName> 
                     near <placeName corresp="#BRUSSELS">Brussels</placeName> in the <date when="1815-06-16">Battle of Quatre Bras</date>, 

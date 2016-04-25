@@ -61,7 +61,7 @@
                     </msIdentifier>
                     <msContents>
                         <msItem>
-                            <locus facs="MSIX14v-15r.jpg">pp. ##-##</locus>
+                            <locus facs="MSIX14v-15r.jpg">p. 15r</locus>
                             <note>For a discussion of foliation, see <ref type="apparatus" target="tite_of_apparatus.html#MAJORMS">"Title of Work": Manuscripts</ref>.</note>
                             <filiation><!--Entry needed here.--></filiation>
                         </msItem>
@@ -98,7 +98,7 @@
                         The child figure may be meant as his cousin, <ref type="note" subtype="biographical" target="richardson_mary_note.html"><persName corresp="#MRC">Mary Richardson</persName> (1815&#x2013;49)</ref>, 
                         but she was a young woman at this date. More likely, the drawing satirically depicts an English family emblematically, 
                         rotund and naive, contrasting with the skinny Frenchman pushing the wheelbarrow, and thus drawing on such nationalistic tropes as found in 
-                        <persName corresp="WHPAINTER">William Hogarth</persName>&#x02BC;s (<date notBefore="1697" notAfter="1764">1697&#x2013;1764</date>) 
+                        <persName corresp="#WHPAINTER">William Hogarth</persName>&#x02BC;s (<date notBefore="1697" notAfter="1764">1697&#x2013;1764</date>) 
                         <hi rend="italic">The Gate of Calais; or, The Roast Beef of Old England</hi> (<date notBefore="1748" notAfter="1749">1748/49</date>),                      
                         yet the satire may bear some self-mockery.
                     </figDesc>

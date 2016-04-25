@@ -75,12 +75,12 @@
                     <lb/>In hypothesizing a &#x201C;rough copy, now lost,&#x201D; <persName corresp="#WGC">Collingwood</persName> evidently meant a draft version preceding not only 
                     the MS IX fair&#x2010;copy witness of &#x201C;Calais&#x201D; [poem], 
                     but also the MS IA, <hi rend="italic">g</hi>.1, witness of &#x201C;Calais&#x201D; [poem]&#x2014;the 
-                    earliest extant version, which is in the hand of <persName corresp="JJR">John James Ruskin</persName>, and which shows interlinear corrections by his son. 
+                    earliest extant version, which is in the hand of <persName corresp="#JJR">John James Ruskin</persName>, and which shows interlinear corrections by his son. 
                     In the latter version, line 2 is identical to that in the fair&#x2010;copy version. 
                     That <persName corresp="#WGC">Collingwood</persName> was familiar with the 
                         MS IA, <hi rend="italic">g</hi>.1 version, 
                         and was referring to this manuscript as containing the &#x201C;original&#x201D; version of &#x201C;Calais&#x201D; [poem], 
-                    is indicated by his having accepted lines 5&#x2013;6 as originally composed in that version, in <persName corresp="JJR">John James</persName>&#x02BC;s hand, 
+                    is indicated by his having accepted lines 5&#x2013;6 as originally composed in that version, in <persName corresp="#JJR">John James</persName>&#x02BC;s hand, 
                     and by his implicitly rejecting <persName corresp="#JR">Ruskin</persName>&#x02BC;s revision of those lines in that same MS IA, <hi rend="italic">g</hi>.1 version.
                     The manuscript holding the MS IA, <hi rend="italic">g</hi>.1 version  
                         is presently the sole surviving manuscript source of lines 5&#x2013;6, 
@@ -90,21 +90,21 @@
                     
                     <lb/>In arriving at his published version of &#x201C;Calais&#x201D; [poem], <persName corresp="#WGC">Collingwood</persName> appears therefore 
                         to have based his editorial decisions on his own aesthetic judgment, 
-                    since his choices overall are consistent neither with the &#x201C;original&#x201D; in <persName corresp="JJR">John James</persName>&#x02BC;s hand 
+                    since his choices overall are consistent neither with the &#x201C;original&#x201D; in <persName corresp="#JJR">John James</persName>&#x02BC;s hand 
                         nor with the final version in <persName corresp="#JR">Ruskin</persName>&#x02BC;s, even substituting a line of his own invention where he dislikes both versions. 
-                    The editors of the Library Edition, <persName corresp="ETC">E. T. Cook</persName> and <persName corresp="AW">Alexander Wedderburn</persName>, 
+                    The editors of the Library Edition, <persName corresp="#ETC">E. T. Cook</persName> and <persName corresp="AW">Alexander Wedderburn</persName>, 
                         seem somewhat more consistent 
                         in preferring <persName corresp="#JR">Ruskin</persName>&#x02BC;s final, fair&#x2010;copy version, although their decisions are as eclectic and aesthetically driven as 
                         <persName corresp="#WGC">Collingwood</persName>&#x02BC;s in accepting the latter&#x02BC;s re&#x2010;punctuation of the poem in combination with some punctuation 
                         found in <persName corresp="#JR">Ruskin</persName>&#x02BC;s fair copy. 
-                        <persName corresp="ETC">Cook</persName> and <persName corresp="AW">Wedderburn</persName> clearly, too, had access to the witnesses 
+                        <persName corresp="#ETC">Cook</persName> and <persName corresp="AW">Wedderburn</persName> clearly, too, had access to the witnesses 
                         &#x201C;in both the rough and in the fair copy,&#x201D; as they call them&#x2014;meaning, by the &#x201C;rough&#x201D; witness, 
                     what they called <persName corresp="#JR">Ruskin</persName>&#x02BC;s &#x201C;father&#x02BC;s copy,&#x201D; 
                         which is the manuscript containing the <hi rend="italic">g</hi>.1 version 
                         (<ref type="bibliography" target="bibliography.html#JRWORKSLE">Ruskin, <hi rend="italic">Works</hi></ref>, 2:341 n. 2).
                     
                     <lb/>By <date when="1903">1903</date>, the manuscript containing the <hi rend="italic">g</hi>.1 version must have been bound as part of 
-                        <ref type="apparatus" target="apparatus_msia.html">MS IA</ref>, a compilation that <persName corresp="ETC">Cook</persName> and <persName corresp="AW">Wedderburn</persName> 
+                        <ref type="apparatus" target="apparatus_msia.html">MS IA</ref>, a compilation that <persName corresp="#ETC">Cook</persName> and <persName corresp="AW">Wedderburn</persName> 
                         added to Collingwood&#x02BC;s list of manuscripts in &#x201C;Preliminary Note on the Original MSS. of the Poems&#x201D; 
                         (the &#x201C;Note&#x201D; in the <ref type="note" subtype="bibliographical" target="library_edition_note.html">Library Edition</ref> being 
                         &#x201C;revised and completed from the edition of 1891&#x201D;). 
@@ -147,7 +147,7 @@
                     (<ref type="bibliography" target="bibliography.php#RFT48">Diary of Mary Richardson, 1833</ref>, pp. 1&#x2013;2). 
                     See also <ref type="note" subtype="contextual" target="tour_of_1833_note.php">Tour of 1833</ref>.
                     
-                    <lb/><persName corresp="#JR">Ruskin</persName>&#x02BC;s picturesque commentary on <placeName corresp="CALAIS">Calais</placeName> as a place of arrival 
+                    <lb/><persName corresp="#JR">Ruskin</persName>&#x02BC;s picturesque commentary on <placeName corresp="#CALAIS">Calais</placeName> as a place of arrival 
                         corresponds to <ref type="note" subtype="biographical" target="rogers_samuel_note.php"><persName corresp="#SR">Samuel Rogers</persName></ref>&#x02BC;s trope 
                         of entering a foreign scene through a city gate in &#x201C;The Lake of Geneva,&#x201C; 
                         the poem that opens <hi rend="italic">Italy</hi>. <persName corresp="#SR">Rogers</persName> alludes to <persName corresp="#JJRPHILOSOPHER">Jean&#x2010;Jacques Rousseau</persName>&#x02BC;s (<date notBefore="1712" notAfter="1778">1712&#x2013;78</date>) 

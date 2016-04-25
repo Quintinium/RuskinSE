@@ -6,8 +6,7 @@
         <fileDesc xml:id="lille_poem_le">
             <titleStmt>
                 <title type="main">"Lille" [poem]</title>
-                <title type="sub">Electronic Text Generated from the Printed Witness in <hi rend="italic">Title of Printed Work</hi> (Date)</title>
-                <!--The xml:ids for author and editor below should include the first, middle, and last initials of the author and the editor, respectively.-->
+                <title type="sub">Electronic Text Generated from the Printed Witness in Ruskin, <hi rend="italic">Works</hi> (1903)</title>
                 <author>
                     <persName corresp="#JR">John Ruskin</persName>
                 </author>
@@ -105,7 +104,8 @@
                     <l>And moat, whose waves found steepy shore<ref type="gloss" target="lille_glosses.php#LILLESTEEPYSHORE"/></l>
                     <l>Where forward high the bastion bore;<ref type="gloss" target="lille_glosses.php#LILLEHUGE"/></l>
                     <l>And where the sentinels were set</l> 
-                    <l>High on the dizzy parapet:</l><pb/>
+                    <l>High on the dizzy parapet:</l>
+                    <pb/>
                     <l>Till the last portals echoes woke,</l>
                     <l>And <placeName corresp="#LILLE">Lille</placeName> upon us sudden broke,</l>
                     <l>Giving to view another scene,</l>

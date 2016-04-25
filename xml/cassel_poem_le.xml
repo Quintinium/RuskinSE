@@ -6,7 +6,7 @@
         <fileDesc xml:id="cassel_poem_le">
             <titleStmt>
                 <title type="main">"Cassel" [poem]</title>
-                <title type="sub">Electronic Text Generated from the Printed Witness in <hi rend="italic">Title of Printed Work</hi> (Date)</title>
+                <title type="sub">Electronic Text Generated from the Printed Witness in Ruskin, <hi rend="italic">Works</hi> (1903)</title>
                 <author>
                     <persName corresp="#JR">John Ruskin</persName>
                 </author>
@@ -89,8 +89,9 @@
                     <l>Its deep, immeasurable blue.</l> 
                     <l>Oh, beautiful those plains were showing,</l> 
                     <l>Where summer sun was hotly glowing!</l> 
-                    <l>Many a battlefield lay spread&#x2014;</l> 
-                    <l>Once the dark dwelling of the dead:</l><pb/>
+                    <l>Many a battlefield lay spread&#x2014;</l>
+                    <l>Once the dark dwelling of the dead:</l>
+                    <pb/>
                     <l>But fruitful now their champaigns wave </l>
                     <l>With bending grain on soldier&#x02BC;s grave.</l>
                     <l>While far beneath in long array</l>

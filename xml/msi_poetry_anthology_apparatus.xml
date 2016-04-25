@@ -79,7 +79,7 @@
                     <head type="section">Title</head>
                     <p>Above the first poem, <persName corresp="#JR">Ruskin</persName> entitled the anthology &#x201C;Poetry&#x201D;; and 
                         following the final poem, he added a colophon: 
-                        &#x201C;The end / hernhill / fountain street / <del rend="scratchout" hand="#JR">end of the poems</del> / juvenile library fountain street.&#x201D; 
+                        &#x201C;The end / hernhill / fountain street / <del rend="scratchout">end of the poems</del> / juvenile library fountain street.&#x201D; 
                         The deletion suggests that <persName corresp="#JR">Ruskin</persName> initially intended the colophon to close specifically the poetry anthology, 
                         but that he reconsidered and made it serve to conclude <ref type="apparatus" target="msi_apparatus.php"><title type="manuscript" corresp="#MSI">MS I</title></ref> 
                         in its entirety (see also <ref type="apparatus" target="msi_apparatus.php#DISCUSSION">MS I: Discussion</ref>).</p>
@@ -136,17 +136,18 @@
                             Friends and relations of the family, &#x201C;who were entertained with cheerfulness and hospitality, free from ceremony and parade,&#x201D; 
                             &#x201C;would frequently produce a fable, a story, or dialogue, adapted to the age and understanding of the young people.&#x201D; These compositions were 
                             &#x201C;always considered as a high favour,&#x201D; so that, &#x201C;when the pieces were once read over, they were carefully deposited by 
-                            Mrs. Fairborne in a box, of which she kept the key:</p>
-                    <ab rend="center">None of these [writings] were allowed to be taken out again till all the children were assembled in the holidays. 
-                        It was then made one of the evening amusements of the family to <hi rend="italic">rummage the budget</hi>, as their phrase was. 
-                        One of the least children was sent to the box, who putting in its little hand, drew out the paper that came next, and brought it into the parlour. 
-                        This was then read distinctly by one of the older ones; and after it had undergone sufficient consideration, 
-                        another little messenger was dispatched for a fresh supply; and so on. . . . Other children were admitted to tbese readings, 
-                        and as the <hi rend="italic">Budget of Beechgrove Hall</hi> became somewhat celebrated in the neighbourhood, 
-                        its proprietors were at length urged to lay it open to the public. They were induced to comply; and have presented its contents in the promiscuous order 
-                        in which they came to hand, which they think will prove more agreeable than a methodical arrangement. 
-                        (<ref type="bibliography" target="bibliography.php#AIKINBARBAULDEVENINGS">Aikin and Barbauld, <hi rend="italic">Evenings at Home</hi></ref>, 1:1&#x2013;3)
-                        </ab>
+                            Mrs. Fairborne in a box, of which she kept the key:
+                            <hi rend="center">None of these [writings] were allowed to be taken out again till all the children were assembled in the holidays. 
+                            It was then made one of the evening amusements of the family to <hi rend="italic">rummage the budget</hi>, as their phrase was. 
+                            One of the least children was sent to the box, who putting in its little hand, drew out the paper that came next, and brought it into the parlour. 
+                            This was then read distinctly by one of the older ones; and after it had undergone sufficient consideration, 
+                            another little messenger was dispatched for a fresh supply; and so on. . . . Other children were admitted to tbese readings, 
+                            and as the <hi rend="italic">Budget of Beechgrove Hall</hi> became somewhat celebrated in the neighbourhood, 
+                            its proprietors were at length urged to lay it open to the public. They were induced to comply; and have presented its contents in the promiscuous order 
+                            in which they came to hand, which they think will prove more agreeable than a methodical arrangement. 
+                            (<ref type="bibliography" target="bibliography.php#AIKINBARBAULDEVENINGS">Aikin and Barbauld, <hi rend="italic">Evenings at Home</hi></ref>, 1:1&#x2013;3)
+                        </hi>
+                        </p>
                         <p>This preference for &#x201C;pomiscuous&#x201D; ordering is a reminder of the flexibility that was advocated by educationists and their system of &#x201C;practical&#x201D; education. 
                         In the <title type="essay" corresp="EDGEWORTHADDRESS">&#x201C;Address to Mothers&#x201D;</title> by 
                         <ref type="note" subtype="biographical" target="edgeworth_richard_lovell_note.php"><persName corresp="#RLE">Richard Lovell Edgeworth</persName></ref>, 

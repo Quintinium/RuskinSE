@@ -8,7 +8,7 @@
                 <title type="main">Anna Letitia Barbauld (1743-1825)</title>
                 <title type="sub">Note</title>
                 <author>
-                    <persName xml:id="DCH">David C. Hanson</persName>
+                    <persName corresp="#DCH">David C. Hanson</persName>
                 </author>
                 <editor>
                     <persName>David C. Hanson</persName>
@@ -16,12 +16,12 @@
                 <principal><persName>David C. Hanson</persName></principal>
                 <respStmt>
                     <!--For XML:ID, enter your intials.-->
-                    <persName xml:id="CWB">Charles W. Borchers, IV</persName>
+                    <persName corresp="#CWB">Charles W. Borchers, IV</persName>
                     <resp>contributing encoding</resp>
                 </respStmt>
                 <respStmt>
                     <!--For XML:ID, enter your intials.-->
-                    <persName xml:id="SB">Sushantika Bhandari</persName>
+                    <persName corresp="#SB">Sushantika Bhandari</persName>
                     <resp>contributing encoding</resp>
                 </respStmt>
                 <sponsor>Southeastern Louisiana University</sponsor>

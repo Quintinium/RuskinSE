@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="ruskin.xsl"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
     <teiHeader type="witness">
-        <fileDesc xml:id="account_of_a_tour_on_the_continent_msix_aix_la_chapelle_title">
+        <fileDesc xml:id="account_of_a_tour_on_the_continent_msix_cologne_title">
             <titleStmt>
                 <title type="main">"Cologne" [section title]</title>
                 <title type="sub">Electronic Text Generated from a Transcription of MS IX Fair Copy</title>
@@ -56,8 +56,8 @@
                     </msIdentifier>
                     <msContents>
                         <msItem>
-                            <locus facs="MSIX30V-31R.jpg">pp. ##-##</locus>
-                            <note>Ruskin here begins the subsection "Cassel" of 
+                            <locus facs="MSIX31r.jpg">p. 31r</locus>
+                            <note>Ruskin here begins the subsection "Cologne" of 
                                 <ref type="apparatus" target="account_of_a_tour_on_the_continent_apparatus.php">Account of a Tour on the Continent</ref>.</note>
                             <filiation><!--Entry needed here.--></filiation>
                         </msItem>
@@ -80,7 +80,7 @@
     </teiHeader>
     <text>
         <body>
-            <pb facs="MSIX31R.jpg"/>
+            <pb facs="MSIX31r"/>
             <div type="title">
                 <head type="section"><space quantity="16" unit="chars"/><handShift new="#HANDJR1833-34" script="print" medium="ink"/><hi rend="smallcaps">COLOGNE</hi></head> 
             </div>

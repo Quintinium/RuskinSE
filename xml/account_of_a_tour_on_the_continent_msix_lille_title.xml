@@ -56,7 +56,7 @@
                     </msIdentifier>
                     <msContents>
                         <msItem>
-                            <locus facs="MSIX18V-19R.jpg">p. #</locus>
+                            <locus facs="MSIX18v.jpg">p. 18v</locus>
                             <note>Ruskin here begins the subsection "Lille" of 
                                 <ref type="apparatus" target="account_of_a_tour_on_the_continent_apparatus.php">Account of a Tour on the Continent</ref>.</note>
                         </msItem>
@@ -78,7 +78,7 @@
     </teiHeader>
     <text>
         <body>
-            <pb facs="MSIX18V-19R.jpg"/>
+            <pb facs="MSIX18v"/>
             <div type="title">
                 <head type="section"><space quantity="14" unit="chars"/><handShift new="#HANDJR1833-34" script="print" medium="ink"/><hi rend="smallcaps">LILLE</hi></head> 
             </div>

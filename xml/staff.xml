@@ -5,7 +5,7 @@
     <teiHeader type="note">
         <!--The xml:id for <fileDesc/> should include the title (or an abbreviated title) of the NOTE followed by "note", for example, "red_book_note".
             The xml:id also corresponds with its XML file's name, for example, "red_book_note.xml".-->
-        <fileDesc xml:id="tite_of_work_note">
+        <fileDesc xml:id="staff">
             <titleStmt>
                 <title type="main">Staff Page</title>
                 <title type="sub">Webpage</title>
@@ -31,9 +31,9 @@
             <editionStmt>
                 <edition n="1.0">
                     <!--DATE WHEN should reflect the date that this electronic text was finalized for publication to the Web.-->
-                    <date when="2015-03-25">March 25, 2015</date>
+                    <date when="2015-04-10">March 25, 2015</date>
                     <!--The notes version for all first passes is 1.0.-->
-                    <title>Webpage Version 1.0</title>
+                    <title>Webpage Version 2.0</title>
                 </edition>
             </editionStmt>
             <publicationStmt>
@@ -65,23 +65,22 @@
                        Southeastern Louisiana University</p>
                 </div>
                 <div type="section">
-                    <head type="section">Supervising Encoder/XSLT Programmer/Web Developer</head>
-                    <p>Charles W. Borchers IV</p>
+                    <head type="section">Encoders and Researchers</head>
+                    <p>Jaime Barrilleaux, Sushantika Bhandari, Samantha Bloemer, Timothy Dunn, Makenzi Edwards, Elizabeth Fox, Stephan Haddad, Simone Hamilton, Terri Ilgen, Garth Kiepper, Jensin Lopez, Cody Love, Katie Moore, Taylor Oakley, Steven Petite, Rebecca Rainier, Jessica Rushing, Zachary Slawson, Michael Stevenson, Kiran Thapa&#x2013;Magar, Katrina Thomas, Heidi Toloudis, Amanda Upton, Tracy Valentine, Kyle Volkmann, David Wall, Casey White, William Woodard<lb/>
+                        Southeastern Louisiana University</p>
                 </div>
                 <div type="section">
-                    <head type="section">Encoders and Researchers</head>
-                    <p>Jaime Barrilleaux, Sushantika Bhandari, Samantha Bloemer, Timothy Dunn, Elizabeth Fox, Stephan Haddad, Simone Hamilton, Terri
-                        Ilgen, Jensin Lopez, Cody Love, Katie Moore, Rebecca Rainier, Jessica Rushing, Michael Stevenson, Kiran Thapa&#x2013;Magar,
-                        Katrina Thomas, Heidi Toloudis, Amanda Upton, Tracy Valentine, Kyle Volkmann, Casey White, William Woodard<lb/>
+                    <head type="section">Mapping Team</head>
+                    <p>Chase Blank, Cory Clapp, Nicholas Cotton, Jenna Hildebrand, Brittney Jarreau, Brian Martinez, Curtis Osko, Holden Pitre, Daniela Raygadas<lb/>
                         Southeastern Louisiana University</p>
                 </div>
                 <div type="section">
                     <head type="section">Consultants</head>
-                    <p><hi rend="italic">ERM</hi> is indebted to the following individuals who served as consultants in the course of developing the
-                        project.</p>
+                    <p><hi rend="italic">ERM</hi> is indebted to the following individuals who have served as consultants on this project:</p>
                     <p>Syd Bauman<lb/>
                         Digital Scholarship Group<lb/>
                         Northeastern University</p>
+                    <p>Charles Borchers IV</p>
                     <p>Matthew Christy<lb/>
                         Initiative for Digital Humanities, Media, and Culture<lb/>
                         Texas A &#x0026; M University</p>
@@ -101,11 +100,10 @@
                 </div>
                 <div type="section">
                     <head type="section">Supporting Agencies</head>
-                    <p>The <hi rend="italic">ERM</hi> project is indebted to the following agencies for fellowships and travel grants to support the
-                        editor&#x02BC;s archival research, and to train staff in XML encoding, XSLT programming, and web development.</p>
+                    <p><hi rend="italic">ERM</hi> is also indebted to the following organizations who have supported of the Editor&#x02BC;s research and assisted staff in workshopping markup languages through grants and fellowships:</p>
                     <p>Louisiana Board of Regents Support Fund<lb/>
                         Undergraduate Enhancement Subprogram<lb/>
-                        LEQSF(2009-10)-ENH-UG-35, LEQSF(2012-13)-ENH-UG-26</p>
+                        LEQSF(2009-10)-ENH-UG-35, LEQSF(2012-13)-ENH-UG-26, and LEQSF(2015-16)-ENH-UG-17</p>
                     <p>Louisiana Board of Regents Support Fund<lb/>
                         Awards to Louisiana Artists and Scholars Subprogram<lb/>
                         LEQSF(2005-06)-RD-ATL-10</p>
@@ -126,7 +124,7 @@
                     <p>National Endowment for the Humanities<lb/>
                         Travel to Collections Grant, 1990&#x2013;91</p>
                     <p>Southeastern Louisiana University<lb/>
-                        Faculty Development Grants; Research Sabbaticals, 1989&#x2013;2006</p>
+                        Faculty Development Grants and Research Sabbaticals, 1989&#x2013;2006</p>
                 </div>
             </div>
         </body>

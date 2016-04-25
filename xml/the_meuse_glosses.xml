@@ -56,7 +56,7 @@
     <text>
         <body>
             <div type="glosses">
-                <note xml:id="MISTWREATHSGLOSS" resp="#DCH">&#x201C;mistwreaths&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The compound occurs in 
+                <note xml:id="MISTWREATHSGLOSS" resp="#DCH">&#x201C;mistwreaths&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The compound occurs in 
                     at least two poems by <ref type="note" subtype="biographical" target="scott_walter_note.php"><persName corresp="#WS">Walter Scott</persName> (1771&#x2013;1832)</ref>. 
                     In one, <title type="poem" corresp="#SCOTTMASSACREOFGLENCOE">&#x201C;On the Massacre of Glencoe&#x201D;</title> (<date when="1814">1814</date>), a minstrel names things 
                     that retain &#x201C;lone security,&#x201D; such as the &#x201C;mist&#x2010;wreath&#x201D; which &#x201C;has the mountain&#x2010;crest,&#x201D; 
@@ -79,7 +79,7 @@
                     in the preceding section of the &#x201C;Account,&#x201D; &#x201C;Brussels,&#x201C; and now crosses the <geogName corresp="#MEUSE">Meuse River</geogName> to enter a <geogName corresp="#EUROPE">Europe</geogName> 
                     liberated from the imperial ambitions of <persName corresp="#NBE">Napoleon</persName>.</note> 
                     
-                <note xml:id="FAIRYVISIONGLOSS" resp="#DCH">&#x201C;The fairy vision of a dream&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;Referring 
+                <note xml:id="FAIRYVISIONGLOSS" resp="#DCH">&#x201C;The fairy vision of a dream&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;Referring 
                     to the same view of the <geogName corresp="#MEUSE">Meuse River</geogName> and its cliffs at <placeName corresp="#NAMUR">Namur</placeName>, <persName corresp="#FMT">Frances Trollope</persName> 
                     (<date notBefore="1779-03-10" notAfter="1863-10-06">1779&#x2013;1863</date>), traveling the <geogName corresp="#CONTINENT">Continent</geogName> in the same year as the Ruskins, 
                     greeted &#x201C;the first picturesque landscape we had looked upon since we entered <placeName corresp="#BELGIUM">Belgium</placeName>. A little bright, meandering stream, 
@@ -92,7 +92,7 @@
                     and on the summit of this lofty eminence stands the citadel, with its superb works, stretching over the whole face of the mountain&#x201D; 
                     (<ref type="bibliography" target="bibliography.php#TROLLOPEBELGIUM">Trollope, <hi rend="italic">Belgium and Western Germany in 1833</hi></ref>, 1:85&#x2013;86).</note>
                 
-                <note xml:id="PEAKOVERPEAKGLOSS" resp="#DCH">&#x201C;Peak over peak, fantastic ever . . . Rose sheerly from the rivers bed&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;In 
+                <note xml:id="PEAKOVERPEAKGLOSS" resp="#DCH">&#x201C;Peak over peak, fantastic ever . . . Rose sheerly from the rivers bed&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;In 
                     the accompanying drawing, <ref type="drawing" target="the_meuse_river_drawing_msix.php">The Meuse River and Cliffs</ref>, <persName corresp="#JR">Ruskin</persName> 
                     depicts the cliffs as improbably &#x201C;fantastic&#x201D;; however, their shapes likewise prompted the English travel writer and geographer, <persName corresp="#SJB">John Barrow</persName> (<date notBefore="1764" notAfter="1848">1764&#x2013;1848</date>), to fancifulness, 
                     when recording a family journey from <placeName corresp="#HUY">Huy</placeName> to <placeName corresp="#NAMUR">Namur</placeName> in <date when="1828">1828</date>: &#x201C;In the ruder parts of the rocky defile 
@@ -103,7 +103,7 @@
                     as to appear to threaten the traveller below with momentary danger of rolling down into the road&#x201D; 
                     (<ref type="bibliography" target="bibliography.php#BARROWFAMILYTOUR">Barrow, <hi rend="italic">Family Tour through South Holland</hi></ref>, 245&#x2013;46).</note>
                 
-                <note xml:id="BARRIERGLOSS" resp="#DCH">&#x201C;A barrier to eternity&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;If 
+                <note xml:id="BARRIERGLOSS" resp="#DCH">&#x201C;A barrier to eternity&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;If 
                     <persName corresp="#JR">Ruskin</persName> poetically saw a &#x201C;barrier to eternity,&#x201D; <persName corresp="#JM">John Murray</persName> pointed out 
                     in these cliffs and fortifications &#x201C;the great barrier on the side of France; the work of centuries to erect, at the cost of vast sums of money, 
                     and as vast an expenditure of blood.&#x201D; The fortresses at <placeName corresp="#NAMUR">Namur</placeName> and <placeName corresp="#HUY">Huy</placeName> had been 

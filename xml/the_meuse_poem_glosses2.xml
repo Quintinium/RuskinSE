@@ -6,7 +6,7 @@
         <fileDesc xml:id="the_meuse_poem_glosses2">
             <titleStmt>
                 <title type="main">"The Meuse" [poem]</title>
-                <title type="sub">Glosses</title>
+                <title type="sub">Glosses2</title>
                 <author>
                     <persName corresp="#DCH">David C. Hanson</persName>
                 </author>
@@ -56,19 +56,19 @@
     <text>
         <body>
             <div type="glosses">
-                <note xml:id="DAMAGEGLOSS" resp="#DCH">&#x201C;Peak over peak, fantastic ever&#x201D; (MS IA, <hi rend="ital">g</hi>.1)&#x2014;A portion of this line and probably one following line 
+                <note xml:id="DAMAGEGLOSS" resp="#DCH">&#x201C;Peak over peak, fantastic ever&#x201D; (MS IA, <hi rend="italic">g</hi>.1)&#x2014;A portion of this line and probably one following line 
                     are lost to damage by fire; see <ref type="note" subtype="bibliographical" target="editorial_rationale_note.php#DAMAGE">Editorial and Encoding Rationale and Methodology: Element, Attribute, and Value Usage&#x2014;Manuscript Damage and Supplying Illegible or Missing Writing</ref>. 
                     The first word in this line (&#x201C;Peak&#x201D;) is supplied from the <title type="manuscript" corresp="#MSIX">MS IX</title> fair copy. It is likely also that, 
                     in the undamaged original, this line was followed by a version of the line that completes the couplet in <title type="manuscript" corresp="#MSIX">MS IX</title>: 
                     &#x201C;The lofty crags deep chasms sever&#x201D;.</note>
                 
-                <note xml:id="DGLOSS" resp="#DCH">&#x201C;d&#x201D; (MS IA, <hi rend="ital">g</hi>.1)&#x2014;The smudged <hi rend="italic">d</hi> may overwrite another letter.</note>
+                <note xml:id="DGLOSS" resp="#DCH">&#x201C;d&#x201D; (MS IA, <hi rend="italic">g</hi>.1)&#x2014;The smudged <hi rend="italic">d</hi> may overwrite another letter.</note>
                 
-                <note xml:id="DAMAGE2GLOSS" resp="#DCH">&#x201C;So steep the mighty crests inclined&#x201D; (MS IA, <hi rend="ital">g</hi>.1)&#x2014;A portion of this line is 
+                <note xml:id="DAMAGE2GLOSS" resp="#DCH">&#x201C;So steep the mighty crests inclined&#x201D; (MS IA, <hi rend="italic">g</hi>.1)&#x2014;A portion of this line is 
                     unclear owing to damage by fire; see <ref type="note" subtype="bibliographical" target="editorial_rationale_note.php#DAMAGE">Editorial and Encoding Rationale and Methodology: Element, Attribute, and Value Usage&#x2014;Manuscript Damage and Supplying Illegible or Missing Writing</ref>. 
                     The first two words in this line (&#x201C;So steep&#x201D;), partially visible, are confirmed by reference to the <title type="manuscript" corresp="#MSIX">MS IX</title> fair copy.</note>
                 
-                <note xml:id="ROCKGLOSS" resp="#DCH">&#x201C;Those mighty rock&#x201D; (MS IX)&#x2014;In MS IA, <hi rend="ital">g</hi>.1, <hi rend="italic">Poems</hi> (1891), and <hi rend="italic">Works</hi> (1903), 
+                <note xml:id="ROCKGLOSS" resp="#DCH">&#x201C;Those mighty rock&#x201D; (MS IX)&#x2014;In MS IA, <hi rend="italic">g</hi>.1, <hi rend="italic">Poems</hi> (1891), and <hi rend="italic">Works</hi> (1903), 
                     &#x201C;Those mighty rocks&#x201D;.</note> 
             </div>
         </body>

@@ -56,7 +56,7 @@
     <text>
         <body>
             <div type="glosses">
-                <note xml:id="STOMERSPLAINGLOSS" resp="#DCH">&#x201C;Omers plain&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The town of <placeName corresp="#STOMER">Saint&#x2010;Omer</placeName> 
+                <note xml:id="STOMERSPLAINGLOSS" resp="#DCH">&#x201C;Omers plain&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The town of <placeName corresp="#STOMER">Saint&#x2010;Omer</placeName> 
                     (<persName corresp="#JR">Ruskin</persName> misspells it as &#x201C;Omar&#x201D; in <title type="manuscript" corresp="#MSIX">MS IX</title>) was the first location of <orgName corresp="#STOMERSCOLLEGE">St. Omers College</orgName>. 
                     Starting in the <date notBefore="1590" notAfter="1599">1590s</date>, to evade persecution, English Catholics sent their children to be educated at this Jesuit school. 
                     The school was closed by the <hi rend="italic">arr&#x00EA;t</hi> of the <orgName corresp="#PARISPARLEMENT">Paris Parlement</orgName> of <date when="1762">1762</date>, the decree aimed at the expulsion 
@@ -69,7 +69,7 @@
                     <persName corresp="#JM">John Murray</persName> in his <date when="1836">1836</date> guidebook to the <geogName corresp="#CONTINENT">Continent</geogName>
                     (<ref type="bibliography" target="bibliography.php#MURRAYSHANDBOOKCONTINENT1836"><hi rend="italic">Handbook for Travellers on the Continent</hi></ref>, 87).</note>
 
-                <note xml:id="CASSELLSHILLGLOSS" resp="#DCH">&#x201C;Cassells hill&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903]); &#x201C;this interminable hill&#x201D; (MS IX; <hi rend="italic">Works</hi> [1903])&#x2014;From <placeName corresp="#CALAIS">Calais</placeName>, 
+                <note xml:id="CASSELLSHILLGLOSS" resp="#DCH">&#x201C;Cassells hill&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903]); &#x201C;this interminable hill&#x201D; (MS IX; <hi rend="italic">Works</hi> [1903])&#x2014;From <placeName corresp="#CALAIS">Calais</placeName>, 
                     <placeName corresp="#CASSEL">Cassel</placeName> lay thirteen and three&#x2010;quarters miles or two and a half posts, with <placeName corresp="#STOMER">Saint&#x2010;Omer</placeName> along the way at eleven miles or two posts, 
                     according to <persName corresp="#JM">John Murray</persName>&#x02BC;s guidebook to the <geogName corresp="#CONTINENT">Continent</geogName>. <persName corresp="#JM">Murray</persName> highlights <placeName corresp="#CASSEL">Cassel</placeName> as 
                     &#x201C;most agreeably situated on a hill commanding a view much celebrated in <placeName corresp="#FRANCE">France</placeName>, but which, after all, 
@@ -86,7 +86,7 @@
                     to visit the abbey late in his life) (<ref type="bibliography" target="bibliography.php#RFT48">Diary of Mary Richardson, 1833</ref>, p. 4).
                 </note>
                 
-                <note xml:id="PRIESTLYORDERSGLOSS" resp="#DCH">&#x201C;Priestly orders wound their way&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;According 
+                <note xml:id="PRIESTLYORDERSGLOSS" resp="#DCH">&#x201C;Priestly orders wound their way&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;According 
                     to <ref type="note" subtype="biographical" target="richardson_mary_note.php"><persName corresp="#MRC">Mary Richardson</persName></ref>, on <date when="1833-05-16">Thursday, May 16</date>, in <placeName corresp="#CASSEL">Cassel</placeName>, the Ruskins witnessed 
                     a celebration of Ascension Day: &#x201C;we saw a procession pass which consisted of many images of the Virgin and Saviour, supported and followed by most of the town people,&#x201D; 
                     the procession starting &#x201C;from the church&#x201D; and winding &#x201C;all round the town to the church again. Just before it passed many people came out of houses carrying large bundles of grass (d&#x02BC;herbes) 
@@ -123,7 +123,7 @@
                         where <persName corresp="#MRC">Mary</persName> found the &#x201C;churches too like a theater,&#x201D; and they traveled onward to <placeName corresp="#BADEN">Baden&#x2010;Baden</placeName>, 
                         where a f&#x00EA;te was in progress (<ref type="bibliography" target="bibliography.php#RFT48">Diary of Mary Richardson, 1833</ref>, pp. 32&#x2013;33).</p></note>
                 
-                <note xml:id="NOMARVEL">&#x201C;No marvel . . . bowl&#x201D; (MS IA, <hi rend="ital">g</hi>.1; MS IX; <hi rend="italic">Works</hi> [1903])&#x2014;Lines 35&#x2013;38, 
+                <note xml:id="NOMARVEL">&#x201C;No marvel . . . bowl&#x201D; (MS IA, <hi rend="italic">g</hi>.1; MS IX; <hi rend="italic">Works</hi> [1903])&#x2014;Lines 35&#x2013;38, 
                     the final two couplets of the poem, were omitted without comment in <hi rend="italic">Poems</hi> (1891). In the Library Edition (1903), the editors 
                     restored the lines, noting: &#x201C;These four lines of &#x2018;rabid Protestantism&#x2019;&#x201D; (<hi rend="italic">Seven Lamps</hi>, <date when="1880">1880</date>, Pref.) were
                     omitted in the ed. of <date when="1891">1891</date>" (<ref type="bibliography" target="bibliography.php#JRWORKSLE">Ruskin, <title type="book" corresp="#JRWORKSLE" rend="italic">Works</title></ref>, 2:343 n. 1). 

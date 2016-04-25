@@ -58,7 +58,7 @@
     <text>
         <body>
             <div type="glosses">
-                <note xml:id="PASSTHEALPSGLOSS" resp="#DCH">&#x201C;To day we pass the Alps&#x201D; (MS IA, <hi rend="ital">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The 
+                <note xml:id="PASSTHEALPSGLOSS" resp="#DCH">&#x201C;To day we pass the Alps&#x201D; (MS IA, <hi rend="italic">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;The 
                     Ruskin family approached the <geogName corresp="#ALPS">Alps</geogName> 
                     for the first time from the north, traveling from <placeName corresp="#SCHAFFHAUSEN">Schaffhausen</placeName> and <placeName corresp="#CONSTANCE">Constance</placeName>, 
                     and they crossed into <placeName corresp="#ITALY">Italy</placeName> through the <geogName corresp="#VIAMALA">Via Mala</geogName> and the <geogName corresp="#SPLUGEN">Spl&#x00FC;gen Pass</geogName> 
@@ -127,18 +127,18 @@
                     to stand in for &#x201C;The Grand St. Bernard,&#x201D; which <persName corresp="#JR">Ruskin</persName> never composed, by associating the reference to 
                     <persName corresp="#HANNIBAL">Hannibal</persName>&#x02BC;s crossing with a western passage where the event belongs historically.</note>
                 
-                <note xml:id="BARRIERGLOSS" resp="#DCH">&#x201C;The barrier of boundless length&#x201D; (MS IA, <hi rend="ital">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;Cf. &#x201C;To me they [the <placeName corresp="ALPS">Alps</placeName>] seemed the barriers of a world&#x201D; 
+                <note xml:id="BARRIERGLOSS" resp="#DCH">&#x201C;The barrier of boundless length&#x201D; (MS IA, <hi rend="italic">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;Cf. &#x201C;To me they [the <placeName corresp="ALPS">Alps</placeName>] seemed the barriers of a world&#x201D; 
                     (<ref type="bibliography" target="bibliography.php#ROGERSITALY1830">Rogers, <hi rend="italic">Italy</hi> (1830)</ref>, 30).</note>
                 
-                <note xml:id="QUEENOFNATIONSGLOSS" resp="#DCH">&#x201C;The Queen of nations&#x201D; (MS IA, <hi rend="ital">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;<placeName corresp="#ROMEANCIENT">Ancient Rome</placeName>.</note>
+                <note xml:id="QUEENOFNATIONSGLOSS" resp="#DCH">&#x201C;The Queen of nations&#x201D; (MS IA, <hi rend="italic">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;<placeName corresp="#ROMEANCIENT">Ancient Rome</placeName>.</note>
                 
-                <note xml:id="CARTHAGINIANFOEGLOSS" resp="#DCH">&#x201C;The Carthaginian foe . . . Avalanches roar&#x201D; (MS IA, <hi rend="ital">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;In <date when="-0218">218 BC</date>, 
+                <note xml:id="CARTHAGINIANFOEGLOSS" resp="#DCH">&#x201C;The Carthaginian foe . . . Avalanches roar&#x201D; (MS IA, <hi rend="italic">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;In <date when="-0218">218 BC</date>, 
                     near the start of the <date notBefore="-0218" notAfter="-0201">Second Punic War</date> between <placeName corresp="#CARTHAGEANCIENT">Carthage</placeName> and <placeName corresp="#ROMEANCIENT">Rome</placeName>, 
                     the Carthaginian leader, <persName corresp="#HANNIBAL">Hannibal</persName>, led his army on an unprecedented march across the <geogName corresp="#ALPS">Alps</geogName>, 
                     invading <placeName corresp="#ITALY">Italy</placeName> and surprising <placeName corresp="#ROMEANCIENT">Rome</placeName> via a western passage somewhere in present&#x2010;day 
                     <placeName corresp="#PIEDMONT">Piedmont</placeName>.</note>
                 
-                <note xml:id="CANNAESPLAINGLOSS" resp="#DCH">&#x201C;<placeName corresp="#CANNAE">Cann&#230;</placeName>s plain&#x201D; (MS IA, <hi rend="ital">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;An area in <placeName corresp="#APULIA">Apulia</placeName>, 
+                <note xml:id="CANNAESPLAINGLOSS" resp="#DCH">&#x201C;<placeName corresp="#CANNAE">Cann&#230;</placeName>s plain&#x201D; (MS IA, <hi rend="italic">g</hi>.2; <hi rend="italic">Poems</hi> [1891]; <hi rend="italic">Works</hi> [1903])&#x2014;An area in <placeName corresp="#APULIA">Apulia</placeName>, 
                     in southeast <placeName corresp="#ITALY">Italy</placeName>, where <persName corresp="#HANNIBAL">Hannibal</persName>&#x02BC;s 
                     army won a major victory over a large Roman force in <date when="-0216">216 BC</date>.</note>
             </div>

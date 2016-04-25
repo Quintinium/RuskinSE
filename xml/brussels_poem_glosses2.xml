@@ -6,7 +6,7 @@
         <fileDesc xml:id="brussels_poem_glosses2">
             <titleStmt>
                 <title type="main">"Brussels" [poem]</title>
-                <title type="sub">Glosses</title>
+                <title type="sub">Glosses2</title>
                 <author>
                     <persName corresp="#DCH">David C. Hanson</persName>
                 </author>
@@ -56,7 +56,7 @@
     <text>
         <body>
             <div type="glosses">
-                <note xml:id="MIND" resp="#DCH">&#x201C;Mind&#x201D; (MS IA, <hi rend="ital">g</hi>.1)&#x2014;This word, written sideways between the columns of the poem, 
+                <note xml:id="MIND" resp="#DCH">&#x201C;Mind&#x201D; (MS IA, <hi rend="italic">g</hi>.1)&#x2014;This word, written sideways between the columns of the poem, 
                     does not appear to be intended as part of &#x201C;Brussels&#x201D; itself; and the hand may not be <persName corresp="#JR">Ruskin</persName>&#x02BC;s, 
                     although the formation of the terminal <hi rend="italic">d</hi> is more characteristic of his hand than of <persName corresp="#MR">Margaret Ruskin</persName>&#x02BC;s, 
                     whose handwriting can sometimes be confused her son&#x02BC;s. The word seems to form an imperative; and while no other clue remains to indicate what was to be &#x201C;minded,&#x201C; 

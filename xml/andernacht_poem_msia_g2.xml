@@ -95,7 +95,7 @@
                     <l>We have wound a weary way</l>
                     <l>Twilights mists are gathering grey</l>
                     <l>Purple now the hills are showing<add rend="linenumber-right-JR">380</add></l>
-                    <l>Bright the western clouds are glowing.</l>
+                    <l>Bright the western clouds are glowing</l>
                     <l>Lashing on with giant force</l>
                     <l>Rolls the <geogName corresp="#RHINE">Rhine</geogName> his sullen course</l>
                     <l>Flash his waves with flamy red</l>
@@ -105,8 +105,8 @@
                     <l>Ever noble, ever free</l>
                     <l>Flows his river majesty</l>
                     <l>Now upon the evening skies<add rend="linenumber-right-JR">390</add></l>
-                    <l><placeName corresp="#ANDERNACH">Andernacht</placeName>s hoar ruins rise</l>
-                    <l>Memorials of the Roman power</l>
+                    <l><placeName corresp="#ANDERNACH">Andernacht</placeName>s hoar ruins rise<ref type="gloss" target="andernacht_glosses.php#ANDERNACHTSGREYRUINS"/></l>
+                    <l>Memorials of the <placeName corresp="#ROMEANCIENT">Roman</placeName> power<ref type="gloss" target="andernacht_glosses.php#ROMANPOWERGLOSS"/></l>
                     <l>Buttress and battlement and tower</l>
                     <l>Decaying falling fast away</l>
                     <l>The monuments of <persName corresp="#JULIUSCAESAR">Caesar</persName>s sway<add rend="linenumber-right-JR">395</add></l>
@@ -118,7 +118,7 @@
                     <l>The green sod in the moat is growing<add rend="linenumber-right-JR">400</add></l>
                     <l>The cold wind in the chambers blowing</l>
                     <l>And flapping through the thin night air</l>
-                    <l>The owl and bat the tennants there</l>
+                    <l>The owl and bat the tenants there</l>
                 </lg>
             </div>
         </body>

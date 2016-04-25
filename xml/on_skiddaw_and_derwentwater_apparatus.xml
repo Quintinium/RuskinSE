@@ -243,10 +243,10 @@
                             and split into two poems for publication in the <title type="periodical" corresp="#SPIRITUALTIMES"><hi rend="italic">Spiritual Times</hi>: A Monthly Magazine</title>. 
                             Thus, <persName corresp="#JR">Ruskin</persName>&#x02BC;s first poem to appear in print, and his first publication of any kind, was 
                             <ref type="bibliography" target="bibliography.php#JRLINESCUMBERLAND1829"><title type="poem" corresp="#JRLINESCUMBERLAND1829">&#x201C;Lines Written at the Lakes in Cumberland. &#x007C; <hi rend="italic">Derwentwater</hi>&#x201D;</title></ref>, 
-                            which was signed &#x201C;<persName type="pen_name">R&#x2014;</persName>&#x201D;, and which appeared in the <date when="1829-08-01">1 August 1829</date> (vol. 1, no. 4) issue. 
+                            which was signed &#x201C;<persName type="pen_name" corresp="#JR">R&#x2014;</persName>&#x201D;, and which appeared in the <date when="1829-08-01">1 August 1829</date> (vol. 1, no. 4) issue. 
                             <persName corresp="#JR">Ruskin</persName>&#x02BC;s second publication was 
                             <ref type="bibliography" target="bibliography.php#JRONSKIDDAWANDDERWENTWATER1830"><title type="poem" corresp="#JRONSKIDDAWANDDERWENTWATER1830">&#x201C;On Skiddaw and Derwent&#x2010;Water&#x201D;</title></ref>, 
-                            which was signed &#x201C;<persName type="pen_name">R.</persName>&#x201D;, and which appeared in the <date when="1830-02">February 1830</date> (vol. 1, no. 10) issue. 
+                            which was signed &#x201C;<persName type="pen_name" corresp="#JR">R.</persName>&#x201D;, and which appeared in the <date when="1830-02">February 1830</date> (vol. 1, no. 10) issue. 
                             The responsibility and authority for the splitting and revision of the poem are unknown. As the editors of the <title type="book" corresp="#JRWORKSLE">Library Edition</title> speculate, 
                             the revision presumably was guided either by the magazine&#x02BC;s editor, 
                             the <ref type="note" subtype="biographical" target="andrews_edward_note.php"><persName corresp="#EA">Reverend Edward Andrews (1787&#x2013;1841)</persName></ref>, 
@@ -726,20 +726,20 @@
                         <persName corresp="#AE">Alexander Elder</persName> (1790&#x2013;1876). All were Scotsmen; and <persName corresp="#AE">Elder</persName>&#x02BC;s publishing firm, 
                         <orgName corresp="#SMITHELDER">Smith, Elder</orgName>, even employed <persName corresp="#JR">Ruskin</persName>&#x02BC;s cousin, 
                         <ref type="note" subtype="biographical" target="richardson_charles_note.php">Charles Thomas Richardson (1811&#x2013;34)</ref>, as a shop boy. These professional yet 
-                        also personal acquaintances would help to shape the literary persona known as <persName type="pen_name">&#x201C;J.R.&#x201D;</persName>, which had already gotten his start as 
-                        <persName type="pen_name">&#x201C;R.&#x201D;</persName> in the <title type="periodical" corresp="#SPIRITUALTIMES"><hi rend="italic">Spiritual Times</hi></title>.</p>
+                        also personal acquaintances would help to shape the literary persona known as <persName type="pen_name" corresp="#JR">&#x201C;J.R.&#x201D;</persName>, which had already gotten his start as 
+                        <persName type="pen_name" corresp="#JR">&#x201C;R.&#x201D;</persName> in the <title type="periodical" corresp="#SPIRITUALTIMES"><hi rend="italic">Spiritual Times</hi></title>.</p>
                     <p>In <date when="1829">1829</date>, not only could the Ruskins claim personal connections with <persName corresp="#EA">Andrews</persName>, but the 
                         <placeName corresp="#WALWORTH">Walworth</placeName> preacher could impress them with his own share of fame. He was a rising star in the metropolitan pulpit, 
                         an eloquent and popular clergyman whose dashing appearance commanded no fewer than a dozen painted, engraved, and sculpted portraits in his lifetime 
                         (<ref type="bibliography" target="bibliography.php#ANSTRUTHERCOVENTRYPATMORESANGEL">Anstruther, <hi rend="italic">Coventry Patmore&#x02BC;s Angel</hi></ref>, 123&#x2013;24). 
                         &#x201C;What a nice face he has,&#x201C; commented the young <persName corresp="#JR">John Ruskin</persName>. Yet, unlike the distinguished Scotsmen who ushered 
-                        <persName type="pen_name">&#x201C;J.R.&#x201D;</persName> into the limelight in <date notBefore="1834" notAfter="1835">1834&#x2013;35</date>, 
+                        <persName type="pen_name" corresp="#JR">&#x201C;J.R.&#x201D;</persName> into the limelight in <date notBefore="1834" notAfter="1835">1834&#x2013;35</date>, 
                         <persName corresp="#EA">Andrews</persName> fell from grace. Perhaps the main discouragement to giving <persName corresp="#JR">Ruskin</persName>&#x02BC;s first 
                         publication its full due was the pronouncement by the elder Ruskins in <date when="1831">1831</date> that, while &#x201C;the Dr. has wonderful talents . . . 
                         he is certainly fighty&#x201D; and on his way to compromising &#x201C;his respectability and fortune and prevent[ing] his filling that place in society his talents entitle him to&#x201D; 
                         (<ref type="bibliography" target="bibliography.php#RFL"><hi rend="italic">Ruskin Family Letters</hi></ref>, 200, 243; and see 
                         <ref type="note" subtype="biographical" target="andrews_edward_note.php"><persName corresp="#EA">Reverend Edward Andrews</persName> [1787&#x2013;1841]</ref>). 
-                        It must have seemed intolerable that the literary birth of <persName type="pen_name">&#x201C;J.R.&#x201D;</persName> could have been attended by anything less than 
+                        It must have seemed intolerable that the literary birth of <persName type="pen_name" corresp="#JR">&#x201C;J.R.&#x201D;</persName> could have been attended by anything less than 
                         the most solid assurances of success, much less the want of respectability.</p>
                 </div>
                 

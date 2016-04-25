@@ -5,7 +5,7 @@
     <teiHeader type="witness">
         <fileDesc xml:id="account_of_a_tour_on_the_continent_msix_aix_la_chapelle_title">
             <titleStmt>
-                <title type="main">"Aix la Chapelle" [section title]</title>
+                <title type="main">"Aix La Chapelle" [section title]</title>
                 <title type="sub">Electronic Text Generated from a Transcription of MS IX Fair Copy</title>
                 <author>
                     <persName corresp="#JR">John Ruskin</persName>
@@ -56,8 +56,8 @@
                     </msIdentifier>
                     <msContents>
                         <msItem>
-                            <locus facs="MSIX28V-29R.jpg">pp. ##-##</locus>
-                            <note>Ruskin here begins the subsection "Cassel" of 
+                            <locus facs="MSIX28V-29R.jpg">p. 29r</locus>
+                            <note>Ruskin here begins the subsection "Aix la Chapelle" of 
                                 <ref type="apparatus" target="account_of_a_tour_on_the_continent_apparatus.php">Account of a Tour on the Continent</ref>.</note>
                             <filiation><!--Entry needed here.--></filiation>
                         </msItem>
@@ -80,7 +80,7 @@
     </teiHeader>
     <text>
         <body>
-            <pb facs="MSIX29R.jpg"/>
+            <pb facs="MSIX29r"/>
             <div type="title">
                 <head type="section"><space quantity="11" unit="chars"/><handShift new="#HANDJR1833-34" script="print" medium="ink"/><hi rend="smallcaps">AIX LA CHAPELLE</hi></head> 
             </div>

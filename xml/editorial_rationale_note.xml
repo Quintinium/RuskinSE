@@ -11,10 +11,10 @@
                     <persName corresp="#DCH">David C. Hanson</persName>
                 </author>
                 <editor>
-                    <persName corresp="DCH">David C. Hanson</persName>
+                    <persName corresp="#DCH">David C. Hanson</persName>
                 </editor>
                 <principal>
-                    <persName corresp="DCH">David C. Hanson</persName>
+                    <persName corresp="#DCH">David C. Hanson</persName>
                 </principal>
                 <respStmt>
                     <persName corresp="#KCM">Katie C. Moore</persName>
@@ -120,25 +120,26 @@
                                 <persName corresp="#JR">Ruskin</persName>&#x02BC;s texts. 
                                 A given work may be confined, so far as presently known, to a single text witness found in a single manuscript; 
                                 or a work may be made up of multiple text witnesses found in more than one manuscript. In the archive, 
-                                a manuscript is represented by an explanatory apparatus; its contents are represented by the <hi rend="italic">works</hi> 
+                                a manuscript is represented by an explanatory apparatus; and its contents are represented by the <hi rend="italic">works</hi> 
                                 (text witness(es) and apparatuses) that constitute the manuscript.</item>
                         </list>
                         
                         <p>As translated into Web pages, these two sets of materials form a given work&#x02BC;s Work Pages,
                             and a given manuscript&#x02BC;s Manuscript Pages (see <ref type="note" subtype="bibliographical" target="plan_of_archive_note.php">Plan of the Archive</ref>). 
-                            This organization arose from our determination editorially to strive for a double centeredness, which reflects 
+                            This organization arose from the editor&#x02BC;s determination to strive for a double centeredness, reflecting 
                             a creative tension between <persName corresp="#JR">Ruskin</persName>&#x02BC;s composition of a unitary work and his dynamic conception 
-                            of the collection containing that work. From the earliest juvenilia, <persName corresp="#JR">Ruskin</persName> was evidently fascinated by the dynamic potential of a work 
-                            to contain or be contained by something else&#x2014;doubling the central unit of composition.</p>
+                            of a collection containing that work. From the earliest juvenilia, <persName corresp="#JR">Ruskin</persName> was evidently fascinated by the dynamic potential of a work 
+                            to contain or be contained by something else.</p>
                         <p>Historically, a more static editorial approach to the early manuscripts was adopted by 
                             <ref type="note" subtype="biographical" target="collingwood_w_g_note.php"><persName corresp="#WGC">W. G. Collingwood</persName></ref>, the editor of 
                             <ref type="note" subtype="bibliographical" target="poems_1891_note.php"><title type="book" corresp="#JRPOEMS1891"><hi rend="italic">Poems</hi> (1891)</title></ref>, and, 
                             following his suit, by <ref type="note" subtype="biographical" target="cook_e_t_note.php"><persName corresp="#ETC">E. T. Cook</persName></ref> and 
                             <ref type="note" subtype="biographical" target="wedderburn_note.php"><persName corresp="#AW">Alexander Wedderburn</persName></ref>, the editors of the 
                             <ref type="note" subtype="bibliographical" target="library_edition_note.php"><title type="book" corresp="#JRWORKSLE">Library Edition</title></ref>. 
-                            They separated the early writing by genre, poetry and prose, with  <persName corresp="#WGC">Collingwood</persName> taking the lead by dividing his task 
-                            into the <title type="book" corresp="#JRPOEMS1891"><hi rend="italic">Poems</hi> (1891)</title> and a planned complementary edition of prose&#x2014;the latter never realized under his editorship. 
-                            Accordingly, when <persName corresp="#WGC">Collingwood</persName> fashioned the first descriptive bibliography of the early manuscripts, the 
+                            They separated the early writing by genre, poetry and prose, with <persName corresp="#WGC">Collingwood</persName> having taken the lead in dividing the task 
+                            into the <title type="book" corresp="#JRPOEMS1891"><hi rend="italic">Poems</hi> (1891)</title> and a planned complementary edition of prose&#x2014;the latter never realized under his editorship 
+                            (and only in slapdash fashion under <persName corresp="#ETC">Cook</persName> and <persName corresp="#AW">Wedderburn</persName>&#x02BC;s). 
+                            Accordingly, when <persName corresp="#WGC">Collingwood</persName> compiled the first descriptive bibliography of the early manuscripts, the 
                             <title type="bibliography_text" corresp="#COLLINGWOODPRELIMINARYNOTE">&#x201C;Preliminary Note on the Original MSS. of the Poems&#x201D;</title>, 
                             published as an appendix to the <title type="book" corresp="#JRPOEMS1891"><hi rend="italic">Poems</hi> (1891)</title>, 
                             he awkwardly set apart the verse manuscripts from prose manuscripts in the archive available to him, 
@@ -152,14 +153,16 @@
                             <persName corresp="#ETC">Cook</persName> and <persName corresp="#AW">Wedderburn</persName> addressed the problems raised by this division only imperfectly. 
                             The editors maintained <persName corresp="#WGC">Collingwood</persName>&#x02BC;s scheme by separately housing early prose and poetry (volumes 1 and 2, respectively), 
                             but in the prose volume they did not attempt to match <persName corresp="#WGC">Collingwood</persName>&#x02BC;s <title type="bibliography_text" corresp="#COLLINGWOODPRELIMINARYNOTE">&#x201C;Preliminary Note&#x201D;</title> 
-                            on the poetry with a corresponding bibliographical description of the prose. Rather, in volume 1 they hastily repackaged 
-                            <ref type="note" subtype="biographical" target="allen_george_note"><persName corresp="#GA">George Allen</persName> (<date notBefore="1832" notAfter="1907">1832&#x2013;1907</date>)</ref> 
-                            existing republications of early prose from the <date notBefore="1890" notAfter="1899">1890s</date>. In the second volume of the <title type="book" corresp="#JRWORKSLE">Library Edition</title>, 
+                            for the poetry with a corresponding bibliographical description of the prose. Rather, in volume 1 they hastily repackaged 
+                            existing republications of early prose from the <date notBefore="1890" notAfter="1899">1890s</date> by 
+                            <ref type="note" subtype="biographical" target="allen_george_note"><persName corresp="#GA">George Allen</persName> (<date notBefore="1832" notAfter="1907">1832&#x2013;1907</date>)</ref>. 
+                            In the second volume of the <title type="book" corresp="#JRWORKSLE">Library Edition</title>, 
                             &#x201C;Poems,&#x201D; the editors reprinted <persName corresp="#WGC">Collingwood</persName>&#x02BC;s <title type="bibliography_text" corresp="#COLLINGWOODPRELIMINARYNOTE">&#x201C;Preliminary Note&#x201D;</title>, 
-                            only expanding it with brief descriptions of some additional verse manuscripts, and with lists by title of the poems contained in the manuscripts, 
-                            but without questioning the fundamental logic or serviceability of separating poetry manuscripts from prose 
-                            (<ref type="bibliography" target="bibliography.php#JRWORKSLE">Ruskin, <hi rend="italic">Works</hi></ref>, 2:529&#x2013;41). 
-                            Of physical manuscripts that the editors found at <placeName corresp="#BRANTWOOD">Brantwood</placeName> that contained exclusively early prose, 
+                            expanding it only with brief descriptions of some additional verse manuscripts, and with lists by title of the poems contained in the manuscripts&#x2014;a useful enough enhancement, 
+                            so far as it went, but failing to question the fundamental logic or serviceability of separating the poetry manuscripts from the prose in the first place 
+                            (<ref type="bibliography" target="bibliography.php#JRWORKSLE">Ruskin, <hi rend="italic">Works</hi></ref>, 2:529&#x2013;41).</p>
+                        <p>While organizing the manuscripts that the editors found at <placeName corresp="#BRANTWOOD">Brantwood</placeName> during preparation of the 
+                            <title type="book" corresp="#JRWORKSLE">Library Edition</title>, they bound those that contained early prose exclusively, 
                             they bound some along with poems (e.g., forming <ref type="apparatus" target="msia_apparatus.php"><title type="manuscript" corresp="#MSIA">MS IA</title></ref>), 
                             while omitting mention of those prose pieces in their revision of the bibliographical <title type="bibliography_text" corresp="#COLLINGWOODPRELIMINARYNOTE">&#x201C;Preliminary Note&#x201D;</title>; 
                             and they bound or preserved some other physical manuscripts containing prose early works, relegating their description to the &#x201D;Bibliography&#x201D; volume (vol. 39) 
@@ -310,14 +313,15 @@
                             completed &#x201C;Volume I&#x201D; of this prose work without filling the notebook&#x2014;a terminus 
                             that he declared by inscribing &#x201C;end of harry and Lucy&#x201D;&#x2014;and he went on to extend the contents with an anthology, 
                             <ref type="apparatus" target="msi_poetry_anthology_apparatus.php"><title type="anthology" corresp="#MSIPOETRYANTHOLOGY">&#x201C;Poetry&#x201D; [MS I Poetry Anthology]</title></ref>. 
-                            This, too, reached a terminus, which he declared with a colophon:</p>
-                            <ab type="colophon" rend="center">
+                            This, too, reached a terminus, which he declared with a colophon:
+                            <hi rend="center">
                                 The end<lb/>
                                 <placeName corresp="#HERNE">hernhill</placeName><lb/>
                                 <placeName corresp="#FOUNTAINST">fountain street</placeName><lb/> 
                                 <del rend="scratchout">end of the poems</del><lb/>
-                                juvenile library <placeName corresp="#FOUNTAINST">fountain street</placeName><lb/>
-                            </ab>
+                                juvenile library <placeName corresp="#FOUNTAINST">fountain street</placeName>
+                            </hi>
+                        </p>
                         <p>The colophon reflects the play of closure by declaring a second ending&#x2014;the &#x201C;end of the poems&#x201D;&#x2014;specifying 
                             the end of the poetry anthology. This declaration was erased by somebody, using a rough pencil scratchout, 
                             perhaps in order to shift the emphasis to the end of a larger entity comprising 

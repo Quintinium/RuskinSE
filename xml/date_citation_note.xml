@@ -17,7 +17,7 @@
                     <persName corresp="#DCH">David C. Hanson</persName>
                 </principal>
                 <respStmt>
-                    <persName corresp="CWB">Charles W. Borchers, IV</persName>
+                    <persName corresp="#CWB">Charles W. Borchers, IV</persName>
                     <resp>contributing review</resp>
                 </respStmt>
                 <respStmt>

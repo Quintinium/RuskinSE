@@ -56,7 +56,7 @@
                     </msIdentifier>
                     <msContents>
                         <msItem>
-                            <locus facs="image.jpg image.jpg">pp. ##-##</locus>
+                            <locus facs="MSIX15v.jpg">p. 15v</locus>
                             <note>Ruskin here begins the subsection "Cassel" of 
                                 <ref type="apparatus" target="account_of_a_tour_on_the_continent_apparatus.php">Account of a Tour on the Continent</ref>.</note>
                             <filiation><!--Entry needed here.--></filiation>
@@ -80,7 +80,7 @@
     </teiHeader>
     <text>
         <body>
-            <pb facs="MSIX15V-16R.jpg"/>
+            <pb facs="MSIX15v"/>
             <div type="title">
                 <head type="section"><space quantity="12" unit="chars"/><handShift new="#HANDJR1833-34" script="print" medium="ink"/><hi rend="smallcaps">CASSEL</hi></head> 
             </div>
