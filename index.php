@@ -69,7 +69,7 @@ function get_response($url) {
 	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
 	
 	// Tell CURl to timeout the connection in 3 seconds if the server does not respond.
-	curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 3);
+	curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
 	
 	// Perform the CURL operation.
 	curl_exec($curl_handle);
@@ -186,6 +186,9 @@ if ($handle = opendir($xml_folder)) {
 	// Keep track of skipped handShift tags.
 	$handshift_tags = 0;
 	
+	// Keep track of connectivity errors.
+	$connectivity_error = 0;
+	
 	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
 	
 	// Iterate through the files in our directory.
@@ -264,9 +267,13 @@ if ($handle = opendir($xml_folder)) {
 		// Determine whether the requested URL exists.
 		$code = get_response($url);
 		
-		if ($code != '200') {
+		if ($code == '404') {
 			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (missing)</span>";
 			$missing_count++;
+			continue;
+		} elseif ($code != '200') {
+			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (could not connect to the server)</span>";
+			$connectivity_error++;
 			continue;
 		}
 		
@@ -398,6 +405,7 @@ if ($handle = opendir($xml_folder)) {
 	<br />Keywords that were inside of other keywords and were merged: ' . $tags_in_tags . '
 	<br />Documents skipped due to malformed XML: ' . $malformed_count . '
 	<br />Documents skipped that were missing on website (such as some drawings/figures that have not yet been added to the showcase): ' . $missing_count . '
+	<br />Documents skipped due to a connectivity issue with the server: ' . $connectivity_error . '
 	<br />Documents skipped that were not needed (in the witnesses folder on the site): ' . $not_needed . '
 	<br />Database errors: ' . $database_errors . '</b>';
 	
