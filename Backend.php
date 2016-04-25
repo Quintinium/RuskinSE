@@ -195,7 +195,22 @@ if (isset($_POST['keyword'])) {
 	if (isset($_POST['full_text_of_document'])) {
 		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . $_POST['keyword'] . "%' ";
 	} else {
-		$query = "SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . $_POST['keyword'] . "%' ";
+		$query = "SELECT
+		`documents`.`id`,
+		`documents`.`title`,
+		`documents`.`doctype`,
+		`documents`.`divtype`,
+		`documents`.`subtype`,
+		`documents`.`rhyme`,
+		`documents`.`meter`,
+		`documents`.`ispoem`,
+		`documents`.`text`,
+		`documents`.`url`,
+		`keywords`.`tag`,
+		`keywords`.`type`,
+		`keywords`.`corresp`,
+		`keywords`.`content`
+		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . $_POST['keyword'] . "%' ";
 	}
 	
 	if (isset($_POST['is_poem_document'])) {
@@ -226,10 +241,14 @@ if (isset($_POST['keyword'])) {
 	
 	//echo 'Here is our query: ' . $query;
 	
+	$nubmerOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
+	$nubmerOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
+	
 	$results = mysql_query($query);
 	
 	echo '<div class="container results-container">
 	<h2>Search results for <span class="italic">"' . $_POST['keyword'] . '"</span> :</h2>
+	<h3>Found <span style="color: red;">' . $nubmerOfResults['result'] . '</span> results in <span style="color: red;">' . $nubmerOfDocuments['result'] . '</span> documents:</h3>
 			<div class="divider"></div>';
 			
 	while ($row = mysql_fetch_assoc($results)) {
