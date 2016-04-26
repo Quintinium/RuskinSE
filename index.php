@@ -11,8 +11,6 @@
 // Load MySQL credentials from config file.
 include('config.php');
 
-
-
 // Turn off output buffering so output is immediately printed to the screen rather than waiting until the entire page finishes downloading.
 ob_implicit_flush(1);
 
@@ -97,27 +95,27 @@ function get_response($url) {
 function insertKeyword($docid, $tag, $type, $corresp, $content) {
 	global $db_conn, $database, $keyword_count, $database_errors;
 	
-	$insertkeywords = "INSERT INTO `" . $db_conn->real_escape_string($database) . "`.`keywords` (
+	$insertkeywords = "INSERT INTO `" . mysql_real_escape_string($database) . "`.`keywords` (
 	`docid`,
 	`tag`,
 	`type`,
 	`corresp`,
 	`content`
 	) VALUES (
-		'" . $db_conn->real_escape_string($docid) . "',
-		'" . $db_conn->real_escape_string($tag) . "',
-		'" . $db_conn->real_escape_string($type) . "',
-		'" . $db_conn->real_escape_string($corresp) . "',
-		'" . $db_conn->real_escape_string($content) . "'
+		'" . mysql_real_escape_string($docid) . "',
+		'" . mysql_real_escape_string($tag) . "',
+		'" . mysql_real_escape_string($type) . "',
+		'" . mysql_real_escape_string($corresp) . "',
+		'" . mysql_real_escape_string($content) . "'
 	);";
 	
-	// Perform the MySQLi query.
-	if (mysqli_query($db_conn, $insertkeywords)) {
+	// Perform the mysql query.
+	if (mysql_query($insertkeywords)) {
 		echo "<br /><span style='color: blue; font-weight: bold;'>SUCCESS, added keyword: '" .$content . "'</span>";
 		$keyword_count++;
 	} else {
 		// If there was an error performing the query, output the error.
-		echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
+		echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the mysql query: " . mysql_error() . "</span>";
 		$database_errors++;
 	}
 }
@@ -137,9 +135,14 @@ function rstrpos($haystack, $needle, $offset){
 if ($handle = opendir($xml_folder)) {
 	
 	// Attempt to connect to the MySQL server.
-	if (!$db_conn = mysqli_connect($servername, $username, $password)) {
-		die("Failed to connect to the MySQL server: " . mysqli_connect_errno());
-	} 
+	if (!$db_conn = mysql_connect($servername, $username, $password)) {
+		die("Failed to connect to the MySQL server: " . mysql_error());
+	}
+	
+	// Attempt to connect to the database.
+	if (!mysql_select_db($database)) {
+		die("Failed to select the database: " . $database);
+	}
 	
 	// Define an array to the hold the names of the files in our directory.
 	$files = array();
@@ -190,6 +193,22 @@ if ($handle = opendir($xml_folder)) {
 	$connectivity_error = 0;
 	
 	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
+	
+	// Attempt to clear the documents table.
+	if (mysql_query("TRUNCATE `documents`;")) {
+		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully cleared `documents` table.</span>";
+	} else {
+		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error clearing the `documents` table: " . mysql_error() . "</span>";
+	}
+	
+	// Attempt to clear the keywords table.
+	if (mysql_query("TRUNCATE `keywords`;")) {
+		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully cleared `keywords` table.</span>";
+	} else {
+		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error clearing the `keywords` table: " . mysql_error() . "</span>";
+	}
+	
+	echo "<br /><br />";
 	
 	// Iterate through the files in our directory.
 	foreach ($files AS $entry) {
@@ -284,7 +303,7 @@ if ($handle = opendir($xml_folder)) {
 		}
 		
 		// Constrcut an SQL query to insert the document into the MySQL database.
-		$insert = "INSERT INTO `" . $db_conn->real_escape_string($database) . "`.`documents` (
+		$insert = "INSERT INTO `" . mysql_real_escape_string($database) . "`.`documents` (
 			`title`,
 			`doctype`,
 			`divtype`,
@@ -295,28 +314,27 @@ if ($handle = opendir($xml_folder)) {
 			`text`,
 			`url`
 		) VALUES (
-			'" . $db_conn->real_escape_string($title) . "',
-			'" . $db_conn->real_escape_string($doctype) . "',
-			'" . $db_conn->real_escape_string($divtype) . "',
-			'" . $db_conn->real_escape_string($subtype) . "',
-			'" . $db_conn->real_escape_string($rhyme) . "',
-			'" . $db_conn->real_escape_string($meter) . "',
-			'" . $db_conn->real_escape_string($ispoem) . "',
-			'" . $db_conn->real_escape_string($text) . "',
-			'" . $db_conn->real_escape_string($url) . "'
+			'" . mysql_real_escape_string($title) . "',
+			'" . mysql_real_escape_string($doctype) . "',
+			'" . mysql_real_escape_string($divtype) . "',
+			'" . mysql_real_escape_string($subtype) . "',
+			'" . mysql_real_escape_string($rhyme) . "',
+			'" . mysql_real_escape_string($meter) . "',
+			'" . mysql_real_escape_string($ispoem) . "',
+			'" . mysql_real_escape_string($text) . "',
+			'" . mysql_real_escape_string($url) . "'
 		);";
 		
-		// Perform the MySQLi query.
-		if (mysqli_query($db_conn, $insert)) {
+		// Perform the mysql query.
+		if (mysql_query($insert)) {
 			echo "<br /><br /><span style='color: green; font-weight: bold;'>SUCCESS: '" . $filename . "'</span>";
-			$docid = mysqli_insert_id($db_conn);
+			$docid = mysql_insert_id($db_conn);
 			$success_count++;
 		} else {
 			// If there was an error performing the query, output the error.
-			echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error with the MySQLi query: " . $db_conn->error . "</span>";
+			echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error with the mysql query: " . mysql_error() . "</span>";
 			$database_errors++;
 		}
-		
 		
 		$strdivpos = strpos($text,'<div');
 		$enddivpos = strpos($text,'>',$strdivpos);
@@ -416,7 +434,7 @@ if ($handle = opendir($xml_folder)) {
 	<br />Database errors: ' . $database_errors . '</b>';
 	
 	// Close the connection to our MySQL server.
-	mysqli_close($db_conn);
+	mysql_close($db_conn);
 	
 	// Close our directory handle.
     closedir($handle);
