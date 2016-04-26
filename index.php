@@ -93,7 +93,7 @@ function get_response($url) {
 
 // Function to insert keywords into database.
 function insertKeyword($docid, $tag, $type, $corresp, $content, $keyword) {
-	global $db_conn, $database, $keyword_count, $database_errors;
+	global $db_conn, $database, $keyword_count, $database_errors, $duplicate_tags;
 	
 	$insertkeywords = "INSERT INTO `" . mysql_real_escape_string($database) . "`.`keywords` (
 	`docid`,
@@ -117,8 +117,13 @@ function insertKeyword($docid, $tag, $type, $corresp, $content, $keyword) {
 		$keyword_count++;
 	} else {
 		// If there was an error performing the query, output the error.
-		echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the mysql query: " . mysql_error() . "</span>";
-		$database_errors++;
+		if (strpos(mysql_error(), 'Duplicate') !== false) {
+			echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING duplicate keyword in this document: '" . $tag . "' with content '" . $content . "'</span>";
+			$duplicate_tags++;
+		} else {
+			echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the mysql query: " . mysql_error() . "</span>";
+			$database_errors++;
+		}
 	}
 }
 
@@ -193,6 +198,9 @@ if ($handle = opendir($xml_folder)) {
 	
 	// Keep track of connectivity errors.
 	$connectivity_error = 0;
+	
+	// Keep track of the number of duplicate tags.
+	$duplicate_tags = 0;
 	
 	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
 	
@@ -429,6 +437,7 @@ if ($handle = opendir($xml_folder)) {
 	<br />Empty keywords: ' . $empty_keywords . '
 	<br />Handshift keywords that were skipped: ' . $handshift_tags . '
 	<br />Keywords that were inside of other keywords and were merged: ' . $tags_in_tags . '
+	<br />Identical keywords that were skipped after appearing multiple times in the same document: ' . $duplicate_tags . '
 	<br />Documents skipped due to malformed XML: ' . $malformed_count . '
 	<br />Documents skipped that were missing on website (such as some drawings/figures that have not yet been added to the showcase): ' . $missing_count . '
 	<br />Documents skipped due to a connectivity issue with the server: ' . $connectivity_error . '

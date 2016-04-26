@@ -263,42 +263,40 @@ if (isset($_POST['keyword'])) {
 		if ($row['keyword'] == 'title') {
 			$matchingText = $row['content'];
 		} elseif (isset($_POST['full_text_of_document'])) {
+			$row['text'] = html_entity_decode(strip_tags($row['text']));
+			
 			$matchLocation = stripos($row['text'], $_POST['keyword']);
 			
-			if ($matchLocation > 500) {
-				$startLocation = $matchLocation - 500;
+			if ($matchLocation > 250) {
+				$startLocation = $matchLocation - 250;
 			} else {
 				$startLocation = 0;
 			}
 			
-			$row['text'] = substr($row['text'], $startLocation, 1000);
+			$row['text'] = substr($row['text'], $startLocation, 500);
 			
-			$matchingText = strip_tags($row['text']);
+			$startingSpace = strpos($row['text'], '>') + 1;
+			$endingSpace = strrpos($row['text'], '<');
 			
-			$startingSpace = strpos($matchingText, ' ') + 1;
-			$endingSpace = strrpos($matchingText, ' ');
-			
-			$matchingText = '...' . substr($matchingText, $startingSpace, $endingSpace - $startingSpace) . '...';
-			
+			$matchingText = '...' . trim(substr($row['text'], $startingSpace, $endingSpace - $startingSpace)) . '...';
 			$matchingText = str_ireplace($_POST['keyword'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $_POST['keyword'] . '</span>', $matchingText);
 		} else {
+			$row['text'] = html_entity_decode(strip_tags($row['text']));
 			
 			$matchLocation = stripos($row['text'], $row['content']);
 			
-			if ($matchLocation > 1000) {
-				$startLocation = $matchLocation - 1000;
+			if ($matchLocation > 250) {
+				$startLocation = $matchLocation - 250;
 			} else {
 				$startLocation = 0;
 			}
 			
-			$row['text'] = substr($row['text'], $startLocation, 2000);
+			$row['text'] = substr($row['text'], $startLocation, 500);
 			
-			$matchingText = strip_tags($row['text']);
+			$startingSpace = strpos($row['text'], '>') + 1;
+			$endingSpace = strrpos($row['text'], '<');
 			
-			$startingSpace = strpos($matchingText, ' ') + 1;
-			$endingSpace = strrpos($matchingText, ' ');
-			
-			$matchingText = '...' . substr($matchingText, $startingSpace, $endingSpace - $startingSpace) . '...';
+			$matchingText = '...' . trim(substr($row['text'], $startingSpace, $endingSpace - $startingSpace)) . '...';
 			$matchingText = str_ireplace($row['content'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $row['content'] . '</span>', $matchingText);
 		}
 		
