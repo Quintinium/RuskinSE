@@ -47,7 +47,7 @@ if ($_POST['activate_document_filter']) {
 		<input type="text" name="keyword" placeholder="Search..." style="width: 80px;" />
 		<input type="submit" name="submit" value="Go" style="width:35px;" />
 		</form>
-		<span><a class="subnavigation" href="http://localhost/search.php">Advanced Search</a><span>
+		<span><a class="subnavigation" href="http://localhost/backend.php">Advanced Search</a><span>
 		<br>
 		<br>
         <span><a href="http://english.selu.edu/humanitiesonline/ruskin/index.php">Home</a><span>
