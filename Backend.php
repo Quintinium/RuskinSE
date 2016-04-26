@@ -42,7 +42,13 @@ if ($_POST['activate_document_filter']) {
         <hr>
         <span class="navigation-editor"><a href="mailto:ruskinproject@selu.edu">David C. Hanson, Editor</a></span>
         <br>
-        <br>
+		<br>
+		<form action="http://localhost/Backend.php" method="post">
+		<input type="text" name="keyword" placeholder="Search..." style="width: 130px;" />
+		</form>
+		<span><a class="subnavigation" href="http://localhost/search.php">Advanced Search</a><span>
+		<br>
+		<br>
         <span><a href="http://english.selu.edu/humanitiesonline/ruskin/index.php">Home</a><span>
         <span>
         	<br><a href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php">Indices</a>
@@ -61,7 +67,6 @@ if ($_POST['activate_document_filter']) {
         <br>
         <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/legal.php">Legal</a><span>
 		 <br>
-        <span><a href="http://localhost/search.php">Advanced Search</a><span>
 	</span></span></span></span></span></span></span></span></div>
 	
 	<div class="content">
@@ -147,8 +152,8 @@ if ($_POST['activate_document_filter']) {
 				<option value="other">Other</option>
 				<option value="article">Article</option>
 			</select><br />
-			
-		</fieldset></form>
+			</form>
+		</fieldset>
 		<script type ="text/javascript">
 		document.onload = toggle()
 		
@@ -248,10 +253,17 @@ if (isset($_POST['keyword'])) {
 	
 	//echo 'Here is our query: ' . $query;
 	
-	
 	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
 	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
 	
+	/*
+	if (isset($_POST['page'])) {
+		$startPage = ($_POST['page'] - 1) * 5;
+	} else {
+		$startPage = 0;
+	}
+	$query .= " LIMIT " . $startPage .",5";
+	*/
 	$results = mysql_query($query);
 	
 	echo '<div class="container results-container">
@@ -307,6 +319,7 @@ if (isset($_POST['keyword'])) {
 			</div>';
 	}
 	echo '</div>';
+	
 }
 
 ?></div>
