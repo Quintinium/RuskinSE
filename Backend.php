@@ -256,16 +256,57 @@ if (isset($_POST['keyword'])) {
 	
 	echo '<div class="container results-container">
 	<h2>Search results for <span class="italic">"' . $_POST['keyword'] . '"</span> :</h2>
-	<h3>Found <span style="color: red;">' . $numberOfResults['result'] . '</span> results in <span style="color: red;">' . $numberOfDocuments['result'] . '</span> documents:</h3>
+	<h3>Found <span style="background-color: #94FF00;padding: 3px;font-weight: bold;">' . $numberOfResults['result'] . '</span> results in <span style="background-color: #94FF00;padding: 3px;font-weight: bold;">' . $numberOfDocuments['result'] . '</span> documents:</h3>
 			<div class="divider"></div>';
 			
 	while ($row = mysql_fetch_assoc($results)) {
-		echo '<div class="result-container">
-				<b>Location:</b> <a class="italic" href="' . $row['url'] . '">' . $row['url'] . '</a><br />
-				<b>Matching text:</b> <span class="italic">' . $_POST['keyword'] . '</span><br />
-				<b>Document type:</b> ' . $row['divtype'] . '
-			</div>
-			<div style="width: 200px; height: 1px; background-color: #000;"></div>';
+		if ($row['keyword'] == 'title') {
+			$matchingText = $row['content'];
+		} elseif (isset($_POST['full_text_of_document'])) {
+			$matchLocation = stripos($row['text'], $_POST['keyword']);
+			
+			if ($matchLocation > 500) {
+				$startLocation = $matchLocation - 500;
+			} else {
+				$startLocation = 0;
+			}
+			
+			$row['text'] = substr($row['text'], $startLocation, 1000);
+			
+			$matchingText = strip_tags($row['text']);
+			
+			$startingSpace = strpos($matchingText, ' ') + 1;
+			$endingSpace = strrpos($matchingText, ' ');
+			
+			$matchingText = '...' . substr($matchingText, $startingSpace, $endingSpace - $startingSpace) . '...';
+			
+			$matchingText = str_ireplace($_POST['keyword'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $_POST['keyword'] . '</span>', $matchingText);
+		} else {
+			
+			$matchLocation = stripos($row['text'], $row['content']);
+			
+			if ($matchLocation > 1000) {
+				$startLocation = $matchLocation - 1000;
+			} else {
+				$startLocation = 0;
+			}
+			
+			$row['text'] = substr($row['text'], $startLocation, 2000);
+			
+			$matchingText = strip_tags($row['text']);
+			
+			$startingSpace = strpos($matchingText, ' ') + 1;
+			$endingSpace = strrpos($matchingText, ' ');
+			
+			$matchingText = '...' . substr($matchingText, $startingSpace, $endingSpace - $startingSpace) . '...';
+			$matchingText = str_ireplace($row['content'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $row['content'] . '</span>', $matchingText);
+		}
+		
+		echo '<div style="background: #eee;padding: 15px;border-radius: 8px;border: 1px solid #aaa;margin-bottom: 10px;">
+				<span style="font-size: 18px;color: #609;"><a href="' . $row['url'] . '">' . $row['title'] . '</a></span><br />
+				<span style="margin-top: 10px; margin-bottom: 10px;display: block;"><b>Document type:</b> ' . $row['divtype'] . '</span>
+				<span style="font-style: italic;">"' . $matchingText . '"</span><br />
+			</div>';
 	}
 	echo '</div>';
 }

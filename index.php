@@ -92,7 +92,7 @@ function get_response($url) {
 }
 
 // Function to insert keywords into database.
-function insertKeyword($docid, $tag, $type, $corresp, $content) {
+function insertKeyword($docid, $tag, $type, $corresp, $content, $keyword) {
 	global $db_conn, $database, $keyword_count, $database_errors;
 	
 	$insertkeywords = "INSERT INTO `" . mysql_real_escape_string($database) . "`.`keywords` (
@@ -100,13 +100,15 @@ function insertKeyword($docid, $tag, $type, $corresp, $content) {
 	`tag`,
 	`type`,
 	`corresp`,
-	`content`
+	`content`,
+	`keyword`
 	) VALUES (
 		'" . mysql_real_escape_string($docid) . "',
 		'" . mysql_real_escape_string($tag) . "',
 		'" . mysql_real_escape_string($type) . "',
 		'" . mysql_real_escape_string($corresp) . "',
-		'" . mysql_real_escape_string($content) . "'
+		'" . mysql_real_escape_string($content) . "',
+		'" . mysql_real_escape_string($keyword) . "'
 	);";
 	
 	// Perform the mysql query.
@@ -342,7 +344,7 @@ if ($handle = opendir($xml_folder)) {
 		$counter = 0;
 		
 		// Call function to insert keyword in database.
-		insertKeyword($docid, 'title', '', '', $title);
+		insertKeyword($docid, 'title', '', '', $title, 'title');
 		
 		// Loop through each keyword in the body text of the XML document. Keywords are identified by having 'corresp'
 		while (strpos($text, 'corresp="') !== false) {
@@ -415,7 +417,7 @@ if ($handle = opendir($xml_folder)) {
 				$type = '';
 			}
 			
-			insertKeyword($docid, $tag, $type, $corresp, $content);
+			insertKeyword($docid, $tag, $type, $corresp, $content, $keyword);
 		}
     }
 	
