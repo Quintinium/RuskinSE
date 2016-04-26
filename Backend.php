@@ -180,8 +180,15 @@ if ($_POST['activate_document_filter']) {
 // Load MySQL credentials from config file.
 include('config.php');
 
-mysql_connect($servername, $username, $password);
-mysql_select_db($database);
+// Attempt to connect to the MySQL server.
+if (!$db_conn = mysql_connect($servername, $username, $password)) {
+	die("Failed to connect to the MySQL server: " . mysql_connect_errno());
+}
+
+// Attempt to connect to the database.
+if (!mysql_select_db($database)) {
+	die("Failed to select the database: " . $database);
+}
 
 if (isset($_POST['keyword'])) {
 	
@@ -193,7 +200,7 @@ if (isset($_POST['keyword'])) {
 	// This is our base query. We will add constraints to make this query longer
 	// depending on which filters are active.
 	if (isset($_POST['full_text_of_document'])) {
-		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . $_POST['keyword'] . "%' ";
+		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ";
 	} else {
 		$query = "SELECT
 		`documents`.`id`,
@@ -210,23 +217,23 @@ if (isset($_POST['keyword'])) {
 		`keywords`.`type`,
 		`keywords`.`corresp`,
 		`keywords`.`content`
-		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . $_POST['keyword'] . "%' ";
+		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ";
 	}
 	
 	if (isset($_POST['is_poem_document'])) {
-		$query .= 'AND `documents`.`ispoem` = 1 ';
+		$query .= "AND `documents`.`ispoem` = 1 ";
 	}
 	
 	if (isset($_POST['activate_document_filter'])) {
-		$query .= "AND `documents`.`divtype` LIKE '" . $_POST['divtype_document'] . "' ";
+		$query .= "AND `documents`.`divtype` LIKE '" . mysql_real_escape_string($_POST['divtype_document']) . "' ";
 	}
 	
 	if (isset($_POST['activate_tag_filter']) AND !isset($_POST['full_text_of_document'])) {
-		$query .= "AND `keywords`.`tag` LIKE '%" .$_POST['tag_keywords']."%' ";
+		$query .= "AND `keywords`.`tag` LIKE '%" . mysql_real_escape_string($_POST['tag_keywords']) . "%' ";
 	}
 	
 	if ($_POST['type_keywords'] !='aa' AND !isset($_POST['full_text_of_document'])){
-			$query .= "AND `keywords`.`type` LIKE '%" .$_POST['type_keywords']."%' ";
+		$query .= "AND `keywords`.`type` LIKE '%" . mysql_real_escape_string($_POST['type_keywords']) . "%' ";
 	}
 
 	// Finds all poems, and then from these peoms, search for the ones with a title containing "Calais"
@@ -241,14 +248,15 @@ if (isset($_POST['keyword'])) {
 	
 	//echo 'Here is our query: ' . $query;
 	
-	$nubmerOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
-	$nubmerOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
+	
+	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
+	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
 	
 	$results = mysql_query($query);
 	
 	echo '<div class="container results-container">
 	<h2>Search results for <span class="italic">"' . $_POST['keyword'] . '"</span> :</h2>
-	<h3>Found <span style="color: red;">' . $nubmerOfResults['result'] . '</span> results in <span style="color: red;">' . $nubmerOfDocuments['result'] . '</span> documents:</h3>
+	<h3>Found <span style="color: red;">' . $numberOfResults['result'] . '</span> results in <span style="color: red;">' . $numberOfDocuments['result'] . '</span> documents:</h3>
 			<div class="divider"></div>';
 			
 	while ($row = mysql_fetch_assoc($results)) {
