@@ -1,456 +1,327 @@
 <?php
-/**************************************************\
-| Description: Extract keywords from XML files     |
-|              and populate the SQL database.      |
-|                                                  |
-| Authors: Elena, Garth                            |
-\**************************************************/
-
-
+if ($_POST['is_poem_document']) {
+	$poem_checkmark = 'checked';
+} else {
+	$poem_checkmark ='';
+}
+if ($_POST['full_text_of_document']) {
+	$full_text_checkmark = 'checked';
+} else {
+	$full_text_checkmark ='';
+}
+if ($_POST['activate_tag_filter']) {
+	$tag_filter_checkmark = 'checked';
+} else {
+	$tag_filter_checkmark ='';
+}
+if ($_POST['activate_document_filter']) {
+	$document_filter_checkmark = 'checked';
+} else {
+	$document_filter_checkmark ='';
+}
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0048)http://english.selu.edu/humanitiesonline/ruskin/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>The Early Ruskin Manuscripts, Advanced Search Results</title>
+	<link href="http://english.selu.edu/humanitiesonline/ruskin/styles.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" href="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_icon.png">
+</head>
+<body>
+		<div class="navigation">
+        <a href="http://english.selu.edu/humanitiesonline/ruskin/index.php"><img src="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_logo.jpg" width="100%"></a>
+        <br>
+		<br>
+        <span class="navigation-title">
+            The
+            <br>Early
+            <br>Ruskin
+            <br>Manuscripts
+            <div class="navigation-date">1826–1842</div>
+        </span>
+        <hr>
+        <span class="navigation-editor"><a href="mailto:ruskinproject@selu.edu">David C. Hanson, Editor</a></span>
+        <br>
+		<br>
+		<form action="http://english.selu.edu/humanitiesonline/ruskin/search/index.php" method="post">
+		<input type="text" name="keyword" placeholder="Search..." style="width: 80px;" />
+		<input type="submit" name="submit" value="Go" style="width:35px;" />
+		</form>
+		<span><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/search/">Advanced Search</a><span>
+		<br>
+        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/index.php">Home</a><span>
+        <span>
+        	<br><a href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php">Indices</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#WORKS">Works</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#MANUSCRIPTS">Manuscripts</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#CORPORA">Corpora</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#WORKSBYOTHERS">Works by Others</a>
+            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#COMMENTARY">Commentary</a>
+            <br><a class="tion" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#ESSAYS">Essays</a>
+        </span>
+        <br>
+		<span>XML</span>        <br>
+		<span>Bibliography</span>
+        <br>
+        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/staff.php">Staff and Support</a><span>
+        <br>
+        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/legal.php">Legal</a><span>
+		 <br>
+	</span></span></span></span></span></span></span></span></div>
+	
+	<div class="content">
+	
+	<form action="http://english.selu.edu/humanitiesonline/ruskin/search/index.php" method="post">
+			<fieldset>
+			<legend>Search</legend>
+			Keyword(s): <input type="text" name="keyword" value="<?php echo $_POST['keyword']; ?>" /><input type="submit" name="submit" value=" Search " class="button"/><br /><br />
+			<input type="checkbox" name="is_poem_document" value="true" id="is_poem_document" <?php echo $poem_checkmark; ?> /> Poem<br />
+			<input type="checkbox" name="activate_document_filter" value="true" id="activate_document_filter" <?php echo $document_filter_checkmark; ?> />Show documents that are:
+			<select name="divtype_document" id="divtype_document"> 
+				<option value="apparatus">Apparatus</option>
+				<option value="poem">Poem</option>
+				<option value="note">Note</option>
+			</select><br />
+			<input type="checkbox" name="full_text_of_document" onclick="toggle()" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br />
+			<input type="checkbox" name="activate_tag_filter" onclick="toggle()" id="activate_tag_filter" value="true" <?php echo $tag_filter_checkmark; ?>/>Show results if keyword is a:
+			<select name="tag_keywords" id="tag_keywords">
+				
+				<option value="persName">Person Name</option>
+				<option value="geogName">Geographical Name</option>
+				<option value="placeName">Place Name</option>
+				<option value="orgName">Organization Name</option>
+				<option value="title">Title</option>
+				<option value="name">Name</option>
+				<option value="date">Date</option>
+			</select>
+			of a: 
+			<select name="type_keywords" id="type_keywords">
+				<option value="aa">Anything/Anyone</option>
+				<option value="book">Book</option>
+				<option value="poem">Poem</option>
+				<option value="pen_name">Pen Name</option>
+				<option value="periodical">Periodical</option>
+				<option value="essay">Essay</option>
+				<option value="bibliography">Bibliography</option>
+				<option value="prose">Prose</option>
+				<option value="archive">Archive</option>
+				<option value="engraving">Engraving</option>
+				<option value="collected_poems">Collected Poems</option>
+				<option value="collected_sketches">Collected Sketches</option>
+				<option value="anthology">Anthology</option>
+				<option value="reference">Reference</option>
+				<option value="biography">Biography</option>
+				<option value="novel">Novel</option>
+				<option value="magazine">Magazine</option>
+				<option value="drama">Drama</option>
+				<option value="collected_letters">Collected Letters</option>
+				<option value="autobiography">Autobiography</option>
+				<option value="bibliography_text">Bibliography Text</option>
+				<option value="manuscript">Manuscript</option>
+				<option value="program">Program</option>
+				<option value="lesson">Lesson</option>
+				<option value="gloss">Gloss</option>
+				<option value="composite">Composite</option>
+				<option value="sermon">Sermon</option>
+				<option value="archive_digital">Archive Digital</option>
+				<option value="archive_nondigital">Archive Non-Digital</option>
+				<option value="series">Series</option>
+				<option value="fictional">Fictional</option>
+				<option value="story">Story</option>
+				<option value="peom">Peom</option>
+				<option value="architecture">Architecture</option>
+				<option value="collected_works">Collected Works</option>
+				<option value="painting">Painting</option>
+				<option value="letter">Letter</option>
+				<option value="guidebook">Guidebook</option>
+				<option value="constellation">Constellation</option>
+				<option value="book_chapter">Book Chapter</option>
+				<option value="memoir">Memoir</option>
+				<option value="composition">Composition</option>
+				<option value="work">Work</option>
+				<option value="scripture">Scripture</option>
+				<option value="drawing">Drawing</option>
+				<option value="collected_art">Collected Art</option>
+				<option value="sketch">Sketch</option>
+				<option value="map">Map</option>
+				<option value="catalog_auction">Catalog Auction</option>
+				<option value="dictionary">Dictionary</option>
+				<option value="ana">Ana</option>
+				<option value="collecte_poems">Collected Poems</option>
+				<option value="tale">Tale</option>
+				<option value="other">Other</option>
+				<option value="article">Article</option>
+			</select><br />
+			</form>
+		</fieldset>
+		<script type ="text/javascript">
+		document.onload = toggle()
+		
+		function toggle() {
+			var full_text_of_document = document.getElementById('full_text_of_document');
+			var activate_tag_filter = document.getElementById('activate_tag_filter');
+			if (full_text_of_document.checked == true) {
+				activate_tag_filter.disabled = true
+				full_text_of_document.disabled = false
+				tag_keywords.disabled = true
+				type_keywords.disabled = true
+				type_keywords.selectedIndex = 'aa'
+			}
+			if (activate_tag_filter.checked == true) {
+				full_text_of_document.disabled = true
+				activate_tag_filter.disabled = false
+			}
+			if (full_text_of_document.checked == false && activate_tag_filter.checked == false) {
+				full_text_of_document.disabled = false
+				activate_tag_filter.disabled = false
+				tag_keywords.disabled = false
+				type_keywords.disabled = false
+			}
+			console.log("Toggle function was called");
+		}
+		</script>
+<?php
 
 // Load MySQL credentials from config file.
 include('config.php');
 
-// Turn off output buffering so output is immediately printed to the screen rather than waiting until the entire page finishes downloading.
-ob_implicit_flush(1);
-
-// Override default execution time limit of 30 seconds, and allow the script to execute for as long as it needs.
-set_time_limit(0);
-
-// Only report errors. Do not report warnings.
-error_reporting(E_ERROR);
-
-
-
-// Function to construct the URL to the PHP file on the Ruskin website that corresponds to a given XML file.
-function construct_url($filename, $divtype, $doctype) {
-	global $entry;
-	
-	// Base URL of website.
-	$url = 'http://english.selu.edu/humanitiesonline/ruskin/';
-	
-	// Use the divtype of the file to determine which folder the file is located on the site.
-	if ($doctype == 'witness') {
-		$url .= 'showcase/';
-	} elseif ($divtype == 'note') {
-		$url .= 'notes/';
-	} elseif ($divtype == 'apparatus') {
-		$url .= 'apparatuses/';
-	} elseif ($divtype == 'glosses') {
-		$url .= 'glosses/';
-	} elseif ($divtype == 'essay') {
-		$url .= 'essays/';
-	} elseif ($divtype == 'webpage') {
-		$url .= 'webpages/';
-	}
-	
-	// add glosses doctype
-	
-	// Change the extension of the file from .XML to .PHP
-	$url .= str_replace('xml', 'php', $entry);
-	
-	return $url;
+// Attempt to connect to the MySQL server.
+if (!$db_conn = mysql_connect($servername, $username, $password)) {
+	die("Failed to connect to the MySQL server: " . mysql_connect_errno());
 }
 
-// Function that checks the response code of a URL on the Ruskin server. This is used for checking if a file exists (200 code) or if a file does not exist on the server (404 code).
-function get_response($url) {
-	// Wait 1/10 of a second between requests. This is needed so that we don't accidentally DOS attack the Ruskin server.
-	usleep(100000);
-	
-	// Initiate the CURL handle.
-	$curl_handle = curl_init();
-	
-	// Give our URL to CURL.
-	curl_setopt($curl_handle, CURLOPT_URL, $url);
-	
-	// Tell CURL not to output the page contents to the screen. We only care about the response code.
-	curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
-	
-	// Tell CURl to timeout the connection in 3 seconds if the server does not respond.
-	curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
-	
-	// Perform the CURL operation.
-	curl_exec($curl_handle);
-	
-	// Check if there was an error performing the CURL operation.
-	if (!curl_errno($curl_handle)) {
-		// If there was no error, then grab the connection info from our CURL session.
-		$connection_info = curl_getinfo($curl_handle);
-		
-		// Extract the HTTP response code from our CURL session.
-		$code = $connection_info['http_code'];
-	} else {
-		// If there was an error performing the CURL operation, then leave the response code blank.
-		$code = '';
-	}
-	
-	// Close our CURL session.
-	curl_close($curl_handle);
-	
-	// Return our HTTP response code for the URL we accessed from the Ruskin server. This should usually be either 200 or 404.
-	return $code;
+// Attempt to connect to the database.
+if (!mysql_select_db($database)) {
+	die("Failed to select the database: " . $database);
 }
 
-// Function to insert keywords into database.
-function insertKeyword($docid, $tag, $type, $corresp, $content, $keyword) {
-	global $db_conn, $database, $keyword_count, $database_errors, $duplicate_tags;
+if (isset($_POST['keyword'])) {
 	
-	$insertkeywords = "INSERT INTO `" . mysql_real_escape_string($database) . "`.`keywords` (
-	`docid`,
-	`tag`,
-	`type`,
-	`corresp`,
-	`content`,
-	`keyword`
-	) VALUES (
-		'" . mysql_real_escape_string($docid) . "',
-		'" . mysql_real_escape_string($tag) . "',
-		'" . mysql_real_escape_string($type) . "',
-		'" . mysql_real_escape_string($corresp) . "',
-		'" . mysql_real_escape_string($content) . "',
-		'" . mysql_real_escape_string($keyword) . "'
-	);";
+	// Check to make sure the user searched for a keyword that is at least 3 characters long.
+	if (strlen($_POST['keyword']) < 3) {
+		die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
+	}
 	
-	// Perform the mysql query.
-	if (mysql_query($insertkeywords)) {
-		echo "<br /><span style='color: blue; font-weight: bold;'>SUCCESS, added keyword: '" .$content . "'</span>";
-		$keyword_count++;
+	// This is our base query. We will add constraints to make this query longer
+	// depending on which filters are active.
+	if (isset($_POST['full_text_of_document'])) {
+		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ";
 	} else {
-		// If there was an error performing the query, output the error.
-		if (strpos(mysql_error(), 'Duplicate') !== false) {
-			echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING duplicate keyword in this document: '" . $tag . "' with content '" . $content . "'</span>";
-			$duplicate_tags++;
-		} else {
-			echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the mysql query: " . mysql_error() . "</span>";
-			$database_errors++;
-		}
+		$query = "SELECT
+		`documents`.`id`,
+		`documents`.`title`,
+		`documents`.`doctype`,
+		`documents`.`divtype`,
+		`documents`.`subtype`,
+		`documents`.`rhyme`,
+		`documents`.`meter`,
+		`documents`.`ispoem`,
+		`documents`.`text`,
+		`documents`.`url`,
+		`keywords`.`tag`,
+		`keywords`.`type`,
+		`keywords`.`corresp`,
+		`keywords`.`content`
+		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ";
 	}
-}
+	
+	if (isset($_POST['is_poem_document'])) {
+		$query .= "AND `documents`.`ispoem` = 1 ";
+	}
+	
+	if (isset($_POST['activate_document_filter'])) {
+		$query .= "AND `documents`.`divtype` LIKE '" . mysql_real_escape_string($_POST['divtype_document']) . "' ";
+	}
+	
+	if (isset($_POST['activate_tag_filter']) AND !isset($_POST['full_text_of_document'])) {
+		$query .= "AND `keywords`.`tag` LIKE '%" . mysql_real_escape_string($_POST['tag_keywords']) . "%' ";
+	}
+	
+	if ($_POST['type_keywords'] !='aa' AND !isset($_POST['full_text_of_document'])){
+		$query .= "AND `keywords`.`type` LIKE '%" . mysql_real_escape_string($_POST['type_keywords']) . "%' ";
+	}
 
-function rstrpos($haystack, $needle, $offset){
-	$size = strlen($haystack);
-	$pos = strpos(strrev($haystack),$needle,$size-$offset);
+	// Finds all poems, and then from these peoms, search for the ones with a title containing "Calais"
+	// SELECT * FROM (SELECT * FROM `documents` WHERE `ispoem` = '1') AS my_first_query WHERE `title` LIKE '%Calais%'
 	
-	if($pos === false){
-		return false;
-	}
+	// SELECT * FROM `keywords` WHERE `docid` IN (SELECT `id` AS `docid` FROM `documents` WHERE `ispoem` = 1) AND `tag` LIKE '%persName%'
+	// Look in the documents table, and find all documents that are peoms. Then grab the id, and rename this to docid. Then using this list of docids, fetch all keywords
+	// that exist in one of those documents IF that keyword is a persName keyword.
 	
-	return $size - $pos;
-}
-
-// Attempt to open our directory.
-if ($handle = opendir($xml_folder)) {
+	// SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `documents`.`ispoem` = 1 AND `keywords`.`tag` LIKE '%persName%'
+	// Here is an easier implementation of the query above.
 	
-	// Attempt to connect to the MySQL server.
-	if (!$db_conn = mysql_connect($servername, $username, $password)) {
-		die("Failed to connect to the MySQL server: " . mysql_error());
-	}
+	//echo 'Here is our query: ' . $query;
 	
-	// Attempt to connect to the database.
-	if (!mysql_select_db($database)) {
-		die("Failed to select the database: " . $database);
-	}
+	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
+	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
 	
-	// Define an array to the hold the names of the files in our directory.
-	$files = array();
-	
-	// Loop through each file in our directory.
-    while (false !== ($entry = readdir($handle))) {
-		// Don't parse . or .. since these are directories.
-        if ($entry != "." && $entry != "..") {
-			// Add our file entry to the array.
-			array_push($files, $entry);
-		}
-	}
-	
-	// Count the total number of XML files we have.
-	$total_files = count($files);
-	
-	// Keep track of which XML file we are on.
-	$current_file = 0;
-	
-	// Keep track of the files that were successfully added to the database.
-	$success_count = 0;
-	
-	// Keep track of the files that were skipped due to malformed XML.
-	$malformed_count = 0;
-	
-	// Keep track of the files that were missing on the site.
-	$missing_count = 0;
-	
-	// Keep track of the database errors.
-	$database_errors = 0;
-	
-	// Keep track of keywords that are indexed.
-	$keyword_count = 0;
-	
-	// Keep track of files that were not needed.
-	$not_needed = 0;
-	
-	// Keep track of empty keyword tags.
-	$empty_keywords = 0;
-	
-	// Keep track of tags that have tags inside them.
-	$tags_in_tags = 0;
-	
-	// Keep track of skipped handShift tags.
-	$handshift_tags = 0;
-	
-	// Keep track of connectivity errors.
-	$connectivity_error = 0;
-	
-	// Keep track of the number of duplicate tags.
-	$duplicate_tags = 0;
-	
-	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
-	
-	// Attempt to clear the documents table.
-	if (mysql_query("TRUNCATE `documents`;")) {
-		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully cleared `documents` table.</span>";
+	/*
+	if (isset($_POST['page'])) {
+		$startPage = ($_POST['page'] - 1) * 5;
 	} else {
-		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error clearing the `documents` table: " . mysql_error() . "</span>";
+		$startPage = 0;
 	}
+	$query .= " LIMIT " . $startPage .",5";
+	*/
+	$results = mysql_query($query);
 	
-	// Attempt to clear the keywords table.
-	if (mysql_query("TRUNCATE `keywords`;")) {
-		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully cleared `keywords` table.</span>";
-	} else {
-		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error clearing the `keywords` table: " . mysql_error() . "</span>";
-	}
-	
-	echo "<br /><br />";
-	
-	// Iterate through the files in our directory.
-	foreach ($files AS $entry) {
-		// Print 64k spaces so that our output buffer reaches the necessary size to be flushed to the browser.
-		echo str_repeat(' ', 4096);
-		
-		// Path to XML file.
-		$filename = $xml_folder . $entry;
-		
-		$current_file++;
-		echo '<br />Progress: <b>' . round($current_file / $total_files * 100, 1) .  '%</b> ';
-		
-		// Skip the XML file if it has malformed code.
-		if (($stuff = simplexml_load_file($filename)) === FALSE) {
-			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED: '" . $filename . "' (malformed XML)</span>";
-			$malformed_count++;
-			continue;
-		}
-		
-		// Get doctype.
-		$doctype = $stuff->teiHeader->attributes();
-		
-		// Get title.
-		$title = $stuff->teiHeader->fileDesc->titleStmt->title;
-		
-		// Check if div exists.
-		if ($stuff->text->body->div !== NULL) {
-			// Get divtype if div exists.
-			$divtype = $stuff->text->body->div->attributes()->type;
-			$subtype = $stuff->text->body->div->attributes()->subtype;
-		} else {
-			// Make divtype blank if it does not exist.
-			$divtype = '';
-			$subtype = '';
-		}
-		
-		// Check if this is a poem.
-		if ($divtype == 'poem') {
-			// If this is a poem, get poem info.
-			$ispoem = '1';
-			$meter = $stuff->text->body->div->attributes()->met;
-			$rhyme = $stuff->text->body->div->attributes()->rhyme;
-		} else {
-			// If this is not a poem, set poem info to defaults.
-			$ispoem = '0';
-			$meter = '';
-			$rhyme = '';
-		}
-		
-		// Open the file and extract "body text"
-		$rawTextStuff = file_get_contents($filename);
-		
-		// Get start position of the text tag.
-		$start = strpos($rawTextStuff, '<text>');
-		
-		// Get the end position of the text tag.
-		$end = strpos($rawTextStuff, '</text>');
-		
-		// Check that the start and end positions were successfully retrieved.
-		if ($start !== FALSE AND $end !== FALSE) {
-			$text = substr($rawTextStuff, $start + 6, $end-$start -6);
-		} else {
-			$text = '';
-		}
-		
-		if ($doctype == 'witness' AND $divtype == 'title') {
-			echo "<br /><br /><span style='color: green; font-weight: bold;'>SKIPPING '" . $filename . "' (links to a .inc.php file and is not needed)</span>";
-			$not_needed++;
-			continue;
-		}
-		
-		// Determine the URL of the file on the website.
-		$url = construct_url($filename, $divtype, $doctype);
-		
-		// Determine whether the requested URL exists.
-		$code = get_response($url);
-		
-		// If response code is not 200 or 404, then we know there was a connection error.
-		// If this is the case, then retry getting the document again.
-		if ($code != '200' AND $code != '404') {
-			$code = get_response($url);
-		}
-		
-		if ($code == '404') {
-			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (missing)</span>";
-			$missing_count++;
-			continue;
-		} elseif ($code != '200') {
-			echo "<br /><br /><span style='color: red; font-weight: bold;'>FAILED '" . $filename . "' (could not connect to the server)</span>";
-			$connectivity_error++;
-			continue;
-		}
-		
-		// Constrcut an SQL query to insert the document into the MySQL database.
-		$insert = "INSERT INTO `" . mysql_real_escape_string($database) . "`.`documents` (
-			`title`,
-			`doctype`,
-			`divtype`,
-			`subtype`,
-			`rhyme`,
-			`meter`,
-			`ispoem`,
-			`text`,
-			`url`
-		) VALUES (
-			'" . mysql_real_escape_string($title) . "',
-			'" . mysql_real_escape_string($doctype) . "',
-			'" . mysql_real_escape_string($divtype) . "',
-			'" . mysql_real_escape_string($subtype) . "',
-			'" . mysql_real_escape_string($rhyme) . "',
-			'" . mysql_real_escape_string($meter) . "',
-			'" . mysql_real_escape_string($ispoem) . "',
-			'" . mysql_real_escape_string($text) . "',
-			'" . mysql_real_escape_string($url) . "'
-		);";
-		
-		// Perform the mysql query.
-		if (mysql_query($insert)) {
-			echo "<br /><br /><span style='color: green; font-weight: bold;'>SUCCESS: '" . $filename . "'</span>";
-			$docid = mysql_insert_id($db_conn);
-			$success_count++;
-		} else {
-			// If there was an error performing the query, output the error.
-			echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error with the mysql query: " . mysql_error() . "</span>";
-			$database_errors++;
-		}
-		
-		$strdivpos = strpos($text,'<div');
-		$enddivpos = strpos($text,'>',$strdivpos);
-		$text = substr($text,$enddivpos + 1);	
-		$counter = 0;
-		
-		// Call function to insert keyword in database.
-		insertKeyword($docid, 'title', '', '', $title, 'title');
-		
-		// Loop through each keyword in the body text of the XML document. Keywords are identified by having 'corresp'
-		while (strpos($text, 'corresp="') !== false) {
-			// Extract entire keyword tag. EXAMPLE: <persName corresp="#WGC">W. G. Collingwood
-			$correspLocation = strpos($text,'corresp="');
+	echo '<div class="container results-container">
+	<h2>Search results for <span class="italic">"' . $_POST['keyword'] . '"</span> :</h2>
+	<h3>Found <span style="background-color: #94FF00;padding: 3px;font-weight: bold;">' . $numberOfResults['result'] . '</span> results in <span style="background-color: #94FF00;padding: 3px;font-weight: bold;">' . $numberOfDocuments['result'] . '</span> documents:</h3>
+			<div class="divider"></div>';
 			
-			// Extract the tag name. EXAMPLE: persName
-			$leftBracketLocation = rstrpos($text, '<' , $correspLocation);
-			$keywordEnd = strpos($text, ' ', $leftBracketLocation);
-			$tagName = substr($text, $leftBracketLocation, $keywordEnd - $leftBracketLocation);
+	while ($row = mysql_fetch_assoc($results)) {
+		if ($row['keyword'] == 'title') {
+			$matchingText = $row['content'];
+		} elseif (isset($_POST['full_text_of_document'])) {
+			$row['text'] = html_entity_decode(strip_tags($row['text']));
 			
-			// Skip over handshift tags.
-			if ($tagName == 'handShift') {
-				$newStart = strpos($text, '>', $correspLocation);
-				$text = substr($text, $newStart + 1);
-				$handshift_tags++;
-				echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING tag: '" . $tagName . "'</span>";
-				continue;
-			}
+			$matchLocation = stripos($row['text'], $_POST['keyword']);
 			
-			// Form the keyword's ending tag. EXAMPLE: </persName>
-			$endingTag = '</' . $tagName . '>';
-			
-			$rightBracketLocation = strpos($text, $endingTag, $correspLocation);
-			$keyword = substr($text, $leftBracketLocation - 1, ($rightBracketLocation - $leftBracketLocation)+1);
-
-			// Remove this keyword tag from the text so the while loop can iterate to the next available tag.
-			$text = substr($text, $rightBracketLocation + 1);
-			
-			// Extract tag. EXAMPLE: persName
-			$endOfTag = strpos($keyword, ' ');
-			$tag = substr($keyword, 1, $endOfTag -1);
-			
-			// Extract corresp. EXAMPLE: #WGC
-			$correspStartLocation = strpos($keyword, 'corresp="') + 9;
-			$correspEndLocation = strpos($keyword, '"', $correspStartLocation);
-			$corresp = substr($keyword, $correspStartLocation, $correspEndLocation - $correspStartLocation);
-			
-			// If corresp starts with #, then remove it.
-			if (substr($corresp, 0, 1) == '#'){
-				$corresp = substr($corresp, 1);
-			}
-			 
-			// Extract keyword contents. EXAMPLE: W. G. Collingwood
-			$contentStartPosition = strpos($keyword, '>') + 1;
-			$content = substr($keyword, $contentStartPosition);
-			
-			// If this tag has a tag inside it that we skipped, take note of it.
-			if (strpos($content, 'corresp="') !== false) {
-				$tags_in_tags++;
-				echo "<br /><span style='color: orange; font-weight: bold;'>MERGING tag(s) inside of tag: '" . $tagName . "'</span>";
-			}
-			
-			// Strip any HTML from our tag's content.
-			$content = strip_tags($content);
-			
-			// If the keyword is empty, then increment our counter.
-			if (strlen($content) == 0) {
-				$empty_keywords++;
-				echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING empty tag: '" . $tagName . "'</span>";
-				continue;
-			}
-			
-			// Extract type if it exists. EXAMPLE: poem
-			if (strpos($keyword, 'type="') !== false) {
-				$typeStartPosition = strpos($keyword, 'type="') + 6;
-				$typeEndPosition = strpos($keyword, '"', $typeStartPosition);
-				$type = substr($keyword, $typeStartPosition, $typeEndPosition - $typeStartPosition);
+			if ($matchLocation > 250) {
+				$startLocation = $matchLocation - 250;
 			} else {
-				$type = '';
+				$startLocation = 0;
 			}
 			
-			insertKeyword($docid, $tag, $type, $corresp, $content, $keyword);
+			$row['text'] = substr($row['text'], $startLocation, 500);
+			
+			$startingSpace = strpos($row['text'], '>') + 1;
+			$endingSpace = strrpos($row['text'], '<');
+			
+			$matchingText = '...' . trim(substr($row['text'], $startingSpace, $endingSpace - $startingSpace)) . '...';
+			$matchingText = str_ireplace($_POST['keyword'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $_POST['keyword'] . '</span>', $matchingText);
+		} else {
+			$row['text'] = html_entity_decode(strip_tags($row['text']));
+			
+			$matchLocation = stripos($row['text'], $row['content']);
+			
+			if ($matchLocation > 250) {
+				$startLocation = $matchLocation - 250;
+			} else {
+				$startLocation = 0;
+			}
+			
+			$row['text'] = substr($row['text'], $startLocation, 500);
+			
+			$startingSpace = strpos($row['text'], '>') + 1;
+			$endingSpace = strrpos($row['text'], '<');
+			
+			$matchingText = '...' . trim(substr($row['text'], $startingSpace, $endingSpace - $startingSpace)) . '...';
+			$matchingText = str_ireplace($row['content'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $row['content'] . '</span>', $matchingText);
 		}
-    }
+		
+		echo '<div style="background: #eee;padding: 15px;border-radius: 8px;border: 1px solid #aaa;margin-bottom: 10px;">
+				<span style="font-size: 18px;color: #609;"><a href="' . $row['url'] . '">' . $row['title'] . '</a></span><br />
+				<span style="margin-top: 10px; margin-bottom: 10px;display: block;"><b>Document type:</b> ' . $row['divtype'] . '</span>
+				<span style="font-style: italic;">"' . $matchingText . '"</span><br />
+			</div>';
+	}
+	echo '</div>';
 	
-	// Show some stats about the parsed files.
-	echo '<h2>Parsing complete!</h2>
-	<b>Stats:
-	<br />Documents indexed: ' . $success_count . '
-	<br />Keywords indexed: ' . $keyword_count . '
-	<br />Empty keywords: ' . $empty_keywords . '
-	<br />Handshift keywords that were skipped: ' . $handshift_tags . '
-	<br />Keywords that were inside of other keywords and were merged: ' . $tags_in_tags . '
-	<br />Identical keywords that were skipped after appearing multiple times in the same document: ' . $duplicate_tags . '
-	<br />Documents skipped due to malformed XML: ' . $malformed_count . '
-	<br />Documents skipped that were missing on website (such as some drawings/figures that have not yet been added to the showcase): ' . $missing_count . '
-	<br />Documents skipped due to a connectivity issue with the server: ' . $connectivity_error . '
-	<br />Documents skipped that were not needed (in the witnesses folder on the site): ' . $not_needed . '
-	<br />Database errors: ' . $database_errors . '</b>';
-	
-	// Close the connection to our MySQL server.
-	mysql_close($db_conn);
-	
-	// Close our directory handle.
-    closedir($handle);
-} else {
-	// Output an error message if the XML directory couldn't be opened.
-	echo "Sorry, there was an error opening the XML directory. Check your code!";
 }
-?>
+
+?></div>
+	</body>
+</html>

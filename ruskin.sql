@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2016 at 05:52 AM
+-- Generation Time: Apr 26, 2016 at 07:25 PM
 -- Server version: 5.7.11-log
 -- PHP Version: 5.4.29
 
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `ruskin`
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
   `ispoem` tinyint(1) NOT NULL,
   `text` mediumtext NOT NULL,
   `url` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `documents`
@@ -256,11 +256,11 @@ INSERT INTO `documents` (`id`, `title`, `doctype`, `divtype`, `subtype`, `rhyme`
 CREATE TABLE IF NOT EXISTS `keywords` (
   `id` int(11) NOT NULL,
   `docid` int(11) NOT NULL,
-  `tag` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `corresp` text CHARACTER SET utf8mb4 NOT NULL,
-  `content` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `keyword` text CHARACTER SET utf8mb4 NOT NULL
+  `tag` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `corresp` text NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `keyword` text NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=8347 DEFAULT CHARSET=utf8;
 
 --
