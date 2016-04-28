@@ -28,7 +28,7 @@ if ($_POST['activate_document_filter']) {
 	<link rel="icon" type="image/png" href="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_icon.png">
 </head>
 <body>
-	<?php include("navigation.inc.php"); ?>
+	<?php include("../navigation.inc.php"); ?>
 	<div class="content">
 	
 	<form action="" method="post">
