@@ -28,50 +28,10 @@ if ($_POST['activate_document_filter']) {
 	<link rel="icon" type="image/png" href="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_icon.png">
 </head>
 <body>
-		<div class="navigation">
-        <a href="http://english.selu.edu/humanitiesonline/ruskin/index.php"><img src="http://english.selu.edu/humanitiesonline/ruskin/images/ruskin_logo.jpg" width="100%"></a>
-        <br>
-		<br>
-        <span class="navigation-title">
-            The
-            <br>Early
-            <br>Ruskin
-            <br>Manuscripts
-            <div class="navigation-date">1826–1842</div>
-        </span>
-        <hr>
-        <span class="navigation-editor"><a href="mailto:ruskinproject@selu.edu">David C. Hanson, Editor</a></span>
-        <br>
-		<br>
-		<form action="http://english.selu.edu/humanitiesonline/ruskin/search/index.php" method="post">
-		<input type="text" name="keyword" placeholder="Search..." style="width: 80px;" />
-		<input type="submit" name="submit" value="Go" style="width:35px;" />
-		</form>
-		<span><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/search/">Advanced Search</a><span>
-		<br>
-        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/index.php">Home</a><span>
-        <span>
-        	<br><a href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php">Indices</a>
-            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#WORKS">Works</a>
-            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#MANUSCRIPTS">Manuscripts</a>
-            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#CORPORA">Corpora</a>
-            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#WORKSBYOTHERS">Works by Others</a>
-            <br><a class="subnavigation" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#COMMENTARY">Commentary</a>
-            <br><a class="tion" href="http://english.selu.edu/humanitiesonline/ruskin/essays/indices_essay.php#ESSAYS">Essays</a>
-        </span>
-        <br>
-		<span>XML</span>        <br>
-		<span>Bibliography</span>
-        <br>
-        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/staff.php">Staff and Support</a><span>
-        <br>
-        <span><a href="http://english.selu.edu/humanitiesonline/ruskin/webpages/legal.php">Legal</a><span>
-		 <br>
-	</span></span></span></span></span></span></span></span></div>
-	
+	<?php include("navigation.inc.php"); ?>
 	<div class="content">
 	
-	<form action="http://english.selu.edu/humanitiesonline/ruskin/search/index.php" method="post">
+	<form action="" method="post">
 			<fieldset>
 			<legend>Search</legend>
 			Keyword(s): <input type="text" name="keyword" value="<?php echo $_POST['keyword']; ?>" /><input type="submit" name="submit" value=" Search " class="button"/><br /><br />

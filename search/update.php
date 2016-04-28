@@ -7,12 +7,37 @@
 \**************************************************/
 
 
-if (!(isset($_GET['password']) AND $_GET['password'])) {
-	die("Your password is not correct!");
-}
 
 // Load MySQL credentials from config file.
 include('config.php');
+
+// Check that the user is logged in.
+if (!(isset($_POST['password']) AND $_POST['password'] == $updateToolPassword)) {
+	echo '
+<div style="
+    width: 300px;
+    background: #ddd;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    box-shadow: 5px 5px 10px #BBB;
+    margin: auto;
+    margin-top: 100px;
+    font-family: sans-serif;
+">
+	<form action="" method="post">
+		<span style="font-weight: bold;">Ruskin Search Engine - Update Tool:</span>';
+		
+		if (isset($_POST['password']) AND $_POST['password'] != $updateToolPassword) {
+			echo '<br><br><span style="color: #FF660A;font-weight: bold;">Password incorrect!</span>';
+		}
+		
+		echo '<br><br><input type="text" name="password" placeholder="Password"><br><br>
+		<input type="submit" name="submit" value=" Login ">
+	</form>
+</div>';
+	die();
+}
 
 // Turn off output buffering so output is immediately printed to the screen rather than waiting until the entire page finishes downloading.
 ob_implicit_flush(1);
