@@ -146,7 +146,7 @@ function insertKeyword($docid, $tag, $type, $corresp, $content, $keyword) {
 	} else {
 		// If there was an error performing the query, output the error.
 		if (strpos(mysql_error(), 'Duplicate') !== false) {
-			echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING duplicate keyword in this document: '" . $tag . "' with content '" . $content . "'</span>";
+			//echo "<br /><span style='color: orange; font-weight: bold;'>SKIPPING duplicate keyword in this document: '" . $tag . "' with content '" . $content . "'</span>";
 			$duplicate_tags++;
 		} else {
 			echo "<br /><span style='color: red; font-weight: bold;'>There was an error with the mysql query: " . mysql_error() . "</span>";
@@ -232,18 +232,60 @@ if ($handle = opendir($xml_folder)) {
 	
 	echo '<h2>Ruskin XML parser</h2><h3>Parsing ' . $total_files . ' XML files</h3>';
 	
-	// Attempt to clear the documents table.
-	if (mysql_query("TRUNCATE `documents`;")) {
-		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully cleared `documents` table.</span>";
+	// Attempt to remove the documents table.
+	if (mysql_query("DROP TABLE `documents`;")) {
+		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully removed `documents` table.</span>";
 	} else {
-		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error clearing the `documents` table: " . mysql_error() . "</span>";
+		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error removing the `documents` table: " . mysql_error() . "</span>";
+		die();
 	}
 	
-	// Attempt to clear the keywords table.
-	if (mysql_query("TRUNCATE `keywords`;")) {
-		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully cleared `keywords` table.</span>";
+	// Attempt to recreate the documents table.
+	if (mysql_query("
+CREATE TABLE IF NOT EXISTS `documents` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` text NOT NULL,
+  `doctype` text NOT NULL,
+  `divtype` text NOT NULL,
+  `subtype` text NOT NULL,
+  `rhyme` text NOT NULL,
+  `meter` text NOT NULL,
+  `ispoem` tinyint(1) NOT NULL,
+  `text` mediumtext NOT NULL,
+  `url` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;")) {
+		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully recreated `documents` table.</span>";
 	} else {
-		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error clearing the `keywords` table: " . mysql_error() . "</span>";
+		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error recreating the `documents` table: " . mysql_error() . "</span>";
+		die();
+	}
+	
+	// Attempt to remove the keywords table.
+	if (mysql_query("DROP TABLE `keywords`;")) {
+		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully removed `keywords` table.</span>";
+	} else {
+		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error removing the `keywords` table: " . mysql_error() . "</span>";
+		die();
+	}
+	
+	// Attempt to recreate the keywords table.
+	if (mysql_query("
+CREATE TABLE IF NOT EXISTS `keywords` (
+  `id` int(11) NOT NULL auto_increment,
+  `docid` int(11) NOT NULL,
+  `tag` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `corresp` text NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `keyword` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `docid` (`docid`,`tag`,`type`,`content`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;")) {
+		echo "<br /><br /><span style='color: green; font-weight: bold;'>Successfully recreated `keywords` table.</span>";
+	} else {
+		echo "<br /><br /><span style='color: red; font-weight: bold;'>There was an error recreating the `keywords` table: " . mysql_error() . "</span>";
+		die();
 	}
 	
 	echo "<br /><br />";
