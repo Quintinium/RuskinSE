@@ -1,0 +1,21 @@
+
+.outerTable table{
+	width: initial !important;
+}
+.special {
+	text-align: left;
+}
+.special2{
+	text-align: right;
+}
+.innerTable tr, th{
+	text-align: left;
+}
+.outerTable {
+	width: 100% !important;
+}
+.outerTable td {
+	border: none;
+	width: initial !important;
+	font-size: 10pt;
+}
