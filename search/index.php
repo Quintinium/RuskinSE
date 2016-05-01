@@ -33,114 +33,96 @@ if ($_POST['activate_document_filter']) {
 		<form action="" method="post" style="background: white;">
 			<fieldset>
 				<legend>Advanced Search</legend>
-					<table class="outerTable">
-						<tr>
-							<td class="special" >
-								<table class="innerTable">
-									<tr>
-										<td>
-											<input type="checkbox" name="activate_document_filter" value="true" id="activate_document_filter" <?php echo $document_filter_checkmark; ?> />Document type:
-										</td>
-										<td>
-											<select name="divtype_document" id="divtype_document"> 
-												<option value="apparatus">Apparatus</option>
-												<option value="poem">Poem</option>
-												<option value="note">Note</option>
-											</select>						
-										</td>
-									</tr>
-									<tr>
-									<th colspan="2"> *Produces keyword results that appear in that type of document.</th>
-									</tr>
-									<tr>
-										<td>
-											<input type="checkbox" name="activate_tag_filter" onclick="toggle()" id="activate_tag_filter" value="true" <?php echo $tag_filter_checkmark; ?>/>Name/Title:
-										</td>
-										<td>
-											<select name="tag_keywords" id="tag_keywords">									
-												<option value="persName">Person Name</option>
-												<option value="geogName">Geographical Name</option>
-												<option value="placeName">Place Name</option>
-												<option value="orgName">Organization Name</option>
-												<option value="title">Title</option>
-												<option value="name">Name</option>
-												<option value="date">Date</option>
-											</select>
-											of: 
-											<select name="type_keywords" id="type_keywords">
-												<option value="aa">Anything/Anyone</option>
-												<option value="book">Book</option>
-												<option value="poem">Poem</option>
-												<option value="pen_name">Pen Name</option>
-												<option value="periodical">Periodical</option>
-												<option value="essay">Essay</option>
-												<option value="bibliography">Bibliography</option>
-												<option value="prose">Prose</option>
-												<option value="archive">Archive</option>
-												<option value="engraving">Engraving</option>
-												<option value="collected_poems">Collected Poems</option>
-												<option value="collected_sketches">Collected Sketches</option>
-												<option value="anthology">Anthology</option>
-												<option value="reference">Reference</option>
-												<option value="biography">Biography</option>
-												<option value="novel">Novel</option>
-												<option value="magazine">Magazine</option>
-												<option value="drama">Drama</option>
-												<option value="collected_letters">Collected Letters</option>
-												<option value="autobiography">Autobiography</option>
-												<option value="bibliography_text">Bibliography Text</option>
-												<option value="manuscript">Manuscript</option>
-												<option value="program">Program</option>
-												<option value="lesson">Lesson</option>
-												<option value="gloss">Gloss</option>
-												<option value="composite">Composite</option>
-												<option value="sermon">Sermon</option>
-												<option value="archive_digital">Archive Digital</option>
-												<option value="archive_nondigital">Archive Non-Digital</option>
-												<option value="series">Series</option>
-												<option value="fictional">Fictional</option>
-												<option value="story">Story</option>
-												<option value="peom">Peom</option>
-												<option value="architecture">Architecture</option>
-												<option value="collected_works">Collected Works</option>
-												<option value="painting">Painting</option>
-												<option value="letter">Letter</option>
-												<option value="guidebook">Guidebook</option>
-												<option value="constellation">Constellation</option>
-												<option value="book_chapter">Book Chapter</option>
-												<option value="memoir">Memoir</option>
-												<option value="composition">Composition</option>
-												<option value="work">Work</option>
-												<option value="scripture">Scripture</option>
-												<option value="drawing">Drawing</option>
-												<option value="collected_art">Collected Art</option>
-												<option value="sketch">Sketch</option>
-												<option value="map">Map</option>
-												<option value="catalog_auction">Catalog Auction</option>
-												<option value="dictionary">Dictionary</option>
-												<option value="ana">Ana</option>
-												<option value="collecte_poems">Collected Poems</option>
-												<option value="tale">Tale</option>
-												<option value="other">Other</option>
-												<option value="article">Article</option>
-											</select>
-										</td>
-										<td>
-											
-										</td>
-
-									</tr>
-									<th colspan="2">*Produces keyword results that appear in that title.</th>
-								</table>
-							</td>				
-							<td class="special2">
-								Keyword(s): <input type="text" name="keyword" value="<?php echo $_POST['keyword']; ?>" /><input type="submit" name="submit" value=" Search " class="button"/></br>
-								<input type="checkbox" name="full_text_of_document" onclick="toggle()" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text
-							</td>
-						</tr>
-					</table>
-				</fieldset>
-			</form>
+				<div class="searchFields">
+					<input type="text" name="keyword" placeholder="Search..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_POST['keyword']; ?>" autocomplete="off" style="
+						width: 300px;
+					" /><input type="submit" name="submit" value=" Search " /></br>
+					<div id="autoCompleteResults" style="
+						background: linear-gradient(gray, rgba(255, 255, 255, 0.25));
+						top: 39px;
+						position: absolute;
+						left: 0px;
+						width: 300px;
+						padding: 10px;
+						display: none;
+					"></div>
+					<input type="checkbox" name="full_text_of_document" onclick="toggle()" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br /><br />
+					<select name="divtype_document" id="divtype_document"> 
+						<option value="">Document Type</option>
+						<option value="apparatus">Apparatus</option>
+						<option value="poem">Poem</option>
+						<option value="note">Note</option>
+					</select><br />
+					<select name="tag_keywords" id="tag_keywords">									
+						<option value="">Keyword Type</option>
+						<option value="persName">Person Name</option>
+						<option value="geogName">Geographical Name</option>
+						<option value="placeName">Place Name</option>
+						<option value="orgName">Organization Name</option>
+						<option value="title">Title</option>
+						<option value="name">Name</option>
+						<option value="date">Date</option>
+					</select>
+					<select name="type_keywords" id="type_keywords">
+						<option value="">Title Type</option>
+						<option value="book">Book</option>
+						<option value="poem">Poem</option>
+						<option value="pen_name">Pen Name</option>
+						<option value="periodical">Periodical</option>
+						<option value="essay">Essay</option>
+						<option value="bibliography">Bibliography</option>
+						<option value="prose">Prose</option>
+						<option value="archive">Archive</option>
+						<option value="engraving">Engraving</option>
+						<option value="collected_poems">Collected Poems</option>
+						<option value="collected_sketches">Collected Sketches</option>
+						<option value="anthology">Anthology</option>
+						<option value="reference">Reference</option>
+						<option value="biography">Biography</option>
+						<option value="novel">Novel</option>
+						<option value="magazine">Magazine</option>
+						<option value="drama">Drama</option>
+						<option value="collected_letters">Collected Letters</option>
+						<option value="autobiography">Autobiography</option>
+						<option value="bibliography_text">Bibliography Text</option>
+						<option value="manuscript">Manuscript</option>
+						<option value="program">Program</option>
+						<option value="lesson">Lesson</option>
+						<option value="gloss">Gloss</option>
+						<option value="composite">Composite</option>
+						<option value="sermon">Sermon</option>
+						<option value="archive_digital">Archive Digital</option>
+						<option value="archive_nondigital">Archive Non-Digital</option>
+						<option value="series">Series</option>
+						<option value="fictional">Fictional</option>
+						<option value="story">Story</option>
+						<option value="peom">Peom</option>
+						<option value="architecture">Architecture</option>
+						<option value="collected_works">Collected Works</option>
+						<option value="painting">Painting</option>
+						<option value="letter">Letter</option>
+						<option value="guidebook">Guidebook</option>
+						<option value="constellation">Constellation</option>
+						<option value="book_chapter">Book Chapter</option>
+						<option value="memoir">Memoir</option>
+						<option value="composition">Composition</option>
+						<option value="work">Work</option>
+						<option value="scripture">Scripture</option>
+						<option value="drawing">Drawing</option>
+						<option value="collected_art">Collected Art</option>
+						<option value="sketch">Sketch</option>
+						<option value="map">Map</option>
+						<option value="catalog_auction">Catalog Auction</option>
+						<option value="dictionary">Dictionary</option>
+						<option value="ana">Ana</option>
+						<option value="collecte_poems">Collected Poems</option>
+						<option value="tale">Tale</option>
+						<option value="other">Other</option>
+						<option value="article">Article</option>
+					</select>
+				</div>
+			</fieldset>
+		</form>
 
 	<div class="content">
 	
@@ -169,6 +151,28 @@ if ($_POST['activate_document_filter']) {
 				type_keywords.disabled = false
 			}
 			console.log("Toggle function was called");
+		}
+		
+		function fetchAutoComplete(searchTerm) {
+			var resultBox = document.getElementById("autoCompleteResults");
+			
+			if (searchTerm.length > 0) {
+				var xhttp = new XMLHttpRequest();
+				
+				xhttp.onreadystatechange = function() {
+					if (xhttp.readyState == 4 && xhttp.status == 200) {
+						resultBox.innerHTML = xhttp.responseText;
+						resultBox.style.display = 'block';
+					}
+				};
+				
+				xhttp.open("POST", "autocomplete.php", true);
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhttp.send("autoComplete=" + searchTerm);
+				console.log("Sent an autocomplete request for term: " + searchTerm);
+			} else {
+				resultBox.style.display = 'none';
+			}
 		}
 		</script>
 <?php

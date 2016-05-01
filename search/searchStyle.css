@@ -1,21 +1,11 @@
+.searchFields {
+	padding: 5px;
+}
 
-.outerTable table{
-	width: initial !important;
+.searchFields select, input {
+	margin: 5px;
 }
-.special {
-	text-align: left;
-}
-.special2{
-	text-align: right;
-}
-.innerTable tr, th{
-	text-align: left;
-}
-.outerTable {
-	width: 100% !important;
-}
-.outerTable td {
-	border: none;
-	width: initial !important;
-	font-size: 10pt;
+
+.searchFields select {
+	min-width: 200px;
 }
