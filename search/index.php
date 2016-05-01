@@ -13,21 +13,79 @@ if (!mysql_select_db($database)) {
 	die("Failed to select the database: " . $database);
 }
 
-function fixTag($tag) {
-	$capitalizedTag = strtoupper(substr($tag, 0, 1)) . substr($tag, 1);
+function fixTag($tag, $capitalize, $pluralize) {
 	
-	$newTagNames = array(
-		'GeogName' => 'Geographic Name',
-		'PersName' => 'Person Name',
-		'PlaceName' => 'Place Name',
-		'OrgName' => 'Organization Name'
-	);
-	
-	if (array_key_exists($capitalizedTag, $newTagNames)) {
-		$capitalizedTag = $newTagNames[$capitalizedTag];
+	if ($pluralize) {
+		$newTagNames = array(
+			'geogName' => 'geographic names',
+			'persName' => 'person names',
+			'placeName' => 'place names',
+			'orgName' => 'organization names',
+			'title' => 'titles',
+			'name' => 'names',
+			'pen_name' => 'pen_names',
+			'building' => 'buildings',
+			'book' => 'books',
+			'poem' => 'poems',
+			'manuscript' => 'manuscripts',
+			'anthology' => 'anthologies',
+			'archive' => 'archives',
+			'bibliography' => 'bibliographies',
+			'engraving' => 'engravings',
+			'essay' => 'essays',
+			'periodical' => 'periodicals',
+			'reference' => 'references',
+			'autobiography' => 'autobiographies',
+			'biography' => 'biographies',
+			'magazine' => 'magazines',
+			'novel' => 'novels',
+			'archive_digital' => 'digital archives',
+			'archive_nondigital' => 'nondigital archives',
+			'bibliography_text' => 'bibliography texts',
+			'composite' => 'composites',
+			'gloss' => 'glosses',
+			'lesson' => 'lessons',
+			'program' => 'programs',
+			'sermon' => 'sermons',
+			'story' => 'stories',
+			'peom' => 'peoms',
+			'guidebook' => 'guidebooks',
+			'map' => 'maps',
+			'painting' => 'paintings',
+			'book_chapter' => 'book chapters',
+			'memoir' => 'memoirs',
+			'building' => 'buildings',
+			'sketch' => 'sketches',
+			'composition' => 'compositions',
+			'work' => 'works',
+			'letter' => 'letters',
+			'scripture' => 'scriptures',
+			'drawing' => 'drawings',
+			'catalog_auction' => 'catalog auctions',
+			'dictionary' => 'dictionaries',
+			'tale' => 'tales',
+			'article' => 'articles',
+			'constellation' => 'constellations'
+		);
+	} else {
+		$newTagNames = array(
+			'geogName' => 'geographic name',
+			'persName' => 'person name',
+			'placeName' => 'place name',
+			'orgName' => 'organization name'
+		);
 	}
 	
-	return $capitalizedTag;
+	if (array_key_exists($tag, $newTagNames)) {
+		$tag = $newTagNames[$tag];
+	}
+	
+	if ($capitalize) {
+		$tag = strtoupper(substr($tag, 0, 1)) . substr($tag, 1);
+		$tag = str_replace('_', ' ', $tag);
+	}
+	
+	return $tag;
 }
 
 if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == true) {
@@ -49,88 +107,118 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 			<fieldset>
 				<legend>Advanced Search</legend>
 				<div class="searchFields">
-					<input type="text" name="keyword" placeholder="Search for a keyword or phrase..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_GET['keyword']; ?>" autocomplete="off" style="
-						width: 300px;
-					" /><input type="submit" name="submit" value=" Search " /></br>
-					<div id="autoCompleteResults" style="
-						background: linear-gradient(gray, rgba(255, 255, 255, 0.25));
-						top: 39px;
-						position: absolute;
-						left: 0px;
-						width: 300px;
-						padding: 10px;
-						display: none;
-					"></div>
-					<input type="checkbox" name="full_text_of_document" onclick="toggle();" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br /><br />
-					<select name="divtype_document" id="divtype_document"> 
-						<option value="">Document Type</option>
-						<?php
-							$documentTypeDropdown = mysql_query("SELECT DISTINCT(`divtype`) FROM `documents` WHERE `divtype` != 'webpage';");
-							while ($documentTypeRow = mysql_fetch_assoc($documentTypeDropdown)) {
-								$capitalizedDocumentType = strtoupper(substr($documentTypeRow['divtype'], 0, 1)) . substr($documentTypeRow['divtype'], 1);
-								
-								echo '<option value="' . $documentTypeRow['divtype'] . '" ';
-								
-								if (isset($_GET['divtype_document']) AND $_GET['divtype_document'] == $documentTypeRow['divtype']) {
-									echo 'selected';
-								}
-								
-								echo '>' . $capitalizedDocumentType . '</option>';
-							}
-						?>
-					</select><br />
-					<select name="tag_keywords" id="tag_keywords" onchange="addSubtype(this.selectedIndex); toggle();">									
-						<option value="">Keyword Type</option>
-						<?php
-							$tagDropdown = mysql_query("SELECT DISTINCT(`tag`) FROM `keywords` WHERE `tag` != 'ref' AND `tag` != 'cell' AND `tag` != 'date';");
-							while ($tagRow = mysql_fetch_assoc($tagDropdown)) {
-								echo '<option value="' . $tagRow['tag'] . '" ';
-								
-								if (isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] == $tagRow['tag']) {
-									echo 'selected';
-								}
-								
-								echo '>' . fixTag($tagRow['tag']) . '</option>';
-							}
-						?>
-					</select>
-						<?php
-							$tagDropdown = mysql_query("SELECT DISTINCT(`tag`) FROM `keywords` WHERE `tag` != 'ref' AND `tag` != 'cell' AND `tag` != 'date';");
-							
-							$subtypeCounter = 0;
-							$makeAppear = 0;
-							
-							while ($tagRow = mysql_fetch_assoc($tagDropdown)) {
-								$subtypeCounter++;
-								
-								$subtypeDropdown = mysql_query("SELECT DISTINCT(`type`) FROM `keywords` WHERE `tag` LIKE '" . mysql_real_escape_string($tagRow['tag']) . "' AND `type` NOT LIKE '';");
-								
-								if (mysql_num_rows($subtypeDropdown) > 0) {
-									echo '<select class="subtype" name="type_keywords' . $subtypeCounter . '" id="type_keywords' . $subtypeCounter . '">
-											<option value="">Type of ' . fixTag($tagRow['tag']) . '</option>';
-									
-									if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] == '' AND isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] == $tagRow['tag']) {
-										$makeAppear = $subtypeCounter;
-									}
-									
-									while ($subtypeRow = mysql_fetch_assoc($subtypeDropdown)) {
-										$capitalizedType = strtoupper(substr($subtypeRow['type'], 0, 1)) . substr($subtypeRow['type'], 1);
-										$capitalizedType = str_replace('_', ' ', $capitalizedType);
+					<table>
+						<tr>
+							<td>
+								<input class="searchbox" type="text" name="keyword" placeholder="Search for a keyword or phrase..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_GET['keyword']; ?>" autocomplete="off" /><input type="submit" name="submit" value=" Search " /></br>
+								<div id="autoCompleteResults" style="
+									background: linear-gradient(gray, rgba(255, 255, 255, 0.25));
+									top: 39px;
+									position: absolute;
+									left: 0px;
+									width: 300px;
+									padding: 10px;
+									display: none;
+								"></div>
+								<input type="checkbox" name="full_text_of_document" onclick="toggle();" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text of documents<br /><br />
+							</td>
+							<td>
+								<table class="innerTable">
+									<tr>
+										<td>Search in:</td>
+										<td>
+											<select name="divtype_document" id="divtype_document"> 
+												<option value="">All documents</option>
+												<?php
+													$documentTypeDropdown = mysql_query("SELECT DISTINCT(`divtype`) FROM `documents` WHERE `divtype` != 'webpage';");
+													while ($documentTypeRow = mysql_fetch_assoc($documentTypeDropdown)) {
+														$capitalizedDocumentType = strtoupper(substr($documentTypeRow['divtype'], 0, 1)) . substr($documentTypeRow['divtype'], 1);
+														
+														echo '<option value="' . $documentTypeRow['divtype'] . '" ';
+														
+														if (isset($_GET['divtype_document']) AND $_GET['divtype_document'] == $documentTypeRow['divtype']) {
+															echo 'selected';
+														}
+														
+														$newTagNames = array(
+															'Apparatus' => 'Apparatuses',
+															'Poem' => 'Poems',
+															'Note' => 'Notes',
+															'Essay' => 'Essays'
+														);
+														
+														if (array_key_exists($capitalizedDocumentType, $newTagNames)) {
+															$capitalizedDocumentType = $newTagNames[$capitalizedDocumentType];
+														}
+														
+														echo '>' . $capitalizedDocumentType . '</option>';
+													}
+												?>
+											</select>
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td>Show:</td>
+										<td>
+											<select name="tag_keywords" id="tag_keywords" onchange="addSubtype(this.selectedIndex); toggle();">									
+												<option value="">All keywords</option>
+												<?php
+													$tagDropdown = mysql_query("SELECT DISTINCT(`tag`) FROM `keywords` WHERE `tag` != 'ref' AND `tag` != 'cell' AND `tag` != 'date';");
+													while ($tagRow = mysql_fetch_assoc($tagDropdown)) {
+														echo '<option value="' . $tagRow['tag'] . '" ';
+														
+														if (isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] == $tagRow['tag']) {
+															echo 'selected';
+														}
+														
+														echo '>' . fixTag($tagRow['tag'], true, true) . '</option>';
+													}
+												?>
+											</select>
+										</td>
+										<td>
+											<?php
+												$tagDropdown = mysql_query("SELECT DISTINCT(`tag`) FROM `keywords` WHERE `tag` != 'ref' AND `tag` != 'cell' AND `tag` != 'date';");
+												
+												$subtypeCounter = 0;
+												$makeAppear = 0;
+												
+												while ($tagRow = mysql_fetch_assoc($tagDropdown)) {
+													$subtypeCounter++;
+													
+													$subtypeDropdown = mysql_query("SELECT DISTINCT(`type`) FROM `keywords` WHERE `tag` LIKE '" . mysql_real_escape_string($tagRow['tag']) . "' AND `type` NOT LIKE '';");
+													
+													if (mysql_num_rows($subtypeDropdown) > 0) {
+														echo '<select class="subtype" name="type_keywords' . $subtypeCounter . '" id="type_keywords' . $subtypeCounter . '">
+																<option value="">Any kind of ' . fixTag($tagRow['tag'], false, false) . '</option>';
+														
+														if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] == '' AND isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] == $tagRow['tag']) {
+															$makeAppear = $subtypeCounter;
+														}
+														
+														while ($subtypeRow = mysql_fetch_assoc($subtypeDropdown)) {
+															echo "\n" . '<option value="' . $subtypeRow['type'] . '" ';
+															
+															if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] == $subtypeRow['type']) {
+																echo 'selected';
+																$makeAppear = $subtypeCounter;
+															}
+															
+															echo '>' . fixTag($subtypeRow['type'], true, true) . '</option>';
+														}
 
-										echo "\n" . '<option value="' . $subtypeRow['type'] . '" ';
-										
-										if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] == $subtypeRow['type']) {
-											echo 'selected';
-											$makeAppear = $subtypeCounter;
-										}
-										
-										echo '>' . $capitalizedType . '</option>';
-									}
-
-									echo "\n" . '</select>' . "\n";
-								}
-							}
-						?>
+														echo "\n" . '</select>' . "\n";
+													}
+												}
+											?>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</fieldset>
 		</form>
@@ -219,9 +307,11 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 				oldId = 0;
 			}
 			
-			document.getElementsByName('type_keywords' + makeAppearNum)[0].style.display = 'initial';
-			document.getElementsByName('type_keywords' + makeAppearNum)[0].name = 'type_keywords';
-			oldId = makeAppearNum;
+			if (typeof document.getElementsByName('type_keywords' + makeAppearNum)[0] != "undefined") {
+				document.getElementsByName('type_keywords' + makeAppearNum)[0].style.display = 'initial';
+				document.getElementsByName('type_keywords' + makeAppearNum)[0].name = 'type_keywords';
+				oldId = makeAppearNum;
+			}
 		}
 		</script>
 <?php
@@ -343,11 +433,30 @@ if (isset($_GET['keyword'])) {
 			$matchingText = str_ireplace($row['content'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $row['content'] . '</span>', $matchingText);
 		}
 		
-		echo '<div style="background: #eee;padding: 15px;border-radius: 8px;border: 1px solid #aaa;margin-bottom: 10px;">
-				<span style="font-size: 18px;color: #609;"><a href="' . $row['url'] . '">' . $row['title'] . '</a></span><br />
-				<span style="margin-top: 10px; margin-bottom: 10px;display: block;"><b>Document type:</b> ' . $row['divtype'] . '</span>
-				<span style="font-style: italic;">"' . $matchingText . '"</span><br />
+		if (isset($_GET['full_text_of_document'])) {
+			echo '<div style="background: #eee;padding: 15px;border-radius: 8px;border: 1px solid #aaa;margin-bottom: 10px;">
+			<span style="font-size: 18px;color: #609;"><a href="' . $row['url'] . '">' . $row['title'] . '</a></span><br />
+			<span style="margin-top: 10px;margin-bottom: 10px;display: block;">Document: <b>' . $row['divtype'] . '</b></span>
+			<span style="font-style: italic;">"' . $matchingText . '"</span><br />
 			</div>';
+		} else {
+			if ($row['subtype'] != '' AND $row['subtype'] != 'subtype') {
+				echo '<div style="background: #eee;padding: 15px;border-radius: 8px;border: 1px solid #aaa;margin-bottom: 10px;">
+				<span style="font-size: 18px;color: #609;"><a href="' . $row['url'] . '">' . $row['title'] . '</a></span><br />
+				<span style="margin-top: 10px;display: block;">Document: <b>' . $row['divtype'] . '</b></span>
+				<span style="display: block;margin-bottom: 10px;">Keyword: <b>' . fixTag($row['tag'], false, false) . ' (' . fixTag($row['subtype'], false, false) . ')</b></span>
+				<span style="font-style: italic;">"' . $matchingText . '"</span><br />
+				</div>';
+			} else {
+				echo '<div style="background: #eee;padding: 15px;border-radius: 8px;border: 1px solid #aaa;margin-bottom: 10px;">
+				<span style="font-size: 18px;color: #609;"><a href="' . $row['url'] . '">' . $row['title'] . '</a></span><br />
+				<span style="margin-top: 10px;display: block;">Document: <b>' . $row['divtype'] . '</b></span>
+				<span style="display: block;margin-bottom: 10px;">Keyword: <b>' . fixTag($row['tag'], false, false) . '</b></span>
+				<span style="font-style: italic;">"' . $matchingText . '"</span><br />
+				</div>';
+			}
+		}
+		
 	}
 	echo '</div>';
 	

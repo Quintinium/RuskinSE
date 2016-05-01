@@ -8,9 +8,35 @@
 }
 
 .searchFields select {
-	min-width: 200px;
+	min-width: 150px;
+}
+
+.searchbox {
+	width: 200px;
+}
+
+.searchFields table, tr, td {
+	border: none;
+	width: initial;
+	padding: 0px;
+	font-size: 10pt;
+	text-align: left;
+}
+
+.searchFields table {
+	margin: auto;
+	width: 800px;
+}
+
+.innerTable {
+	margin-left: -80px !important;
+	width: initial !important;
 }
 
 .subtype {
 	display: none;
+}
+
+.content {
+	padding-top: initial;
 }
