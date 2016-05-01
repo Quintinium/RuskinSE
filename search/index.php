@@ -110,7 +110,7 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 					<table>
 						<tr>
 							<td>
-								<input class="searchbox" type="text" name="keyword" placeholder="Search for a keyword or phrase..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_GET['keyword']; ?>" autocomplete="off" /><input type="submit" name="submit" value=" Search " /></br>
+								<input class="searchbox" type="text" name="keyword" placeholder="Search for a keyword or phrase..." value="<?php echo $_GET['keyword']; ?>" autocomplete="off" /><input type="submit" name="submit" value=" Search " /></br>
 								<div id="autoCompleteResults" style="
 									background: linear-gradient(gray, rgba(255, 255, 255, 0.25));
 									top: 39px;
