@@ -120,7 +120,7 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 									padding: 10px;
 									display: none;
 								"></div>
-								<input type="checkbox" name="full_text_of_document" onclick="toggle();" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text of documents<br /><br />
+								<label id="full_text_of_document_label"><input type="checkbox" name="full_text_of_document" onclick="toggle();" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> />Search full text of documents</label><br /><br />
 							</td>
 							<td>
 								<table class="innerTable">
@@ -233,9 +233,11 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 		function toggle() {
 			var full_text_of_document = document.getElementsByName('full_text_of_document')[0];
 			var tag_keywords_filter = document.getElementsByName('tag_keywords')[0];
+			var full_text_of_document_label = document.getElementById('full_text_of_document_label');
 			
 			if (tag_keywords_filter.selectedIndex != 0) {
 				full_text_of_document.disabled = true;
+				full_text_of_document_label.className = "labelDisabled";
 			}
 			
 			if (full_text_of_document.checked == true) {
@@ -246,6 +248,7 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 			if (tag_keywords_filter.selectedIndex == 0 && full_text_of_document.checked == false) {
 				full_text_of_document.disabled = false;
 				tag_keywords_filter.disabled = false;
+				full_text_of_document_label.className = "";
 			}
 			
 			console.log("Toggle function was called");

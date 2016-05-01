@@ -40,3 +40,20 @@
 .content {
 	padding-top: initial;
 }
+
+select:disabled {
+	color: #666;
+    text-shadow: 1px 1px 1px #fff;
+    background: #ddd;
+}
+
+label {
+	padding: 3px;
+}
+
+.labelDisabled {
+	color: #666;
+    text-shadow: 1px 1px 1px #fff;
+    background: #ddd;
+	padding: 3px;
+}
