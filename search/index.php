@@ -1,20 +1,34 @@
 <?php
-if ($_POST['is_poem_document']) {
+
+// Load MySQL credentials from config file.
+include('config.php');
+
+// Attempt to connect to the MySQL server.
+if (!$db_conn = mysql_connect($servername, $username, $password)) {
+	die("Failed to connect to the MySQL server: " . mysql_connect_errno());
+}
+
+// Attempt to connect to the database.
+if (!mysql_select_db($database)) {
+	die("Failed to select the database: " . $database);
+}
+
+if ($_GET['is_poem_document']) {
 	$poem_checkmark = 'checked';
 } else {
 	$poem_checkmark ='';
 }
-if ($_POST['full_text_of_document']) {
+if ($_GET['full_text_of_document']) {
 	$full_text_checkmark = 'checked';
 } else {
 	$full_text_checkmark ='';
 }
-if ($_POST['activate_tag_filter']) {
+if ($_GET['activate_tag_filter']) {
 	$tag_filter_checkmark = 'checked';
 } else {
 	$tag_filter_checkmark ='';
 }
-if ($_POST['activate_document_filter']) {
+if ($_GET['activate_document_filter']) {
 	$document_filter_checkmark = 'checked';
 } else {
 	$document_filter_checkmark ='';
@@ -30,11 +44,11 @@ if ($_POST['activate_document_filter']) {
 </head>
 <body>
 	<?php include("../navigation.inc.php"); ?>
-		<form action="" method="post" style="background: white;">
+		<form action="" method="get" style="background: white;">
 			<fieldset>
 				<legend>Advanced Search</legend>
 				<div class="searchFields">
-					<input type="text" name="keyword" placeholder="Search..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_POST['keyword']; ?>" autocomplete="off" style="
+					<input type="text" name="keyword" placeholder="Search..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_GET['keyword']; ?>" autocomplete="off" style="
 						width: 300px;
 					" /><input type="submit" name="submit" value=" Search " /></br>
 					<div id="autoCompleteResults" style="
@@ -49,9 +63,14 @@ if ($_POST['activate_document_filter']) {
 					<input type="checkbox" name="full_text_of_document" onclick="toggle()" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br /><br />
 					<select name="divtype_document" id="divtype_document"> 
 						<option value="">Document Type</option>
-						<option value="apparatus">Apparatus</option>
-						<option value="poem">Poem</option>
-						<option value="note">Note</option>
+						<?php
+							$documentTypeDropdown = mysql_query("SELECT DISTINCT(`divtype`) FROM `documents` WHERE `divtype` != 'webpage';");
+							while ($documentTypeRow = mysql_fetch_assoc($documentTypeDropdown)) {
+								$capitalizedDocumentType = strtoupper(substr($documentTypeRow['divtype'], 0, 1)) . substr($documentTypeRow['divtype'], 1);
+								
+								echo '<option value="' . $documentTypeRow['divtype'] . '">' . $capitalizedDocumentType . '</option>';
+							}
+						?>
 					</select><br />
 					<select name="tag_keywords" id="tag_keywords">									
 						<option value="">Keyword Type</option>
@@ -177,30 +196,17 @@ if ($_POST['activate_document_filter']) {
 		</script>
 <?php
 
-// Load MySQL credentials from config file.
-include('config.php');
-
-// Attempt to connect to the MySQL server.
-if (!$db_conn = mysql_connect($servername, $username, $password)) {
-	die("Failed to connect to the MySQL server: " . mysql_connect_errno());
-}
-
-// Attempt to connect to the database.
-if (!mysql_select_db($database)) {
-	die("Failed to select the database: " . $database);
-}
-
-if (isset($_POST['keyword'])) {
+if (isset($_GET['keyword'])) {
 	
 	// Check to make sure the user searched for a keyword that is at least 3 characters long.
-	if (strlen($_POST['keyword']) < 3) {
+	if (strlen($_GET['keyword']) < 3) {
 		die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
 	}
 	
 	// This is our base query. We will add constraints to make this query longer
 	// depending on which filters are active.
-	if (isset($_POST['full_text_of_document'])) {
-		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ";
+	if (isset($_GET['full_text_of_document'])) {
+		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . mysql_real_escape_string($_GET['keyword']) . "%' ";
 	} else {
 		$query = "SELECT
 		`documents`.`id`,
@@ -217,23 +223,19 @@ if (isset($_POST['keyword'])) {
 		`keywords`.`type`,
 		`keywords`.`corresp`,
 		`keywords`.`content`
-		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . mysql_real_escape_string($_POST['keyword']) . "%' ";
+		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . mysql_real_escape_string($_GET['keyword']) . "%' ";
 	}
 	
-	if (isset($_POST['is_poem_document'])) {
-		$query .= "AND `documents`.`ispoem` = 1 ";
+	if (isset($_GET['divtype_document']) AND $_GET['divtype_document'] != '') {
+		$query .= "AND `documents`.`divtype` LIKE '" . mysql_real_escape_string($_GET['divtype_document']) . "' ";
 	}
 	
-	if (isset($_POST['activate_document_filter'])) {
-		$query .= "AND `documents`.`divtype` LIKE '" . mysql_real_escape_string($_POST['divtype_document']) . "' ";
+	if (isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] != '' AND !isset($_GET['full_text_of_document'])) {
+		$query .= "AND `keywords`.`tag` LIKE '%" . mysql_real_escape_string($_GET['tag_keywords']) . "%' ";
 	}
 	
-	if (isset($_POST['activate_tag_filter']) AND !isset($_POST['full_text_of_document'])) {
-		$query .= "AND `keywords`.`tag` LIKE '%" . mysql_real_escape_string($_POST['tag_keywords']) . "%' ";
-	}
-	
-	if ($_POST['type_keywords'] !='aa' AND !isset($_POST['full_text_of_document'])){
-		$query .= "AND `keywords`.`type` LIKE '%" . mysql_real_escape_string($_POST['type_keywords']) . "%' ";
+	if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] !='' AND !isset($_GET['full_text_of_document'])){
+		$query .= "AND `keywords`.`type` LIKE '%" . mysql_real_escape_string($_GET['type_keywords']) . "%' ";
 	}
 
 	// Finds all poems, and then from these peoms, search for the ones with a title containing "Calais"
@@ -252,27 +254,31 @@ if (isset($_POST['keyword'])) {
 	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
 	
 	/*
-	if (isset($_POST['page'])) {
-		$startPage = ($_POST['page'] - 1) * 5;
+	if (isset($_GET['page'])) {
+		$startPage = ($_GET['page'] - 1) * 5;
 	} else {
 		$startPage = 0;
 	}
 	$query .= " LIMIT " . $startPage .",5";
 	*/
+	
+	if ($numberOfResults > 10) {
+		
+	}
 	$results = mysql_query($query);
 	
 	echo '<div class="container results-container">
-	<h2>Search results for <span class="italic">"' . $_POST['keyword'] . '"</span> :</h2>
+	<h2>Search results for <span class="italic">"' . $_GET['keyword'] . '"</span> :</h2>
 	<h3>Found <span style="background-color: #94FF00;padding: 3px;font-weight: bold;">' . $numberOfResults['result'] . '</span> results in <span style="background-color: #94FF00;padding: 3px;font-weight: bold;">' . $numberOfDocuments['result'] . '</span> documents:</h3>
 			<div class="divider"></div>';
 			
 	while ($row = mysql_fetch_assoc($results)) {
 		if ($row['keyword'] == 'title') {
 			$matchingText = $row['content'];
-		} elseif (isset($_POST['full_text_of_document'])) {
+		} elseif (isset($_GET['full_text_of_document'])) {
 			$row['text'] = html_entity_decode(strip_tags($row['text']));
 			
-			$matchLocation = stripos($row['text'], $_POST['keyword']);
+			$matchLocation = stripos($row['text'], $_GET['keyword']);
 			
 			if ($matchLocation > 250) {
 				$startLocation = $matchLocation - 250;
@@ -286,7 +292,7 @@ if (isset($_POST['keyword'])) {
 			$endingSpace = strrpos($row['text'], '<');
 			
 			$matchingText = '...' . trim(substr($row['text'], $startingSpace, $endingSpace - $startingSpace)) . '...';
-			$matchingText = str_ireplace($_POST['keyword'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $_POST['keyword'] . '</span>', $matchingText);
+			$matchingText = str_ireplace($_GET['keyword'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $_GET['keyword'] . '</span>', $matchingText);
 		} else {
 			$row['text'] = html_entity_decode(strip_tags($row['text']));
 			
