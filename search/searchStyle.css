@@ -1,5 +1,6 @@
 .searchFields {
 	padding: 5px;
+	text-align: left;
 }
 
 .searchFields select, input {
@@ -8,4 +9,8 @@
 
 .searchFields select {
 	min-width: 200px;
+}
+
+.subtype {
+	display: none;
 }

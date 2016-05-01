@@ -13,26 +13,27 @@ if (!mysql_select_db($database)) {
 	die("Failed to select the database: " . $database);
 }
 
-if ($_GET['is_poem_document']) {
-	$poem_checkmark = 'checked';
-} else {
-	$poem_checkmark ='';
+function fixTag($tag) {
+	$capitalizedTag = strtoupper(substr($tag, 0, 1)) . substr($tag, 1);
+	
+	$newTagNames = array(
+		'GeogName' => 'Geographic Name',
+		'PersName' => 'Person Name',
+		'PlaceName' => 'Place Name',
+		'OrgName' => 'Organization Name'
+	);
+	
+	if (array_key_exists($capitalizedTag, $newTagNames)) {
+		$capitalizedTag = $newTagNames[$capitalizedTag];
+	}
+	
+	return $capitalizedTag;
 }
-if ($_GET['full_text_of_document']) {
+
+if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == true) {
 	$full_text_checkmark = 'checked';
-} else {
-	$full_text_checkmark ='';
 }
-if ($_GET['activate_tag_filter']) {
-	$tag_filter_checkmark = 'checked';
-} else {
-	$tag_filter_checkmark ='';
-}
-if ($_GET['activate_document_filter']) {
-	$document_filter_checkmark = 'checked';
-} else {
-	$document_filter_checkmark ='';
-}
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0048)http://english.selu.edu/humanitiesonline/ruskin/ -->
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -60,7 +61,7 @@ if ($_GET['activate_document_filter']) {
 						padding: 10px;
 						display: none;
 					"></div>
-					<input type="checkbox" name="full_text_of_document" onclick="toggle()" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br /><br />
+					<input type="checkbox" name="full_text_of_document" onclick="toggle();" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> /> Search full text<br /><br />
 					<select name="divtype_document" id="divtype_document"> 
 						<option value="">Document Type</option>
 						<?php
@@ -68,77 +69,68 @@ if ($_GET['activate_document_filter']) {
 							while ($documentTypeRow = mysql_fetch_assoc($documentTypeDropdown)) {
 								$capitalizedDocumentType = strtoupper(substr($documentTypeRow['divtype'], 0, 1)) . substr($documentTypeRow['divtype'], 1);
 								
-								echo '<option value="' . $documentTypeRow['divtype'] . '">' . $capitalizedDocumentType . '</option>';
+								echo '<option value="' . $documentTypeRow['divtype'] . '" ';
+								
+								if (isset($_GET['divtype_document']) AND $_GET['divtype_document'] == $documentTypeRow['divtype']) {
+									echo 'selected';
+								}
+								
+								echo '>' . $capitalizedDocumentType . '</option>';
 							}
 						?>
 					</select><br />
-					<select name="tag_keywords" id="tag_keywords">									
+					<select name="tag_keywords" id="tag_keywords" onchange="addSubtype(this.selectedIndex); toggle();">									
 						<option value="">Keyword Type</option>
-						<option value="persName">Person Name</option>
-						<option value="geogName">Geographical Name</option>
-						<option value="placeName">Place Name</option>
-						<option value="orgName">Organization Name</option>
-						<option value="title">Title</option>
-						<option value="name">Name</option>
-						<option value="date">Date</option>
+						<?php
+							$tagDropdown = mysql_query("SELECT DISTINCT(`tag`) FROM `keywords` WHERE `tag` != 'ref' AND `tag` != 'cell' AND `tag` != 'date';");
+							while ($tagRow = mysql_fetch_assoc($tagDropdown)) {
+								echo '<option value="' . $tagRow['tag'] . '" ';
+								
+								if (isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] == $tagRow['tag']) {
+									echo 'selected';
+								}
+								
+								echo '>' . fixTag($tagRow['tag']) . '</option>';
+							}
+						?>
 					</select>
-					<select name="type_keywords" id="type_keywords">
-						<option value="">Title Type</option>
-						<option value="book">Book</option>
-						<option value="poem">Poem</option>
-						<option value="pen_name">Pen Name</option>
-						<option value="periodical">Periodical</option>
-						<option value="essay">Essay</option>
-						<option value="bibliography">Bibliography</option>
-						<option value="prose">Prose</option>
-						<option value="archive">Archive</option>
-						<option value="engraving">Engraving</option>
-						<option value="collected_poems">Collected Poems</option>
-						<option value="collected_sketches">Collected Sketches</option>
-						<option value="anthology">Anthology</option>
-						<option value="reference">Reference</option>
-						<option value="biography">Biography</option>
-						<option value="novel">Novel</option>
-						<option value="magazine">Magazine</option>
-						<option value="drama">Drama</option>
-						<option value="collected_letters">Collected Letters</option>
-						<option value="autobiography">Autobiography</option>
-						<option value="bibliography_text">Bibliography Text</option>
-						<option value="manuscript">Manuscript</option>
-						<option value="program">Program</option>
-						<option value="lesson">Lesson</option>
-						<option value="gloss">Gloss</option>
-						<option value="composite">Composite</option>
-						<option value="sermon">Sermon</option>
-						<option value="archive_digital">Archive Digital</option>
-						<option value="archive_nondigital">Archive Non-Digital</option>
-						<option value="series">Series</option>
-						<option value="fictional">Fictional</option>
-						<option value="story">Story</option>
-						<option value="peom">Peom</option>
-						<option value="architecture">Architecture</option>
-						<option value="collected_works">Collected Works</option>
-						<option value="painting">Painting</option>
-						<option value="letter">Letter</option>
-						<option value="guidebook">Guidebook</option>
-						<option value="constellation">Constellation</option>
-						<option value="book_chapter">Book Chapter</option>
-						<option value="memoir">Memoir</option>
-						<option value="composition">Composition</option>
-						<option value="work">Work</option>
-						<option value="scripture">Scripture</option>
-						<option value="drawing">Drawing</option>
-						<option value="collected_art">Collected Art</option>
-						<option value="sketch">Sketch</option>
-						<option value="map">Map</option>
-						<option value="catalog_auction">Catalog Auction</option>
-						<option value="dictionary">Dictionary</option>
-						<option value="ana">Ana</option>
-						<option value="collecte_poems">Collected Poems</option>
-						<option value="tale">Tale</option>
-						<option value="other">Other</option>
-						<option value="article">Article</option>
-					</select>
+						<?php
+							$tagDropdown = mysql_query("SELECT DISTINCT(`tag`) FROM `keywords` WHERE `tag` != 'ref' AND `tag` != 'cell' AND `tag` != 'date';");
+							
+							$subtypeCounter = 0;
+							$makeAppear = 0;
+							
+							while ($tagRow = mysql_fetch_assoc($tagDropdown)) {
+								$subtypeCounter++;
+								
+								$subtypeDropdown = mysql_query("SELECT DISTINCT(`type`) FROM `keywords` WHERE `tag` LIKE '" . mysql_real_escape_string($tagRow['tag']) . "' AND `type` NOT LIKE '';");
+								
+								if (mysql_num_rows($subtypeDropdown) > 0) {
+									echo '<select class="subtype" name="type_keywords' . $subtypeCounter . '" id="type_keywords' . $subtypeCounter . '">
+											<option value="">Type of ' . fixTag($tagRow['tag']) . '</option>';
+									
+									if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] == '' AND isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] == $tagRow['tag']) {
+										$makeAppear = $subtypeCounter;
+									}
+									
+									while ($subtypeRow = mysql_fetch_assoc($subtypeDropdown)) {
+										$capitalizedType = strtoupper(substr($subtypeRow['type'], 0, 1)) . substr($subtypeRow['type'], 1);
+										$capitalizedType = str_replace('_', ' ', $capitalizedType);
+
+										echo "\n" . '<option value="' . $subtypeRow['type'] . '" ';
+										
+										if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] == $subtypeRow['type']) {
+											echo 'selected';
+											$makeAppear = $subtypeCounter;
+										}
+										
+										echo '>' . $capitalizedType . '</option>';
+									}
+
+									echo "\n" . '</select>' . "\n";
+								}
+							}
+						?>
 				</div>
 			</fieldset>
 		</form>
@@ -147,28 +139,27 @@ if ($_GET['activate_document_filter']) {
 	
 	
 		<script type ="text/javascript">
-		document.onload = toggle()
+		document.onload = toggle();
+		document.onload = makeAppear();
 		
 		function toggle() {
-			var full_text_of_document = document.getElementById('full_text_of_document');
-			var activate_tag_filter = document.getElementById('activate_tag_filter');
+			var full_text_of_document = document.getElementsByName('full_text_of_document')[0];
+			var tag_keywords_filter = document.getElementsByName('tag_keywords')[0];
+			
+			if (tag_keywords_filter.selectedIndex != 0) {
+				full_text_of_document.disabled = true;
+			}
+			
 			if (full_text_of_document.checked == true) {
-				activate_tag_filter.disabled = true
-				full_text_of_document.disabled = false
-				tag_keywords.disabled = true
-				type_keywords.disabled = true
-				type_keywords.selectedIndex = 'aa'
+				tag_keywords_filter.disabled = true;
+				addSubtype();
 			}
-			if (activate_tag_filter.checked == true) {
-				full_text_of_document.disabled = true
-				activate_tag_filter.disabled = false
+			
+			if (tag_keywords_filter.selectedIndex == 0 && full_text_of_document.checked == false) {
+				full_text_of_document.disabled = false;
+				tag_keywords_filter.disabled = false;
 			}
-			if (full_text_of_document.checked == false && activate_tag_filter.checked == false) {
-				full_text_of_document.disabled = false
-				activate_tag_filter.disabled = false
-				tag_keywords.disabled = false
-				type_keywords.disabled = false
-			}
+			
 			console.log("Toggle function was called");
 		}
 		
@@ -192,6 +183,45 @@ if ($_GET['activate_document_filter']) {
 			} else {
 				resultBox.style.display = 'none';
 			}
+		}
+		
+		function addSubtype(indexOfElement) {
+			var totalSubtypes = <?php echo $subtypeCounter; ?>;
+			
+			if (typeof oldId == "undefined") {
+				oldId = 0;
+			}
+			
+			if (oldId != 0) {
+				document.getElementsByName('type_keywords')[0].name = 'type_keywords' + oldId;
+			}
+			
+			for (var i = 1; i <= totalSubtypes; i++) {
+				if (document.getElementsByName('type_keywords' + i)[0] != null) {
+					document.getElementsByName('type_keywords' + i)[0].style.display = 'none';
+					document.getElementsByName('type_keywords' + i)[0].selectedIndex = 0;
+				}
+			}
+			
+			if (document.getElementsByName('type_keywords' + indexOfElement)[0] != null) {
+				document.getElementsByName('type_keywords' + indexOfElement)[0].style.display = 'initial';
+				document.getElementsByName('type_keywords' + indexOfElement)[0].name = 'type_keywords';
+				oldId = indexOfElement;
+			} else {
+				oldId = 0;
+			}
+		}
+		
+		function makeAppear() {
+			var makeAppearNum = <?php echo $makeAppear; ?>;
+			console.log('Make this id appear ' + makeAppearNum);
+			if (typeof oldId == "undefined") {
+				oldId = 0;
+			}
+			
+			document.getElementsByName('type_keywords' + makeAppearNum)[0].style.display = 'initial';
+			document.getElementsByName('type_keywords' + makeAppearNum)[0].name = 'type_keywords';
+			oldId = makeAppearNum;
 		}
 		</script>
 <?php
