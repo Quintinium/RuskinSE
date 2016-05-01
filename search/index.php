@@ -49,7 +49,7 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 			<fieldset>
 				<legend>Advanced Search</legend>
 				<div class="searchFields">
-					<input type="text" name="keyword" placeholder="Search..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_GET['keyword']; ?>" autocomplete="off" style="
+					<input type="text" name="keyword" placeholder="Search for a keyword or phrase..." onkeyup="fetchAutoComplete(this.value);" value="<?php echo $_GET['keyword']; ?>" autocomplete="off" style="
 						width: 300px;
 					" /><input type="submit" name="submit" value=" Search " /></br>
 					<div id="autoCompleteResults" style="
