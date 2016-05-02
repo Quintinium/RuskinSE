@@ -376,18 +376,16 @@ if (isset($_GET['keyword'])) {
 	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
 	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
 	
-	/*
-	if (isset($_GET['page'])) {
-		$startPage = ($_GET['page'] - 1) * 5;
-	} else {
-		$startPage = 0;
+	$resultsPerPage = 5;
+	if ($numberOfResults['result'] > $resultsPerPage) {
+		if (isset($_GET['page'])) {
+			$startPage = ($_GET['page'] - 1) * $resultsPerPage;
+		} else {
+			$startPage = 0;
+		}
+		$query .= " LIMIT " . $startPage ."," . $resultsPerPage;
 	}
-	$query .= " LIMIT " . $startPage .",5";
-	*/
 	
-	if ($numberOfResults > 10) {
-		
-	}
 	$results = mysql_query($query);
 	
 	echo '<div class="container results-container">
@@ -443,11 +441,11 @@ if (isset($_GET['keyword'])) {
 			<span style="font-style: italic;">"' . $matchingText . '"</span><br />
 			</div>';
 		} else {
-			if ($row['subtype'] != '' AND $row['subtype'] != 'subtype') {
+			if ($row['type'] != '') {
 				echo '<div style="background: #eee;padding: 15px;border-radius: 8px;border: 1px solid #aaa;margin-bottom: 10px;">
 				<span style="font-size: 18px;color: #609;"><a href="' . $row['url'] . '">' . $row['title'] . '</a></span><br />
 				<span style="margin-top: 10px;display: block;">Document: <b>' . $row['divtype'] . '</b></span>
-				<span style="display: block;margin-bottom: 10px;">Keyword: <b>' . fixTag($row['tag'], false, false) . ' (' . fixTag($row['subtype'], false, false) . ')</b></span>
+				<span style="display: block;margin-bottom: 10px;">Keyword: <b>' . fixTag($row['tag'], false, false) . ' (' . fixTag($row['type'], false, false) . ')</b></span>
 				<span style="font-style: italic;">"' . $matchingText . '"</span><br />
 				</div>';
 			} else {
@@ -461,7 +459,61 @@ if (isset($_GET['keyword'])) {
 		}
 		
 	}
-	echo '</div>';
+	
+	echo '<div class="searchPages">';
+	
+	$totalPages = ceil($numberOfResults['result'] / $resultsPerPage);
+	
+	if ($totalPages > 0) {
+		$newGET = '';
+		foreach ($_GET AS $key => $value) {
+			if ($key == 'page') {
+				continue;
+			}
+			$newGET .= $key . '=' . htmlspecialchars($value) . '&';
+		}
+		
+		if (isset($_GET['page'])) {
+			$requestedPage = $_GET['page'];
+		} else {
+			$requestedPage = 1;
+		}
+		
+		if ($requestedPage <= 4) {
+			for ($currentPage = 1; $currentPage <= 5 AND $currentPage <= $totalPages; $currentPage++) {
+				if ($currentPage == $requestedPage) {
+					echo '<b><a class="selectedPage" href="?' . $newGET . 'page=' . $currentPage . '">' . $currentPage . '</a></b> ';
+				} else {
+					echo '<a href="?' . $newGET . 'page=' . $currentPage . '">' . $currentPage . '</a> ';
+				}
+			}
+			
+			if ($totalPages > 5) {
+				echo '... <a href="?' . $newGET . 'page=' . $totalPages . '">' . $totalPages . '</a>';
+			}
+		}
+		
+		if ($requestedPage > 4 AND $requestedPage <= $totalPages - 4) {
+			echo '<a href="?' . $newGET . 'page=1">1</a> ... ';
+			echo '<a href="?' . $newGET . 'page=' . ($requestedPage - 1) . '">' . ($requestedPage - 1) . '</a> ';
+			echo '<b><a class="selectedPage" href="?' . $newGET . 'page=' . $requestedPage . '">' . $requestedPage . '</a></b> ';
+			echo '<a href="?' . $newGET . 'page=' . ($requestedPage + 1) . '">' . ($requestedPage + 1) . '</a> ';
+			echo '... <a href="?' . $newGET . 'page=' . $totalPages . '">' . $totalPages . '</a>';
+		}
+		
+		if ($requestedPage > $totalPages - 4 AND $totalPages > 5) {
+			echo '<a href="?' . $newGET . 'page=1">1</a> ... ';
+			for ($currentPage = $totalPages - 4; $currentPage <= $totalPages; $currentPage++) {
+				if ($currentPage == $requestedPage) {
+					echo '<b><a class="selectedPage" href="?' . $newGET . 'page=' . $currentPage . '">' . $currentPage . '</a></b> ';
+				} else {
+					echo '<a href="?' . $newGET . 'page=' . $currentPage . '">' . $currentPage . '</a> ';
+				}
+			}
+		}
+	}
+	echo '</div>
+	</div>';
 	
 }
 
