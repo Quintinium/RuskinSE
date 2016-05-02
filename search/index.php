@@ -88,11 +88,6 @@ function fixTag($tag, $capitalize, $pluralize) {
 	return $tag;
 }
 
-// Check to make sure the user searched for a keyword that is at least 3 characters long.
-if (strlen($_GET['keyword']) < 3) {
-	die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
-}
-
 function createSearchQuery() {
 	// This is our base query. We will add constraints to make this query longer
 	// depending on which filters are active.
@@ -143,16 +138,18 @@ function createSearchQuery() {
 	return $query;
 }
 
-$query = createSearchQuery();
-
-$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
-$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
-
-if ($numberOfResults['result'] == 0) {
-	$_GET['full_text_of_document'] = true;
+if (isset($_GET['keyword']) AND strlen($_GET['keyword']) >= 3) {
 	$query = createSearchQuery();
+
 	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
 	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
+
+	if ($numberOfResults['result'] == 0) {
+		$_GET['full_text_of_document'] = true;
+		$query = createSearchQuery();
+		$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
+		$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
+	}
 }
 
 if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == true) {
@@ -387,7 +384,11 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 <?php
 
 if (isset($_GET['keyword'])) {
-		
+	// Check to make sure the user searched for a keyword that is at least 3 characters long.
+	if (strlen($_GET['keyword']) < 3) {
+		die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
+	}
+	
 	$resultsPerPage = 5;
 	
 	if ($numberOfResults['result'] > $resultsPerPage) {
