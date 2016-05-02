@@ -377,13 +377,14 @@ if (isset($_GET['keyword'])) {
 	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
 	
 	$resultsPerPage = 5;
+	
 	if ($numberOfResults['result'] > $resultsPerPage) {
 		if (isset($_GET['page'])) {
 			$startPage = ($_GET['page'] - 1) * $resultsPerPage;
 		} else {
 			$startPage = 0;
 		}
-		$query .= " LIMIT " . $startPage ."," . $resultsPerPage;
+		$query .= " LIMIT " . mysql_real_escape_string($startPage) ."," . mysql_real_escape_string($resultsPerPage);
 	}
 	
 	$results = mysql_query($query);
