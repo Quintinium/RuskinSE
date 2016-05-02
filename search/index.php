@@ -88,6 +88,73 @@ function fixTag($tag, $capitalize, $pluralize) {
 	return $tag;
 }
 
+// Check to make sure the user searched for a keyword that is at least 3 characters long.
+if (strlen($_GET['keyword']) < 3) {
+	die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
+}
+
+function createSearchQuery() {
+	// This is our base query. We will add constraints to make this query longer
+	// depending on which filters are active.
+	if (isset($_GET['full_text_of_document'])) {
+		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . mysql_real_escape_string($_GET['keyword']) . "%' ";
+	} else {
+		$query = "SELECT
+		`documents`.`id`,
+		`documents`.`title`,
+		`documents`.`doctype`,
+		`documents`.`divtype`,
+		`documents`.`subtype`,
+		`documents`.`rhyme`,
+		`documents`.`meter`,
+		`documents`.`ispoem`,
+		`documents`.`text`,
+		`documents`.`url`,
+		`keywords`.`tag`,
+		`keywords`.`type`,
+		`keywords`.`corresp`,
+		`keywords`.`content`
+		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . mysql_real_escape_string($_GET['keyword']) . "%' ";
+	}
+	
+	if (isset($_GET['divtype_document']) AND $_GET['divtype_document'] != '') {
+		$query .= "AND `documents`.`divtype` LIKE '" . mysql_real_escape_string($_GET['divtype_document']) . "' ";
+	}
+	
+	if (isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] != '' AND !isset($_GET['full_text_of_document'])) {
+		$query .= "AND `keywords`.`tag` LIKE '%" . mysql_real_escape_string($_GET['tag_keywords']) . "%' ";
+	}
+	
+	if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] !='' AND !isset($_GET['full_text_of_document'])){
+		$query .= "AND `keywords`.`type` LIKE '%" . mysql_real_escape_string($_GET['type_keywords']) . "%' ";
+	}
+
+	// Finds all poems, and then from these peoms, search for the ones with a title containing "Calais"
+	// SELECT * FROM (SELECT * FROM `documents` WHERE `ispoem` = '1') AS my_first_query WHERE `title` LIKE '%Calais%'
+	
+	// SELECT * FROM `keywords` WHERE `docid` IN (SELECT `id` AS `docid` FROM `documents` WHERE `ispoem` = 1) AND `tag` LIKE '%persName%'
+	// Look in the documents table, and find all documents that are peoms. Then grab the id, and rename this to docid. Then using this list of docids, fetch all keywords
+	// that exist in one of those documents IF that keyword is a persName keyword.
+	
+	// SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `documents`.`ispoem` = 1 AND `keywords`.`tag` LIKE '%persName%'
+	// Here is an easier implementation of the query above.
+	
+	//echo 'Here is our query: ' . $query;
+	return $query;
+}
+
+$query = createSearchQuery();
+
+$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
+$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
+
+if ($numberOfResults['result'] == 0) {
+	$_GET['full_text_of_document'] = true;
+	$query = createSearchQuery();
+	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
+	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
+}
+
 if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == true) {
 	$full_text_checkmark = 'checked';
 }
@@ -320,62 +387,7 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 <?php
 
 if (isset($_GET['keyword'])) {
-	
-	// Check to make sure the user searched for a keyword that is at least 3 characters long.
-	if (strlen($_GET['keyword']) < 3) {
-		die('<br /><span style="font-weight: bold; color: red;">Sorry, please try searching with a keyword that is at least 3 characters long.</span>');
-	}
-	
-	// This is our base query. We will add constraints to make this query longer
-	// depending on which filters are active.
-	if (isset($_GET['full_text_of_document'])) {
-		$query = "SELECT * FROM `documents` WHERE `documents`.`text` LIKE '%" . mysql_real_escape_string($_GET['keyword']) . "%' ";
-	} else {
-		$query = "SELECT
-		`documents`.`id`,
-		`documents`.`title`,
-		`documents`.`doctype`,
-		`documents`.`divtype`,
-		`documents`.`subtype`,
-		`documents`.`rhyme`,
-		`documents`.`meter`,
-		`documents`.`ispoem`,
-		`documents`.`text`,
-		`documents`.`url`,
-		`keywords`.`tag`,
-		`keywords`.`type`,
-		`keywords`.`corresp`,
-		`keywords`.`content`
-		FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `keywords`.`content` LIKE '%" . mysql_real_escape_string($_GET['keyword']) . "%' ";
-	}
-	
-	if (isset($_GET['divtype_document']) AND $_GET['divtype_document'] != '') {
-		$query .= "AND `documents`.`divtype` LIKE '" . mysql_real_escape_string($_GET['divtype_document']) . "' ";
-	}
-	
-	if (isset($_GET['tag_keywords']) AND $_GET['tag_keywords'] != '' AND !isset($_GET['full_text_of_document'])) {
-		$query .= "AND `keywords`.`tag` LIKE '%" . mysql_real_escape_string($_GET['tag_keywords']) . "%' ";
-	}
-	
-	if (isset($_GET['type_keywords']) AND $_GET['type_keywords'] !='' AND !isset($_GET['full_text_of_document'])){
-		$query .= "AND `keywords`.`type` LIKE '%" . mysql_real_escape_string($_GET['type_keywords']) . "%' ";
-	}
-
-	// Finds all poems, and then from these peoms, search for the ones with a title containing "Calais"
-	// SELECT * FROM (SELECT * FROM `documents` WHERE `ispoem` = '1') AS my_first_query WHERE `title` LIKE '%Calais%'
-	
-	// SELECT * FROM `keywords` WHERE `docid` IN (SELECT `id` AS `docid` FROM `documents` WHERE `ispoem` = 1) AND `tag` LIKE '%persName%'
-	// Look in the documents table, and find all documents that are peoms. Then grab the id, and rename this to docid. Then using this list of docids, fetch all keywords
-	// that exist in one of those documents IF that keyword is a persName keyword.
-	
-	// SELECT * FROM `documents`, `keywords` WHERE `documents`.`id`=`keywords`.`docid` AND `documents`.`ispoem` = 1 AND `keywords`.`tag` LIKE '%persName%'
-	// Here is an easier implementation of the query above.
-	
-	//echo 'Here is our query: ' . $query;
-	
-	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
-	$numberOfResults = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS `result` FROM (" . $query . ") AS my_first_query "));
-	
+		
 	$resultsPerPage = 5;
 	
 	if ($numberOfResults['result'] > $resultsPerPage) {
