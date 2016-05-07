@@ -83,7 +83,7 @@ function construct_url($filename, $divtype, $doctype) {
 // Function that checks the response code of a URL on the Ruskin server. This is used for checking if a file exists (200 code) or if a file does not exist on the server (404 code).
 function get_response($url) {
 	// Wait 1/10 of a second between requests. This is needed so that we don't accidentally DOS attack the Ruskin server.
-	usleep(100000);
+	//usleep(100000);
 	
 	// Initiate the CURL handle.
 	$curl_handle = curl_init();
@@ -129,6 +129,7 @@ function insertKeyword($docid, $tag, $type, $corresp, $content, $keyword) {
 	`type`,
 	`corresp`,
 	`content`,
+	`metaphone`,
 	`keyword`
 	) VALUES (
 		'" . mysql_real_escape_string($docid) . "',
@@ -136,6 +137,7 @@ function insertKeyword($docid, $tag, $type, $corresp, $content, $keyword) {
 		'" . mysql_real_escape_string($type) . "',
 		'" . mysql_real_escape_string($corresp) . "',
 		'" . mysql_real_escape_string($content) . "',
+		'" . mysql_real_escape_string(metaphone($content)) . "',
 		'" . mysql_real_escape_string($keyword) . "'
 	);";
 	
@@ -278,6 +280,7 @@ CREATE TABLE IF NOT EXISTS `keywords` (
   `type` varchar(255) NOT NULL,
   `corresp` text NOT NULL,
   `content` varchar(255) NOT NULL,
+  `metaphone` varchar(255) NOT NULL,
   `keyword` text NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `docid` (`docid`,`tag`,`type`,`content`)

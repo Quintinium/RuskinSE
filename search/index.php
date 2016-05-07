@@ -82,8 +82,9 @@ function fixTag($tag, $capitalize, $pluralize) {
 	
 	if ($capitalize) {
 		$tag = strtoupper(substr($tag, 0, 1)) . substr($tag, 1);
-		$tag = str_replace('_', ' ', $tag);
 	}
+	
+	$tag = str_replace('_', ' ', $tag);
 	
 	return $tag;
 }
@@ -139,6 +140,9 @@ function createSearchQuery() {
 }
 
 if (isset($_GET['keyword']) AND strlen($_GET['keyword']) >= 3) {
+	$_GET['keyword'] = str_replace('“', '&#x201C;', $_GET['keyword']);
+	$_GET['keyword'] = str_replace('”', '&#x201D;', $_GET['keyword']);
+	
 	$query = createSearchQuery();
 
 	$numberOfDocuments = mysql_fetch_assoc(mysql_query("SELECT COUNT(DISTINCT(`id`)) AS `result` FROM (" . $query . ") AS my_first_query "));
@@ -174,16 +178,8 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 					<table>
 						<tr>
 							<td>
-								<input class="searchbox" type="text" name="keyword" placeholder="Search for a keyword or phrase..." value="<?php echo $_GET['keyword']; ?>" autocomplete="off" /><input type="submit" name="submit" value=" Search " /></br>
-								<div id="autoCompleteResults" style="
-									background: linear-gradient(gray, rgba(255, 255, 255, 0.25));
-									top: 39px;
-									position: absolute;
-									left: 0px;
-									width: 300px;
-									padding: 10px;
-									display: none;
-								"></div>
+								<input class="searchbox" type="text" name="keyword" id="keyword" placeholder="Search for a keyword or phrase..." onkeyup="fetchAutoComplete(this.value);" onblur="hideAutoComplete();" mouseover="inFocus();" mouseout="outFocus();" value="<?php echo $_GET['keyword']; ?>" autocomplete="off" /><input type="submit" name="submit" value=" Search " /></br>
+								<div class="autoCompleteResults" id="autoCompleteResults" mouseover="inFocus();" mouseout="outFocus();"></div>
 								<label id="full_text_of_document_label"><input type="checkbox" name="full_text_of_document" onclick="toggle();" id="full_text_of_document" value="true" <?php echo $full_text_checkmark; ?> />Search full text of documents</label><br /><br />
 							</td>
 							<td>
@@ -293,6 +289,7 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 		<script type ="text/javascript">
 		document.onload = toggle();
 		document.onload = makeAppear();
+		var focus = false;
 		
 		function toggle() {
 			var full_text_of_document = document.getElementsByName('full_text_of_document')[0];
@@ -321,23 +318,56 @@ if (isset($_GET['full_text_of_document']) AND $_GET['full_text_of_document'] == 
 		function fetchAutoComplete(searchTerm) {
 			var resultBox = document.getElementById("autoCompleteResults");
 			
-			if (searchTerm.length > 0) {
+			if (searchTerm.length > 2) {
 				var xhttp = new XMLHttpRequest();
 				
 				xhttp.onreadystatechange = function() {
 					if (xhttp.readyState == 4 && xhttp.status == 200) {
-						resultBox.innerHTML = xhttp.responseText;
-						resultBox.style.display = 'block';
+						if (xhttp.responseText.length > 0) {
+							resultBox.innerHTML = xhttp.responseText;
+							resultBox.style.display = 'block';
+							console.log("Showing results of autocomplete search.");
+						} else {
+							console.log("Autcomplete search returned no results!");
+							resultBox.style.display = 'none';
+						}
 					}
 				};
 				
-				xhttp.open("POST", "autocomplete.php", true);
+				xhttp.open("GET", "autocomplete.php?autoComplete=" + searchTerm, true);
 				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhttp.send("autoComplete=" + searchTerm);
+				xhttp.send();
 				console.log("Sent an autocomplete request for term: " + searchTerm);
 			} else {
 				resultBox.style.display = 'none';
 			}
+		}
+		
+		function inFocus() {
+			focus = true;
+			console.log("IN FOCUS.");
+		}
+		
+		function outFocus() {
+			focus = false;
+			console.log("OUT FOCUS.");
+		}
+		
+		function hideAutoComplete() {
+			var resultBox = document.getElementById("autoCompleteResults");
+			
+			setTimeout(function(){
+				if (!focus) {
+					resultBox.style.display = 'none';
+					console.log("HIDE AUTOCOMPLETE.");
+				}
+			}, 200);
+		}
+		
+		function setAutoCompleteText(text) {
+			var resultBox = document.getElementById("keyword");
+			resultBox.value = text;
+			console.log("SET AUTOCOMPLETE TEXT.");
 		}
 		
 		function addSubtype(indexOfElement) {
@@ -411,12 +441,12 @@ if (isset($_GET['keyword'])) {
 		if ($row['keyword'] == 'title') {
 			$matchingText = $row['content'];
 		} elseif (isset($_GET['full_text_of_document'])) {
-			$row['text'] = html_entity_decode(strip_tags($row['text']));
+			$row['text'] = strip_tags($row['text']);
 			
 			$matchLocation = stripos($row['text'], $_GET['keyword']);
 			
 			if ($matchLocation > 250) {
-				$startLocation = $matchLocation - 250;
+				$startLocation = strpos($row['text'], ' ', $matchLocation - 250);
 			} else {
 				$startLocation = 0;
 			}
@@ -429,12 +459,12 @@ if (isset($_GET['keyword'])) {
 			$matchingText = '...' . trim(substr($row['text'], $startingSpace, $endingSpace - $startingSpace)) . '...';
 			$matchingText = str_ireplace($_GET['keyword'], '<span style="background-color: #FFBF49;padding: 2px;font-weight: bold;">' . $_GET['keyword'] . '</span>', $matchingText);
 		} else {
-			$row['text'] = html_entity_decode(strip_tags($row['text']));
+			$row['text'] = strip_tags($row['text']);
 			
 			$matchLocation = stripos($row['text'], $row['content']);
 			
 			if ($matchLocation > 250) {
-				$startLocation = $matchLocation - 250;
+				$startLocation = strpos($row['text'], ' ', $matchLocation - 250);
 			} else {
 				$startLocation = 0;
 			}

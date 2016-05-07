@@ -12,7 +12,7 @@
 }
 
 .searchbox {
-	width: 200px;
+	width: 250px;
 }
 
 .searchFields table, tr, td {
@@ -29,7 +29,7 @@
 }
 
 .innerTable {
-	margin-left: -80px !important;
+	margin-left: -20px !important;
 	width: initial !important;
 }
 
@@ -49,6 +49,7 @@ select:disabled {
 
 label {
 	padding: 3px;
+	margin-left: 5px;
 }
 
 .labelDisabled {
@@ -76,4 +77,30 @@ label {
 .selectedPage {
 	box-shadow: -1px -1px 1px #222 !important;
     background: linear-gradient(to bottom right, #ccc, #fff) !important;
+}
+
+.autoCompleteResults {
+	margin-top: -5px;
+    margin-left: 5px;
+    width: 252px;
+	background: linear-gradient(to top right, #ddd, rgba(255, 255, 255, 0.80));
+	position: absolute;
+	display: none;
+	border: 1px solid #6F6F6F;
+	border-top: none;
+    border-radius: 0px 0px 5px 5px;
+	box-shadow: 3px 5px 10px #999;
+    text-shadow: 1px 1px 0px #fff;
+}
+
+.autoCompleteResults span {
+	display: block;
+    overflow: hidden;
+    height: 20px;
+    border-bottom: solid 1px #aaa;
+    padding: 3px;
+}
+
+.autoCompleteResults span:hover {
+	background: rgba(212, 219, 255, 0.75);
 }
